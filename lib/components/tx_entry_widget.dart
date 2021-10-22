@@ -47,12 +47,34 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                    child: Icon(
-                      Icons.monetization_on_rounded,
-                      color: FlutterFlowTheme.mediumSpringGreen,
-                      size: 24,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.15,
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    decoration: BoxDecoration(
+                      color: Color(0x803AFFA7),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.1,
+                          height: MediaQuery.of(context).size.height * 0.1,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.primaryColor,
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: FlutterFlowTheme.mediumSpringGreen,
+                            ),
+                          ),
+                          child: Image.asset(
+                            'assets/images/SPACEMESH_LOGO_-_BLACK.png',
+                            width: 45,
+                            height: 45,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
