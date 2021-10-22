@@ -23,7 +23,8 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.primaryColor,
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(0, 35, 0, 0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -174,7 +175,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    20, 0, 20, 15),
+                                    20, 0, 20, 35),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
