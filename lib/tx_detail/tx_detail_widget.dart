@@ -294,7 +294,8 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                   )
                 ],
               ),
-            )
+            ),
+            Spacer()
           ],
         ),
       ),
