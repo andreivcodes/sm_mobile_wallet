@@ -48,9 +48,9 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                           color: FlutterFlowTheme.jet,
                           boxShadow: [
                             BoxShadow(
-                              blurRadius: 6,
-                              color: Color(0x4B1A1F24),
-                              offset: Offset(0, 2),
+                              blurRadius: 8,
+                              color: FlutterFlowTheme.jet,
+                              offset: Offset(0, -2),
                             )
                           ],
                           borderRadius: BorderRadius.circular(8),
@@ -112,9 +112,9 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
-                                blurRadius: 4,
-                                color: Color(0x39000000),
-                                offset: Offset(0, -1),
+                                blurRadius: 8,
+                                color: FlutterFlowTheme.jet,
+                                offset: Offset(0, -2),
                               )
                             ],
                             borderRadius: BorderRadius.only(
