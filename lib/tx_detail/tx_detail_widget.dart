@@ -114,188 +114,194 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                 ),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 1,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(0),
-                  bottomRight: Radius.circular(0),
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                ),
-                border: Border.all(
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 1,
+                decoration: BoxDecoration(
                   color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(0),
+                    bottomRight: Radius.circular(0),
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
+                  border: Border.all(
+                    color: Colors.white,
+                  ),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 1),
+                      child: Container(
+                        width: double.infinity,
+                        height: 150,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.jet,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        20, 0, 0, 0),
+                                    child: Text(
+                                      'Amount',
+                                      style: FlutterFlowTheme.title3.override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 20, 0),
+                                    child: Text(
+                                      '10SMH',
+                                      style: FlutterFlowTheme.title3.override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.primaryColor,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Divider(
+                              thickness: 3,
+                              indent: 15,
+                              endIndent: 15,
+                              color: FlutterFlowTheme.primaryColor,
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 0, 0),
+                                      child: Text(
+                                        'Sender',
+                                        style:
+                                            FlutterFlowTheme.subtitle2.override(
+                                          fontFamily: 'Poppins',
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 20, 0),
+                                      child: Text(
+                                        '0xDEAD',
+                                        style: FlutterFlowTheme.title3.override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.primaryColor,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 0, 0),
+                                      child: Text(
+                                        'Receiver',
+                                        style:
+                                            FlutterFlowTheme.subtitle2.override(
+                                          fontFamily: 'Poppins',
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 20, 0),
+                                      child: Text(
+                                        '0xDEADBEEF',
+                                        style: FlutterFlowTheme.title3.override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.primaryColor,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 0),
+                      child: Container(
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height * 1,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                              child: Text(
+                                'Message',
+                                style: FlutterFlowTheme.title3.override(
+                                  fontFamily: 'Poppins',
+                                  color: FlutterFlowTheme.jet,
+                                ),
+                              ),
+                            ),
+                            Divider(
+                              thickness: 3,
+                              color: FlutterFlowTheme.mediumSpringGreen,
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                              child: Text(
+                                'This is a message\nreceived from the sender\n',
+                                style: FlutterFlowTheme.title3.override(
+                                  fontFamily: 'Poppins',
+                                  color: FlutterFlowTheme.jet,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 75,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.jet,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                            child: Text(
-                              'Amount',
-                              style: FlutterFlowTheme.title3.override(
-                                fontFamily: 'Poppins',
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
-                            child: Text(
-                              '10SMH',
-                              style: FlutterFlowTheme.title3.override(
-                                fontFamily: 'Poppins',
-                                color: FlutterFlowTheme.primaryColor,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 75,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.jet,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20, 0, 0, 0),
-                                  child: Text(
-                                    'Sender',
-                                    style: FlutterFlowTheme.subtitle2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 20, 0),
-                                  child: Text(
-                                    '0xDEAD',
-                                    style: FlutterFlowTheme.title3.override(
-                                      fontFamily: 'Poppins',
-                                      color: FlutterFlowTheme.primaryColor,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20, 0, 0, 0),
-                                  child: Text(
-                                    'Receiver',
-                                    style: FlutterFlowTheme.subtitle2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 20, 0),
-                                  child: Text(
-                                    '0xDEADBEEF',
-                                    style: FlutterFlowTheme.title3.override(
-                                      fontFamily: 'Poppins',
-                                      color: FlutterFlowTheme.primaryColor,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 0),
-                    child: Container(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 1,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                            child: Text(
-                              'Message',
-                              style: FlutterFlowTheme.title3.override(
-                                fontFamily: 'Poppins',
-                                color: FlutterFlowTheme.jet,
-                              ),
-                            ),
-                          ),
-                          Divider(
-                            thickness: 3,
-                            color: FlutterFlowTheme.mediumSpringGreen,
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                            child: Text(
-                              'This is a message\nreceived from the sender\n',
-                              style: FlutterFlowTheme.title3.override(
-                                fontFamily: 'Poppins',
-                                color: FlutterFlowTheme.jet,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Spacer()
+            )
           ],
         ),
       ),
