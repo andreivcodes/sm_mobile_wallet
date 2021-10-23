@@ -40,7 +40,7 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(8, 5, 0, 5),
                 child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   color: Color(0x6F3AFFA7),
@@ -48,21 +48,22 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                     borderRadius: BorderRadius.circular(40),
                   ),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.15,
-                    height: MediaQuery.of(context).size.height * 0.15,
+                    width: 50,
+                    height: 50,
                     decoration: BoxDecoration(
                       color: Color(0x803AFFA7),
+                      shape: BoxShape.circle,
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.1,
-                          height: MediaQuery.of(context).size.height * 0.1,
+                          width: 35,
+                          height: 35,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.primaryColor,
-                            borderRadius: BorderRadius.circular(15),
+                            shape: BoxShape.circle,
                             border: Border.all(
                               color: FlutterFlowTheme.mediumSpringGreen,
                             ),

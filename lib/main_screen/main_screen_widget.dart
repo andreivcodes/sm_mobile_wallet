@@ -114,7 +114,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                               BoxShadow(
                                 blurRadius: 8,
                                 color: FlutterFlowTheme.jet,
-                                offset: Offset(0, -2),
+                                offset: Offset(0, -1),
                               )
                             ],
                             borderRadius: BorderRadius.only(
@@ -132,9 +132,11 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    20, 15, 20, 5),
+                                    20, 15, 20, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       'Transactions',
@@ -155,7 +157,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 15),
+                                      0, 5, 0, 15),
                                   child: ListView(
                                     padding: EdgeInsets.zero,
                                     scrollDirection: Axis.vertical,
