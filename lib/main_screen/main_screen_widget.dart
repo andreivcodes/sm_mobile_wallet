@@ -1,4 +1,6 @@
-import '../components/tx_entry_widget.dart';
+import '../components/tx_in_widget.dart';
+import '../components/tx_out_widget.dart';
+import '../components/tx_reward_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -162,15 +164,14 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                                     padding: EdgeInsets.zero,
                                     scrollDirection: Axis.vertical,
                                     children: [
-                                      TxEntryWidget(),
-                                      TxEntryWidget(),
-                                      TxEntryWidget(),
-                                      TxEntryWidget(),
-                                      TxEntryWidget(),
-                                      TxEntryWidget(),
-                                      TxEntryWidget(),
-                                      TxEntryWidget(),
-                                      TxEntryWidget()
+                                      TxInWidget(),
+                                      TxOutWidget(),
+                                      TxRewardWidget(),
+                                      TxRewardWidget(),
+                                      TxRewardWidget(),
+                                      TxOutWidget(),
+                                      TxOutWidget(),
+                                      TxInWidget()
                                     ],
                                   ),
                                 ),

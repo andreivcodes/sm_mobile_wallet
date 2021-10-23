@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TxEntryWidget extends StatefulWidget {
-  TxEntryWidget({Key key}) : super(key: key);
+class TxOutWidget extends StatefulWidget {
+  TxOutWidget({Key key}) : super(key: key);
 
   @override
-  _TxEntryWidgetState createState() => _TxEntryWidgetState();
+  _TxOutWidgetState createState() => _TxOutWidgetState();
 }
 
-class _TxEntryWidgetState extends State<TxEntryWidget> {
+class _TxOutWidgetState extends State<TxOutWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -51,7 +51,7 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Color(0x803AFFA7),
+                      color: FlutterFlowTheme.secondaryColor,
                       shape: BoxShape.circle,
                     ),
                     child: Column(
@@ -65,7 +65,7 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                             color: FlutterFlowTheme.primaryColor,
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: FlutterFlowTheme.mediumSpringGreen,
+                              color: FlutterFlowTheme.secondaryColor,
                             ),
                           ),
                           child: Image.asset(
@@ -89,7 +89,7 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Mining Rewards',
+                        'Transfer',
                         style: FlutterFlowTheme.subtitle1.override(
                           fontFamily: 'Lexend Deca',
                           color: Colors.white,
@@ -100,7 +100,7 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                         child: Text(
-                          'Income',
+                          'Outgoing',
                           style: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Lexend Deca',
                             color: Colors.white,
@@ -128,19 +128,6 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                         color: FlutterFlowTheme.mediumSpringGreen,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                      child: Text(
-                        'Hello World',
-                        textAlign: TextAlign.end,
-                        style: FlutterFlowTheme.bodyText1.override(
-                          fontFamily: 'Lexend Deca',
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.normal,
-                        ),
                       ),
                     )
                   ],
