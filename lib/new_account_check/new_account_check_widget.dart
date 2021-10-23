@@ -99,7 +99,7 @@ class _NewAccountCheckWidgetState extends State<NewAccountCheckWidget> {
                             ),
                             child: Icon(
                               Icons.clear,
-                              color: Color(0xFF757575),
+                              color: FlutterFlowTheme.jet,
                               size: 22,
                             ),
                           )
@@ -110,6 +110,7 @@ class _NewAccountCheckWidgetState extends State<NewAccountCheckWidget> {
                     color: FlutterFlowTheme.mediumSpringGreen,
                     fontWeight: FontWeight.w600,
                   ),
+                  maxLines: 5,
                 ),
               ),
               Spacer(),
