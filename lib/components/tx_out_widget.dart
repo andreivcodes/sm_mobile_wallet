@@ -1,6 +1,7 @@
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../tx_detail/tx_detail_widget.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -117,7 +118,7 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '50.00 SMH',
+                      '${functions.outputTxCompAmount().toString().toString()} SMH',
                       textAlign: TextAlign.end,
                       style: FlutterFlowTheme.subtitle2.override(
                         fontFamily: 'Lexend Deca',

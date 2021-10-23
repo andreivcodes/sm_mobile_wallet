@@ -2,6 +2,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../main_screen/main_screen_widget.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -176,7 +177,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 20, 0),
                                     child: Text(
-                                      '10 SMH',
+                                      '${functions.getTxAmount().toString().toString()} SMH',
                                       style: FlutterFlowTheme.title3.override(
                                         fontFamily: 'Poppins',
                                         color: FlutterFlowTheme.primaryColor,
@@ -218,7 +219,10 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 20, 0),
                                       child: Text(
-                                        '0xDEAD',
+                                        valueOrDefault<String>(
+                                          functions.getSenderAddress(),
+                                          'Not available',
+                                        ),
                                         style: FlutterFlowTheme.title3.override(
                                           fontFamily: 'Poppins',
                                           color: FlutterFlowTheme.primaryColor,
@@ -248,7 +252,10 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 20, 0),
                                       child: Text(
-                                        '0xDEADBEEF',
+                                        valueOrDefault<String>(
+                                          functions.getReceiverAddress(),
+                                          'Not available',
+                                        ),
                                         style: FlutterFlowTheme.title3.override(
                                           fontFamily: 'Poppins',
                                           color: FlutterFlowTheme.primaryColor,
@@ -294,7 +301,10 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                                 child: Text(
-                                  'This is a message\nreceived from the sender\n',
+                                  valueOrDefault<String>(
+                                    functions.getTxMessage(),
+                                    'Not available',
+                                  ),
                                   style: FlutterFlowTheme.title3.override(
                                     fontFamily: 'Poppins',
                                     color: FlutterFlowTheme.jet,
