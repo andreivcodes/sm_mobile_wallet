@@ -52,3 +52,21 @@ double rewardTxCompAmount() {
   var amount;
   return amount;
 }
+
+String getGeneratedSeedPhrase() {
+  // Add your function code here!
+  var seedPhrase;
+  return seedPhrase;
+}
+
+bool checkSeedPhrase(String inputSeedPhrase) {
+  // Add your function code here!
+  var successful;
+  return successful;
+}
+
+bool restoreFromSeedPhrase(String inputSeedPhrase) {
+  // Add your function code here!
+  var successful;
+  return successful;
+}

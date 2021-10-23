@@ -2,6 +2,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../new_account_check/new_account_check_widget.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -64,7 +65,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Text(
-                      'here are some words about 24\nof them because that\'s the BIP\nstandard',
+                      functions.getGeneratedSeedPhrase(),
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',
