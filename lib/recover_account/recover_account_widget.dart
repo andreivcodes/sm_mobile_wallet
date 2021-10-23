@@ -2,6 +2,7 @@ import '../account_created/account_created_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -77,12 +78,6 @@ class _RecoverAccountWidgetState extends State<RecoverAccountWidget> {
                   controller: textController,
                   obscureText: false,
                   decoration: InputDecoration(
-                    hintText: '[Some hint text...]',
-                    hintStyle: FlutterFlowTheme.bodyText1.override(
-                      fontFamily: 'Poppins',
-                      color: FlutterFlowTheme.mediumSpringGreen,
-                      fontWeight: FontWeight.w600,
-                    ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: FlutterFlowTheme.jet,
@@ -124,15 +119,18 @@ class _RecoverAccountWidgetState extends State<RecoverAccountWidget> {
                   onPressed: () async {
                     setState(() => _loadingButton = true);
                     try {
-                      await Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.bottomToTop,
-                          duration: Duration(milliseconds: 300),
-                          reverseDuration: Duration(milliseconds: 300),
-                          child: AccountCreatedWidget(),
-                        ),
-                      );
+                      if (functions
+                          .restoreFromSeedPhrase(textController.text)) {
+                        await Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.bottomToTop,
+                            duration: Duration(milliseconds: 300),
+                            reverseDuration: Duration(milliseconds: 300),
+                            child: AccountCreatedWidget(),
+                          ),
+                        );
+                      }
                     } finally {
                       setState(() => _loadingButton = false);
                     }
