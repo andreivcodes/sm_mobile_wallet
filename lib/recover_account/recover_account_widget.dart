@@ -99,7 +99,7 @@ class _RecoverAccountWidgetState extends State<RecoverAccountWidget> {
                             ),
                             child: Icon(
                               Icons.clear,
-                              color: Color(0xFF757575),
+                              color: FlutterFlowTheme.jet,
                               size: 22,
                             ),
                           )
@@ -110,6 +110,7 @@ class _RecoverAccountWidgetState extends State<RecoverAccountWidget> {
                     color: FlutterFlowTheme.mediumSpringGreen,
                     fontWeight: FontWeight.w600,
                   ),
+                  maxLines: 5,
                 ),
               ),
               Spacer(),
