@@ -68,11 +68,10 @@ class _TxInWidgetState extends State<TxInWidget> {
                               color: FlutterFlowTheme.mediumSpringGreen,
                             ),
                           ),
-                          child: Image.asset(
-                            'assets/images/SPACEMESH_LOGO_-_BLACK.png',
-                            width: 45,
-                            height: 45,
-                            fit: BoxFit.cover,
+                          child: Icon(
+                            Icons.arrow_circle_down_rounded,
+                            color: Colors.black,
+                            size: 24,
                           ),
                         )
                       ],

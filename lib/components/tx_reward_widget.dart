@@ -43,6 +43,7 @@ class _TxRewardWidgetState extends State<TxRewardWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(8, 5, 0, 5),
                 child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
+                  color: Color(0x6F3AFFA7),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
@@ -50,7 +51,7 @@ class _TxRewardWidgetState extends State<TxRewardWidget> {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Color(0x7F373737),
+                      color: Color(0x6F3AFFA7),
                       shape: BoxShape.circle,
                     ),
                     child: Column(

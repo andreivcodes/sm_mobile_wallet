@@ -51,7 +51,7 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.secondaryColor,
+                      color: Color(0x7F3AFFA7),
                       shape: BoxShape.circle,
                     ),
                     child: Column(
@@ -64,15 +64,11 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.primaryColor,
                             shape: BoxShape.circle,
-                            border: Border.all(
-                              color: FlutterFlowTheme.secondaryColor,
-                            ),
                           ),
-                          child: Image.asset(
-                            'assets/images/SPACEMESH_LOGO_-_BLACK.png',
-                            width: 45,
-                            height: 45,
-                            fit: BoxFit.cover,
+                          child: Icon(
+                            Icons.arrow_circle_up_rounded,
+                            color: Colors.black,
+                            size: 24,
                           ),
                         )
                       ],

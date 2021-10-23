@@ -176,7 +176,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 20, 0),
                                     child: Text(
-                                      '10SMH',
+                                      '10 SMH',
                                       style: FlutterFlowTheme.title3.override(
                                         fontFamily: 'Poppins',
                                         color: FlutterFlowTheme.primaryColor,
