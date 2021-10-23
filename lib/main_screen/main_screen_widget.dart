@@ -4,6 +4,7 @@ import '../components/tx_reward_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -88,7 +89,13 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 0, 5),
                                     child: Text(
-                                      '7,630 SMH',
+                                      '${valueOrDefault<String>(
+                                        functions
+                                            .getBalance()
+                                            .toString()
+                                            .toString(),
+                                        '0',
+                                      )} SMH',
                                       style: FlutterFlowTheme.title1.override(
                                         fontFamily: 'Lexend Deca',
                                         color:

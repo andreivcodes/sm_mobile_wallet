@@ -1,6 +1,7 @@
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../tx_detail/tx_detail_widget.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -51,7 +52,7 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.secondaryColor,
+                      color: Color(0x7F3AFFA7),
                       shape: BoxShape.circle,
                     ),
                     child: Column(
@@ -64,15 +65,11 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.primaryColor,
                             shape: BoxShape.circle,
-                            border: Border.all(
-                              color: FlutterFlowTheme.secondaryColor,
-                            ),
                           ),
-                          child: Image.asset(
-                            'assets/images/SPACEMESH_LOGO_-_BLACK.png',
-                            width: 45,
-                            height: 45,
-                            fit: BoxFit.cover,
+                          child: Icon(
+                            Icons.arrow_circle_up_rounded,
+                            color: Colors.black,
+                            size: 24,
                           ),
                         )
                       ],
@@ -121,7 +118,7 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '50.00 SMH',
+                      '${functions.outputTxCompAmount().toString().toString()} SMH',
                       textAlign: TextAlign.end,
                       style: FlutterFlowTheme.subtitle2.override(
                         fontFamily: 'Lexend Deca',

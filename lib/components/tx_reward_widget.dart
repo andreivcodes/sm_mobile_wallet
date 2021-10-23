@@ -1,6 +1,7 @@
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../tx_detail/tx_detail_widget.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,6 +44,7 @@ class _TxRewardWidgetState extends State<TxRewardWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(8, 5, 0, 5),
                 child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
+                  color: Color(0x6F3AFFA7),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
@@ -50,7 +52,7 @@ class _TxRewardWidgetState extends State<TxRewardWidget> {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Color(0x7F373737),
+                      color: Color(0x6F3AFFA7),
                       shape: BoxShape.circle,
                     ),
                     child: Column(
@@ -120,7 +122,7 @@ class _TxRewardWidgetState extends State<TxRewardWidget> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '50.00 SMH',
+                      '${functions.rewardTxCompAmount().toString().toString()} SMH',
                       textAlign: TextAlign.end,
                       style: FlutterFlowTheme.subtitle2.override(
                         fontFamily: 'Lexend Deca',
