@@ -1,22 +1,9 @@
+import 'dart:math' as math;
 
-import 'dart:convert';
-import 'dart:typed_data';
-
-import 'package:grpc/grpc.dart';
-import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state.pbgrpc.dart';
-import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state_types.pb.dart';
-import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
-import 'package:bip39/bip39.dart' as bip39;
-import 'package:flutter/services.dart';
-
-import 'package:ed25519spacemesh/spacemesh_ed25519.dart';
-
-Ed25519Spacemesh ed25519 = new Ed25519Spacemesh();
-
-String userSeedPhrase = "";
-var seed = "";
-Uint8List privateKey;
-Uint8List publicKey;
+import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'lat_lng.dart';
+import 'place.dart';
 
 String getBalance() {
   // Add your function code here!
@@ -120,7 +107,7 @@ bool copySeedPhraseToClipboard() {
   return true;
 }
 
-bool getKeypairFromSeedPhrase(String inputSeedPhrase) {
+double getKeypairFromSeedPhrase(String inputSeedPhrase) {
   // Add your function code here!
   var seed = bip39.mnemonicToSeed(inputSeedPhrase).sublist(32);
 
@@ -140,4 +127,9 @@ bool getKeypairFromSeedPhrase(String inputSeedPhrase) {
 
   Future<bool> successful = ed25519.verify(publicKey, dummyMessage, signature);
   return successful;
+}
+
+List<String> getTxList() {
+  // Add your function code here!
+  return null;
 }

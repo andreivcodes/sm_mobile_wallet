@@ -1,6 +1,4 @@
 import '../components/tx_in_widget.dart';
-import '../components/tx_out_widget.dart';
-import '../components/tx_reward_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -164,19 +162,21 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 5, 0, 15),
-                                  child: ListView(
-                                    padding: EdgeInsets.zero,
-                                    scrollDirection: Axis.vertical,
-                                    children: [
-                                      TxInWidget(),
-                                      TxOutWidget(),
-                                      TxRewardWidget(),
-                                      TxRewardWidget(),
-                                      TxRewardWidget(),
-                                      TxOutWidget(),
-                                      TxOutWidget(),
-                                      TxInWidget()
-                                    ],
+                                  child: Builder(
+                                    builder: (context) {
+                                      final txList =
+                                          functions.getTxList()?.toList() ?? [];
+                                      return ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: txList.length,
+                                        itemBuilder: (context, txListIndex) {
+                                          final txListItem =
+                                              txList[txListIndex];
+                                          return TxInWidget();
+                                        },
+                                      );
+                                    },
                                   ),
                                 ),
                               ),
