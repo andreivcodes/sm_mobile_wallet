@@ -1,6 +1,11 @@
+
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:grpc/grpc.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state.pbgrpc.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state_types.pb.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/services.dart';
 
@@ -13,9 +18,30 @@ var seed = "";
 Uint8List privateKey;
 Uint8List publicKey;
 
-double getBalance() {
+String getBalance() {
   // Add your function code here!
-  var balance;
+  final apiChannel = ClientChannel(
+    'api-devnet208.spacemesh.io',
+    port: 443,
+    options: const ChannelOptions(credentials: ChannelCredentials.secure()),
+  );
+
+  final accountClient = new GlobalStateServiceClient(apiChannel);
+  AccountId accountQueryId = new AccountId(address: privateKey.sublist(24));
+  AccountDataFilter accountQueryFilter = new AccountDataFilter(
+      accountId: accountQueryId,
+      accountDataFlags: AccountDataFlag.ACCOUNT_DATA_FLAG_ACCOUNT.value);
+  AccountDataQueryRequest accountQuery =
+      new AccountDataQueryRequest(filter: accountQueryFilter, maxResults: 1);
+
+  AccountDataQueryResponse accountQueryResponse =
+      await accountClient.accountDataQuery(accountQuery);
+
+  print(accountQueryResponse.accountItem.first.accountWrapper);
+  var balance = accountQueryResponse
+      .accountItem.first.accountWrapper.stateProjected.balance
+      .toString();
+
   return balance;
 }
 
@@ -94,7 +120,7 @@ bool copySeedPhraseToClipboard() {
   return true;
 }
 
-Future<double> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
+bool getKeypairFromSeedPhrase(String inputSeedPhrase) {
   // Add your function code here!
   var seed = bip39.mnemonicToSeed(inputSeedPhrase).sublist(32);
 
@@ -112,6 +138,6 @@ Future<double> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
   print("prv: " + privateKey.toString());
   print("pub: " + publicKey.toString());
 
-  bool? successful = await ed.verify(publicKey, dummyMessage, signature);
+  Future<bool> successful = ed25519.verify(publicKey, dummyMessage, signature);
   return successful;
 }
