@@ -104,5 +104,6 @@ double getKeypairFromSeedPhrase(String inputSeedPhrase) {
   print("prv: " + privateKey.toString());
   print("pub: " + publicKey.toString());
 
-  return true;
+  bool? successful = await ed.verify(publicKey, dummyMessage, signature);
+  return successful;
 }
