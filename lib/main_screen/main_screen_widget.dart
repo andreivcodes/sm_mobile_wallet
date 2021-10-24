@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../components/tx_in_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -84,9 +86,57 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 5),
-                                    child: Text(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 0, 5),
+                                      child: FutureBuilder<String>(
+                                        future: functions
+                                            .getBalance(), // async work
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<String> snapshot) {
+                                          switch (snapshot.connectionState) {
+                                            case ConnectionState.waiting:
+                                              return Text(
+                                                'Loading....',
+                                                style: FlutterFlowTheme.title1
+                                                    .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: FlutterFlowTheme
+                                                      .mediumSpringGreen,
+                                                  fontSize: 32,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              );
+                                            default:
+                                              if (snapshot.hasError) {
+                                                log(snapshot.error.toString());
+                                                return Text(
+                                                  'Error: ${snapshot.error}',
+                                                  style: FlutterFlowTheme.title1
+                                                      .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    color: FlutterFlowTheme
+                                                        .mediumSpringGreen,
+                                                    fontSize: 32,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                );
+                                              } else
+                                                return Text(
+                                                  '${snapshot.data}',
+                                                  style: FlutterFlowTheme.title1
+                                                      .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    color: FlutterFlowTheme
+                                                        .mediumSpringGreen,
+                                                    fontSize: 32,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                );
+                                          }
+                                        },
+                                      )
+
+                                      /* Text(
                                       '${valueOrDefault<String>(
                                         functions.getBalance(),
                                         '0',
@@ -98,8 +148,8 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                                         fontSize: 32,
                                         fontWeight: FontWeight.bold,
                                       ),
-                                    ),
-                                  )
+                                    ), */
+                                      )
                                 ],
                               ),
                             )

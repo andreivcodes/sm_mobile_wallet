@@ -1,11 +1,23 @@
-import 'dart:math' as math;
+import 'dart:convert';
+import 'dart:typed_data';
 
-import 'package:intl/intl.dart';
-import 'package:timeago/timeago.dart' as timeago;
-import 'lat_lng.dart';
-import 'place.dart';
+import 'package:grpc/grpc.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state.pbgrpc.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state_types.pb.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
+import 'package:bip39/bip39.dart' as bip39;
+import 'package:flutter/services.dart';
 
-String getBalance() {
+import 'package:ed25519spacemesh/spacemesh_ed25519.dart';
+
+Ed25519Spacemesh ed25519 = new Ed25519Spacemesh();
+
+String userSeedPhrase = "";
+var seed = "";
+Uint8List privateKey;
+Uint8List publicKey;
+
+Future<String> getBalance() async {
   // Add your function code here!
   final apiChannel = ClientChannel(
     'api-devnet208.spacemesh.io',
@@ -107,7 +119,7 @@ bool copySeedPhraseToClipboard() {
   return true;
 }
 
-double getKeypairFromSeedPhrase(String inputSeedPhrase) {
+Future<bool> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
   // Add your function code here!
   var seed = bip39.mnemonicToSeed(inputSeedPhrase).sublist(32);
 

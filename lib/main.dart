@@ -1,11 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sm_mobile_wallet/welcome_onboarding/welcome_onboarding_widget.dart';
-import 'flutter_flow/flutter_flow_theme.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
