@@ -131,15 +131,17 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                   onPressed: () async {
                     setState(() => _loadingButton = true);
                     try {
-                      await Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.rightToLeft,
-                          duration: Duration(milliseconds: 300),
-                          reverseDuration: Duration(milliseconds: 300),
-                          child: NewAccountCheckWidget(),
-                        ),
-                      );
+                      if (functions.saveUserSeedPhrase()) {
+                        await Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            duration: Duration(milliseconds: 300),
+                            reverseDuration: Duration(milliseconds: 300),
+                            child: NewAccountCheckWidget(),
+                          ),
+                        );
+                      }
                     } finally {
                       setState(() => _loadingButton = false);
                     }
