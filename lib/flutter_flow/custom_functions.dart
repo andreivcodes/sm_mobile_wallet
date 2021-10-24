@@ -59,9 +59,12 @@ double rewardTxCompAmount() {
 
 String getGeneratedSeedPhrase() {
   // Add your function code here!
-  var seedPhrase = bip39.generateMnemonic();
-  userSeedPhrase = seedPhrase;
-  return seedPhrase;
+  if (userSeedPhrase.toString().length < 1) {
+    var seedPhrase = bip39.generateMnemonic();
+    userSeedPhrase = seedPhrase;
+    return seedPhrase;
+  }
+  return "Generation error!!!";
 }
 
 bool checkSeedPhrase(String inputSeedPhrase) {
