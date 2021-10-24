@@ -1,13 +1,17 @@
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../tx_detail/tx_detail_widget.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TxOutWidget extends StatefulWidget {
-  TxOutWidget({Key key}) : super(key: key);
+  TxOutWidget({
+    Key key,
+    this.amount,
+  }) : super(key: key);
+
+  final double amount;
 
   @override
   _TxOutWidgetState createState() => _TxOutWidgetState();
@@ -118,7 +122,10 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '${functions.outputTxCompAmount().toString().toString()} SMH',
+                      '${valueOrDefault<String>(
+                        widget.amount.toString(),
+                        '0',
+                      )} SMH',
                       textAlign: TextAlign.end,
                       style: FlutterFlowTheme.subtitle2.override(
                         fontFamily: 'Lexend Deca',
