@@ -71,9 +71,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                         child: Text(
-                          functions
-                              .getGeneratedSeedPhrase()
-                              .maybeHandleOverflow(maxChars: 5),
+                          functions.getGeneratedSeedPhrase(),
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
