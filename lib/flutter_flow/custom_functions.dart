@@ -2,8 +2,11 @@ import 'dart:math' as math;
 
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:bip39/bip39.dart' as bip39;
 import 'lat_lng.dart';
 import 'place.dart';
+
+var userPassPhrase;
 
 double getBalance() {
   // Add your function code here!
@@ -55,7 +58,7 @@ double rewardTxCompAmount() {
 
 String getGeneratedSeedPhrase() {
   // Add your function code here!
-  var seedPhrase;
+  var seedPhrase = bip39.generateMnemonic();
   return seedPhrase;
 }
 
