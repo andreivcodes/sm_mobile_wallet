@@ -2,12 +2,8 @@ import 'dart:math' as math;
 
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:bip39/bip39.dart' as bip39;
 import 'lat_lng.dart';
 import 'place.dart';
-import 'package:flutter/services.dart';
-
-var userSeedPhrase;
 
 double getBalance() {
   // Add your function code here!
@@ -59,12 +55,14 @@ double rewardTxCompAmount() {
 
 String getGeneratedSeedPhrase() {
   // Add your function code here!
+
+  //we need to do this only once because this function is called
+  //several times during screen lifecycle
   if (userSeedPhrase.toString().length < 1) {
     var seedPhrase = bip39.generateMnemonic();
     userSeedPhrase = seedPhrase;
-    return seedPhrase;
   }
-  return "Generation error!!!";
+  return userSeedPhrase;
 }
 
 bool checkSeedPhrase(String inputSeedPhrase) {
