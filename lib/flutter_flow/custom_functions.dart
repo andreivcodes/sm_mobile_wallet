@@ -5,8 +5,9 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:bip39/bip39.dart' as bip39;
 import 'lat_lng.dart';
 import 'place.dart';
+import 'package:flutter/services.dart';
 
-var userPassPhrase;
+var userSeedPhrase;
 
 double getBalance() {
   // Add your function code here!
@@ -59,13 +60,16 @@ double rewardTxCompAmount() {
 String getGeneratedSeedPhrase() {
   // Add your function code here!
   var seedPhrase = bip39.generateMnemonic();
+  userSeedPhrase = seedPhrase;
   return seedPhrase;
 }
 
 bool checkSeedPhrase(String inputSeedPhrase) {
   // Add your function code here!
-  var successful;
-  return successful;
+  if (inputSeedPhrase == userSeedPhrase)
+    return true;
+  else
+    return false;
 }
 
 bool restoreFromSeedPhrase(String inputSeedPhrase) {
@@ -76,6 +80,6 @@ bool restoreFromSeedPhrase(String inputSeedPhrase) {
 
 bool copySeedPhraseToClipboard() {
   // Add your function code here!
-  Clipboard.setData(ClipboardData(text: userPassPhrase));
+  Clipboard.setData(ClipboardData(text: userSeedPhrase));
   return true;
 }
