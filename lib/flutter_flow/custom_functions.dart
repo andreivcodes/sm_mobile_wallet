@@ -76,9 +76,3 @@ bool copySeedPhraseToClipboard() {
   Clipboard.setData(ClipboardData(text: userSeedPhrase));
   return true;
 }
-
-bool saveUserSeedPhrase(String inputSeedPhrase) {
-  // Add your function code here!
-  userSeedPhrase = inputSeedPhrase;
-  return true;
-}
