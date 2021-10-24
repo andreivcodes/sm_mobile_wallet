@@ -1,4 +1,5 @@
 import '../components/tx_in_widget.dart';
+import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -14,10 +15,29 @@ class MainScreenWidget extends StatefulWidget {
   _MainScreenWidgetState createState() => _MainScreenWidgetState();
 }
 
-class _MainScreenWidgetState extends State<MainScreenWidget> {
+class _MainScreenWidgetState extends State<MainScreenWidget>
+    with TickerProviderStateMixin {
   bool _loadingButton1 = false;
   bool _loadingButton2 = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final animationsMap = {
+    'txInOnPageLoadAnimation': AnimationInfo(
+      curve: Curves.easeIn,
+      trigger: AnimationTrigger.onPageLoad,
+      duration: 1000,
+      fadeIn: true,
+    ),
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    startPageLoadAnimations(
+      animationsMap.values
+          .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
+      this,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +193,10 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                                         itemBuilder: (context, txListIndex) {
                                           final txListItem =
                                               txList[txListIndex];
-                                          return TxInWidget();
+                                          return TxInWidget().animated([
+                                            animationsMap[
+                                                'txInOnPageLoadAnimation']
+                                          ]);
                                         },
                                       );
                                     },
