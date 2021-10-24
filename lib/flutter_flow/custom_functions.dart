@@ -67,20 +67,42 @@ String getGeneratedSeedPhrase() {
 
 bool checkSeedPhrase(String inputSeedPhrase) {
   // Add your function code here!
-  if (inputSeedPhrase == userSeedPhrase)
+  if (inputSeedPhrase == userSeedPhrase) {
+    getKeypairFromSeedPhrase(userSeedPhrase);
     return true;
-  else
+  } else
     return false;
 }
 
 bool restoreFromSeedPhrase(String inputSeedPhrase) {
   // Add your function code here!
-  var successful;
-  return successful;
+  getKeypairFromSeedPhrase(inputSeedPhrase);
+  return true;
 }
 
 bool copySeedPhraseToClipboard() {
   // Add your function code here!
   Clipboard.setData(ClipboardData(text: userSeedPhrase));
+  return true;
+}
+
+double getKeypairFromSeedPhrase(String inputSeedPhrase) {
+  // Add your function code here!
+  var seed = bip39.mnemonicToSeed(inputSeedPhrase).sublist(32);
+
+  privateKey = await ed25519.newDerivedKeyFromSeed(
+      Uint8List.fromList(seed),
+      Uint8List.fromList([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]),
+      Uint8List.fromList(utf8.encode("Spacemesh blockmesh")));
+
+  Uint8List dummyMessage = Uint8List.fromList([0xFF, 0x00, 0xFF, 0x00]);
+
+  Uint8List signature = await ed25519.sign(dummyMessage, privateKey);
+
+  publicKey = await ed25519.extractPublicKey(dummyMessage, signature);
+
+  print("prv: " + privateKey.toString());
+  print("pub: " + publicKey.toString());
+
   return true;
 }
