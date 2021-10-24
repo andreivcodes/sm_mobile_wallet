@@ -8,7 +8,7 @@ import 'package:window_utils/window_utils.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    WindowUtils.setSize(Size(360, 700));
+    WindowUtils.setSize(Size(450, 700));
   }
   runApp(MyApp());
 }
