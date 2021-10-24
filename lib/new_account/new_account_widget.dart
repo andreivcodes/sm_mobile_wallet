@@ -69,15 +69,22 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                        child: AutoSizeText(
-                          functions.getGeneratedSeedPhrase(),
-                          textAlign: TextAlign.justify,
-                          style: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Poppins',
-                            color: FlutterFlowTheme.secondaryColor,
-                            fontWeight: FontWeight.w600,
+                      Expanded(
+                        child: Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                            child: AutoSizeText(
+                              functions.getGeneratedSeedPhrase(),
+                              textAlign: TextAlign.justify,
+                              style: FlutterFlowTheme.bodyText1.override(
+                                fontFamily: 'Poppins',
+                                color: FlutterFlowTheme.secondaryColor,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ),
                         ),
                       ),
