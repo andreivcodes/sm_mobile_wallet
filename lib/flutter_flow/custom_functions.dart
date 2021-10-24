@@ -7,7 +7,7 @@ import 'place.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/services.dart';
 
-var userSeedPhrase;
+String userSeedPhrase = "";
 
 double getBalance() {
   // Add your function code here!
