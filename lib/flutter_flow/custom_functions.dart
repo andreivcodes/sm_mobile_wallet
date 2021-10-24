@@ -4,6 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
 import 'place.dart';
+import 'package:bip39/bip39.dart' as bip39;
+import 'package:flutter/services.dart';
+
+var userSeedPhrase;
 
 double getBalance() {
   // Add your function code here!
