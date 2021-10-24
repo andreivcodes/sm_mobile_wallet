@@ -74,7 +74,10 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                         child: AutoSizeText(
                           functions
                               .getGeneratedSeedPhrase()
-                              .maybeHandleOverflow(maxChars: 300),
+                              .maybeHandleOverflow(
+                                maxChars: 300,
+                                replacement: '…',
+                              ),
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
