@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../new_account_check/new_account_check_widget.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -70,10 +71,10 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                     children: [
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                        child: Text(
+                        child: AutoSizeText(
                           functions
                               .getGeneratedSeedPhrase()
-                              .maybeHandleOverflow(maxChars: 15),
+                              .maybeHandleOverflow(maxChars: 300),
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
