@@ -73,6 +73,6 @@ bool restoreFromSeedPhrase(String inputSeedPhrase) {
 
 bool copySeedPhraseToClipboard() {
   // Add your function code here!
-  Clipboard.setData(ClipboardData(text: userPassPhrase));
+  Clipboard.setData(ClipboardData(text: userSeedPhrase));
   return true;
 }
