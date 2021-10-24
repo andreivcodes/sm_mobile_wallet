@@ -73,3 +73,9 @@ bool restoreFromSeedPhrase(String inputSeedPhrase) {
   var successful;
   return successful;
 }
+
+bool copySeedPhraseToClipboard() {
+  // Add your function code here!
+  Clipboard.setData(ClipboardData(text: userPassPhrase));
+  return true;
+}
