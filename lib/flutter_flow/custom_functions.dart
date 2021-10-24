@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -18,7 +17,7 @@ var seed = "";
 Uint8List privateKey;
 Uint8List publicKey;
 
-String getBalance() {
+Future<String> getBalance() async {
   // Add your function code here!
   final apiChannel = ClientChannel(
     'api-devnet208.spacemesh.io',
@@ -120,7 +119,7 @@ bool copySeedPhraseToClipboard() {
   return true;
 }
 
-bool getKeypairFromSeedPhrase(String inputSeedPhrase) {
+Future<bool> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
   // Add your function code here!
   var seed = bip39.mnemonicToSeed(inputSeedPhrase).sublist(32);
 
