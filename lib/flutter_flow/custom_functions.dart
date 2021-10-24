@@ -1,21 +1,34 @@
-import 'dart:convert';
-import 'dart:typed_data';
+import 'dart:math' as math;
 
-import 'package:bip39/bip39.dart' as bip39;
-import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'lat_lng.dart';
+import 'place.dart';
 
-import 'package:ed25519spacemesh/spacemesh_ed25519.dart';
-
-Ed25519Spacemesh ed25519 = new Ed25519Spacemesh();
-
-String userSeedPhrase = "";
-var seed = "";
-Uint8List privateKey;
-Uint8List publicKey;
-
-double getBalance() {
+String getBalance() {
   // Add your function code here!
-  var balance;
+  final apiChannel = ClientChannel(
+    'api-devnet208.spacemesh.io',
+    port: 443,
+    options: const ChannelOptions(credentials: ChannelCredentials.secure()),
+  );
+
+  final accountClient = new GlobalStateServiceClient(apiChannel);
+  AccountId accountQueryId = new AccountId(address: privateKey.sublist(24));
+  AccountDataFilter accountQueryFilter = new AccountDataFilter(
+      accountId: accountQueryId,
+      accountDataFlags: AccountDataFlag.ACCOUNT_DATA_FLAG_ACCOUNT.value);
+  AccountDataQueryRequest accountQuery =
+      new AccountDataQueryRequest(filter: accountQueryFilter, maxResults: 1);
+
+  AccountDataQueryResponse accountQueryResponse =
+      await accountClient.accountDataQuery(accountQuery);
+
+  print(accountQueryResponse.accountItem.first.accountWrapper);
+  var balance = accountQueryResponse
+      .accountItem.first.accountWrapper.stateProjected.balance
+      .toString();
+
   return balance;
 }
 
@@ -94,7 +107,7 @@ bool copySeedPhraseToClipboard() {
   return true;
 }
 
-Future<double> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
+double getKeypairFromSeedPhrase(String inputSeedPhrase) {
   // Add your function code here!
   var seed = bip39.mnemonicToSeed(inputSeedPhrase).sublist(32);
 

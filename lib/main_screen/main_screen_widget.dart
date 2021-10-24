@@ -90,10 +90,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                                         0, 0, 0, 5),
                                     child: Text(
                                       '${valueOrDefault<String>(
-                                        functions
-                                            .getBalance()
-                                            .toString()
-                                            .toString(),
+                                        functions.getBalance(),
                                         '0',
                                       )} SMH',
                                       style: FlutterFlowTheme.title1.override(
