@@ -111,4 +111,7 @@ Future<double> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
 
   print("prv: " + privateKey.toString());
   print("pub: " + publicKey.toString());
+
+  bool? successful = await ed.verify(publicKey, dummyMessage, signature);
+  return successful;
 }
