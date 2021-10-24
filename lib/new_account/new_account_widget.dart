@@ -72,13 +72,8 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                         child: AutoSizeText(
-                          functions
-                              .getGeneratedSeedPhrase()
-                              .maybeHandleOverflow(
-                                maxChars: 300,
-                                replacement: '…',
-                              ),
-                          textAlign: TextAlign.center,
+                          functions.getGeneratedSeedPhrase(),
+                          textAlign: TextAlign.justify,
                           style: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
                             color: FlutterFlowTheme.secondaryColor,
