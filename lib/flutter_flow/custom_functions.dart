@@ -140,3 +140,8 @@ Future<bool> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
   Future<bool> successful = ed25519.verify(publicKey, dummyMessage, signature);
   return successful;
 }
+
+List<String> getTxList() {
+  // Add your function code here!
+  return null;
+}
