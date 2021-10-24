@@ -44,6 +44,8 @@ dependencies:
   cupertino_icons: ^1.0.0
   bip39: ^1.0.6
   ed25519spacemesh: ^0.0.3
+  protospacemesh: ^0.0.5
+  grpc: ^3.0.2
 
 dev_dependencies:
   flutter_launcher_icons: ^0.9.1
