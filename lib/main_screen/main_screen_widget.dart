@@ -267,7 +267,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                       },
                                       text: 'Receive',
                                       icon: Icon(
-                                        Icons.qr_code,
+                                        Icons.qr_code_rounded,
                                         size: 15,
                                       ),
                                       options: FFButtonOptions(

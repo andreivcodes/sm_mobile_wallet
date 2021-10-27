@@ -1,3 +1,4 @@
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -24,7 +25,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
   void initState() {
     super.initState();
     textController1 = TextEditingController();
-    textController2 = TextEditingController();
+    textController2 = TextEditingController(text: '1');
     textController3 = TextEditingController(text: '1');
   }
 
@@ -205,7 +206,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
+                              EdgeInsetsDirectional.fromSTEB(15, 0, 15, 0),
                           suffixIcon: textController2.text.isNotEmpty
                               ? InkWell(
                                   onTap: () => setState(
@@ -224,6 +225,38 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                           color: FlutterFlowTheme.mediumSpringGreen,
                         ),
                         textAlign: TextAlign.start,
+                        keyboardType: TextInputType.number,
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(15, 5, 0, 0),
+                            child: Text(
+                              'or scan a QR code',
+                              style: FlutterFlowTheme.bodyText1.override(
+                                fontFamily: 'Poppins',
+                                color: Color(0xFFEEEEEE),
+                              ),
+                            ),
+                          ),
+                          FlutterFlowIconButton(
+                            borderColor: Colors.transparent,
+                            borderRadius: 30,
+                            borderWidth: 1,
+                            buttonSize: 60,
+                            icon: Icon(
+                              Icons.qr_code_rounded,
+                              color: FlutterFlowTheme.mediumSpringGreen,
+                              size: 30,
+                            ),
+                            onPressed: () {
+                              print('IconButton pressed ...');
+                            },
+                          )
+                        ],
                       )
                     ],
                   ),
@@ -305,7 +338,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                 },
                 text: 'Send',
                 icon: Icon(
-                  Icons.keyboard_arrow_up_outlined,
+                  Icons.keyboard_arrow_up,
                   size: 15,
                 ),
                 options: FFButtonOptions(
