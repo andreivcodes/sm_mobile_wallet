@@ -304,6 +304,10 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                   print('Button pressed ...');
                 },
                 text: 'Send',
+                icon: Icon(
+                  Icons.keyboard_arrow_up_outlined,
+                  size: 15,
+                ),
                 options: FFButtonOptions(
                   width: 130,
                   height: 40,
