@@ -3,6 +3,8 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../receive_tx/receive_tx_widget.dart';
+import '../send_tx/send_tx_widget.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -210,8 +212,20 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     FFButtonWidget(
-                                      onPressed: () {
-                                        print('Button pressed ...');
+                                      onPressed: () async {
+                                        setState(() => _loadingButton1 = true);
+                                        try {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SendTxWidget(),
+                                            ),
+                                          );
+                                        } finally {
+                                          setState(
+                                              () => _loadingButton1 = false);
+                                        }
                                       },
                                       text: 'Send',
                                       icon: Icon(
@@ -236,8 +250,20 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                       loading: _loadingButton1,
                                     ),
                                     FFButtonWidget(
-                                      onPressed: () {
-                                        print('Button pressed ...');
+                                      onPressed: () async {
+                                        setState(() => _loadingButton2 = true);
+                                        try {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ReceiveTxWidget(),
+                                            ),
+                                          );
+                                        } finally {
+                                          setState(
+                                              () => _loadingButton2 = false);
+                                        }
                                       },
                                       text: 'Receive',
                                       icon: Icon(

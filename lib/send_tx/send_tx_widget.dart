@@ -57,9 +57,9 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                 child: Text(
                   'Send smesh',
-                  style: FlutterFlowTheme.title2.override(
+                  style: FlutterFlowTheme.title1.override(
                     fontFamily: 'Poppins',
-                    color: FlutterFlowTheme.primaryColor,
+                    color: FlutterFlowTheme.mediumSpringGreen,
                   ),
                 ),
               ),
