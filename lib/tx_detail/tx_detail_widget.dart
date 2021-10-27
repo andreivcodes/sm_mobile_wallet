@@ -96,9 +96,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                       0, 15, 0, 0),
                                   child: Text(
                                     'Transaction Details',
-                                    style: FlutterFlowTheme.title2.override(
-                                      fontFamily: 'Poppins',
-                                    ),
+                                    style: FlutterFlowTheme.title2,
                                   ),
                                 )
                               ],
