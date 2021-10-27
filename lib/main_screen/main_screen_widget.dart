@@ -164,10 +164,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                   children: [
                                     Text(
                                       'Transactions',
-                                      style:
-                                          FlutterFlowTheme.bodyText2.override(
-                                        fontFamily: 'Poppins',
-                                      ),
+                                      style: FlutterFlowTheme.bodyText2,
                                     )
                                   ],
                                 ),
