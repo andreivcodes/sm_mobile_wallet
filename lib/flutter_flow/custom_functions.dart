@@ -5,12 +5,23 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
 import 'place.dart';
 
-String getBalance() {
+import 'package:ed25519spacemesh/spacemesh_ed25519.dart';
+
+import 'flutter_flow_util.dart';
+
+Ed25519Spacemesh ed25519 = new Ed25519Spacemesh();
+
+String userSeedPhrase = "";
+var seed = "";
+Uint8List privateKey;
+Uint8List publicKey;
+
+Future<String> getBalance() async {
   // Add your function code here!
   final apiChannel = ClientChannel(
-    'api-devnet208.spacemesh.io',
-    port: 443,
-    options: const ChannelOptions(credentials: ChannelCredentials.secure()),
+    'localhost',
+    port: 9092,
+    options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
   );
 
   final accountClient = new GlobalStateServiceClient(apiChannel);
@@ -24,12 +35,14 @@ String getBalance() {
   AccountDataQueryResponse accountQueryResponse =
       await accountClient.accountDataQuery(accountQuery);
 
-  print(accountQueryResponse.accountItem.first.accountWrapper);
   var balance = accountQueryResponse
       .accountItem.first.accountWrapper.stateProjected.balance
       .toString();
 
-  return balance;
+  return valueOrDefault<String>(
+    balance,
+    '0',
+  );
 }
 
 double getTxAmount() {
