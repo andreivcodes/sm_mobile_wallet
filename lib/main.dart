@@ -5,11 +5,7 @@ import 'package:sm_mobile_wallet/welcome_onboarding/welcome_onboarding_widget.da
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    WindowUtils.setSize(Size(450, 850));
-  }
+void main() {
   runApp(MyApp());
 }
 
