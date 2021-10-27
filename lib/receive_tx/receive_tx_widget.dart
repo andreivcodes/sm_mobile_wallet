@@ -70,7 +70,7 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 25),
+              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 35),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [

@@ -248,7 +248,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                             borderWidth: 1,
                             buttonSize: 60,
                             icon: Icon(
-                              Icons.qr_code_rounded,
+                              Icons.photo_camera,
                               color: FlutterFlowTheme.mediumSpringGreen,
                               size: 30,
                             ),
@@ -332,30 +332,33 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                 ),
               ),
               Spacer(),
-              FFButtonWidget(
-                onPressed: () {
-                  print('Button pressed ...');
-                },
-                text: 'Send',
-                icon: Icon(
-                  Icons.keyboard_arrow_up,
-                  size: 15,
-                ),
-                options: FFButtonOptions(
-                  width: 130,
-                  height: 40,
-                  color: FlutterFlowTheme.primaryColor,
-                  textStyle: FlutterFlowTheme.subtitle2.override(
-                    fontFamily: 'Poppins',
-                    color: FlutterFlowTheme.jet,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 35),
+                child: FFButtonWidget(
+                  onPressed: () {
+                    print('Button pressed ...');
+                  },
+                  text: 'Send',
+                  icon: Icon(
+                    Icons.keyboard_arrow_up,
+                    size: 15,
                   ),
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                    width: 1,
+                  options: FFButtonOptions(
+                    width: 130,
+                    height: 40,
+                    color: FlutterFlowTheme.primaryColor,
+                    textStyle: FlutterFlowTheme.subtitle2.override(
+                      fontFamily: 'Poppins',
+                      color: FlutterFlowTheme.jet,
+                    ),
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: 20,
                   ),
-                  borderRadius: 20,
+                  loading: _loadingButton,
                 ),
-                loading: _loadingButton,
               )
             ],
           ),
