@@ -24,7 +24,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
     super.initState();
     textController1 = TextEditingController();
     textController2 = TextEditingController();
-    textController3 = TextEditingController();
+    textController3 = TextEditingController(text: '1');
   }
 
   @override
@@ -115,7 +115,6 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                         controller: textController1,
                         obscureText: false,
                         decoration: InputDecoration(
-                          isDense: true,
                           hintText: '[Some hint text...]',
                           hintStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
@@ -185,7 +184,6 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                         controller: textController2,
                         obscureText: false,
                         decoration: InputDecoration(
-                          isDense: true,
                           hintText: '[Some hint text...]',
                           hintStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
@@ -254,7 +252,6 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                         controller: textController3,
                         obscureText: false,
                         decoration: InputDecoration(
-                          isDense: true,
                           hintText: '[Some hint text...]',
                           hintStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
