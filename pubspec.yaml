@@ -30,7 +30,6 @@ dependencies:
   flutter_spinkit: ^4.1.2+1
   flutter_svg: ^0.22.0
   font_awesome_flutter:
-  geolocator: 7.6.2
   google_fonts: ^2.1.0
   intl:
   page_transition:
@@ -75,6 +74,7 @@ flutter:
     - assets/videos/
     - assets/audios/
     - assets/lottie_animations/
+    - assets/rive_animations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
