@@ -144,7 +144,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                                 );
                                               } else
                                                 return Text(
-                                                  '${snapshot.data}',
+                                                  '${snapshot.data} SMH',
                                                   style: FlutterFlowTheme.title1
                                                       .override(
                                                     fontFamily: 'Lexend Deca',

@@ -359,7 +359,6 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                   ),
                   loading: _loadingButton,
                 ),
-                loading: _loadingButton,
               )
             ],
           ),

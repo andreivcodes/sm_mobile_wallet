@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:grpc/grpc.dart';
@@ -7,7 +8,7 @@ import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state_types.pb.dar
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/services.dart';
-
+import 'package:convert/convert.dart';
 import 'package:ed25519spacemesh/spacemesh_ed25519.dart';
 
 import 'flutter_flow_util.dart';
@@ -22,7 +23,7 @@ Uint8List publicKey;
 Future<String> getBalance() async {
   // Add your function code here!
   final apiChannel = ClientChannel(
-    'localhost',
+    'ticktockbent.ddns.net',
     port: 9092,
     options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
   );
@@ -38,12 +39,12 @@ Future<String> getBalance() async {
   AccountDataQueryResponse accountQueryResponse =
       await accountClient.accountDataQuery(accountQuery);
 
-  var balance = accountQueryResponse
-      .accountItem.first.accountWrapper.stateProjected.balance
-      .toString();
+  double balance = accountQueryResponse
+      .accountItem.first.accountWrapper.stateProjected.balance.value
+      .toDouble();
 
   return valueOrDefault<String>(
-    balance,
+    (balance / 1000000000000).toString(),
     '0',
   );
 }
@@ -125,7 +126,12 @@ bool copySeedPhraseToClipboard() {
 
 Future<bool> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
   // Add your function code here!
-  var seed = bip39.mnemonicToSeed(inputSeedPhrase).sublist(32);
+  var seed = bip39.mnemonicToSeed(inputSeedPhrase);
+
+  seed = seed.sublist(0, 32);
+
+  print("mnemonic: " + inputSeedPhrase);
+  print("seed: " + seed.toString());
 
   privateKey = await ed25519.newDerivedKeyFromSeed(
       Uint8List.fromList(seed),
@@ -138,8 +144,8 @@ Future<bool> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
 
   publicKey = await ed25519.extractPublicKey(dummyMessage, signature);
 
-  print("prv: " + privateKey.toString());
-  print("pub: " + publicKey.toString());
+  print("prv: " + (privateKey.toString()));
+  print("pub: " + (publicKey.toString()));
 
   Future<bool> successful = ed25519.verify(publicKey, dummyMessage, signature);
   return successful;
@@ -148,4 +154,19 @@ Future<bool> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
 List<String> getTxList() {
   // Add your function code here!
   return null;
+}
+
+Uint8List bigIntToUint8List(BigInt bigInt) =>
+    bigIntToByteData(bigInt).buffer.asUint8List();
+
+ByteData bigIntToByteData(BigInt bigInt) {
+  final data = ByteData((bigInt.bitLength / 8).ceil());
+  var _bigInt = bigInt;
+
+  for (var i = 1; i <= data.lengthInBytes; i++) {
+    data.setUint8(data.lengthInBytes - i, _bigInt.toUnsigned(8).toInt());
+    _bigInt = _bigInt >> 8;
+  }
+
+  return data;
 }
