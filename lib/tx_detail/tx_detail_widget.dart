@@ -1,4 +1,5 @@
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
+import 'package:share/share.dart';
 
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -236,6 +237,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -250,32 +252,41 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 20, 0),
-                                      child: Text(
-                                        valueOrDefault<String>(
-                                          "0x" +
-                                              hex
-                                                  .encode(widget.transaction
-                                                      .sender.address)
-                                                  .toString(),
-                                          'Not available',
-                                        ),
-                                        style:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Open Sans Condensed',
-                                          fontSize: 14,
-                                          color: FlutterFlowTheme
-                                              .mediumSpringGreen,
-                                        ),
-                                      ),
-                                    )
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 20, 0),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            await Share.share(hex
+                                                .encode(widget
+                                                    .transaction.sender.address)
+                                                .toString());
+                                          },
+                                          child: Text(
+                                            valueOrDefault<String>(
+                                              "0x" +
+                                                  hex
+                                                      .encode(widget.transaction
+                                                          .sender.address)
+                                                      .toString()
+                                                      .replaceRange(
+                                                          4, 36, "..."),
+                                              'Not available',
+                                            ),
+                                            style: FlutterFlowTheme.subtitle2
+                                                .override(
+                                              fontFamily: 'Poppins',
+                                              color: FlutterFlowTheme
+                                                  .mediumSpringGreen,
+                                            ),
+                                          ),
+                                        ))
                                   ],
                                 ),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -290,29 +301,40 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 20, 0),
-                                      child: Text(
-                                        valueOrDefault<String>(
-                                          "0x" +
-                                              hex
-                                                  .encode(widget
-                                                      .transaction
-                                                      .coinTransfer
-                                                      .receiver
-                                                      .address)
-                                                  .toString(),
-                                          'Not available',
-                                        ),
-                                        style:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Open Sans Condensed',
-                                          fontSize: 14,
-                                          color: FlutterFlowTheme
-                                              .mediumSpringGreen,
-                                        ),
-                                      ),
-                                    )
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 20, 0),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            await Share.share(hex
+                                                .encode(widget
+                                                    .transaction
+                                                    .coinTransfer
+                                                    .receiver
+                                                    .address)
+                                                .toString());
+                                          },
+                                          child: Text(
+                                            valueOrDefault<String>(
+                                              "0x" +
+                                                  hex
+                                                      .encode(widget
+                                                          .transaction
+                                                          .coinTransfer
+                                                          .receiver
+                                                          .address)
+                                                      .toString()
+                                                      .replaceRange(
+                                                          4, 36, "..."),
+                                              'Not available',
+                                            ),
+                                            style: FlutterFlowTheme.subtitle2
+                                                .override(
+                                              fontFamily: 'Poppins',
+                                              color: FlutterFlowTheme
+                                                  .mediumSpringGreen,
+                                            ),
+                                          ),
+                                        ))
                                   ],
                                 )
                               ],
