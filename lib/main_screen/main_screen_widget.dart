@@ -19,7 +19,12 @@ import 'package:convert/convert.dart';
 import 'package:collection/collection.dart';
 
 class MainScreenWidget extends StatefulWidget {
-  MainScreenWidget({Key key}) : super(key: key);
+  MainScreenWidget({
+    Key key,
+    this.seed,
+  }) : super(key: key);
+
+  final String seed;
 
   @override
   _MainScreenWidgetState createState() => _MainScreenWidgetState();
@@ -273,13 +278,10 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                                   .toList();
                                               if (sender == null) {
                                                 return TxRewardWidget(
-                                                  amount: snapshot.data
+                                                  transaction: snapshot.data
                                                       .elementAt(txListIndex)
                                                       .meshTransaction
-                                                      .transaction
-                                                      .amount
-                                                      .value
-                                                      .toDouble(),
+                                                      .transaction,
                                                 ).animated([
                                                   animationsMap[
                                                       'txInOnPageLoadAnimation']
@@ -288,26 +290,20 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                                   sender,
                                                   functions.addressIntList)) {
                                                 return TxOutWidget(
-                                                  amount: snapshot.data
+                                                  transaction: snapshot.data
                                                       .elementAt(txListIndex)
                                                       .meshTransaction
-                                                      .transaction
-                                                      .amount
-                                                      .value
-                                                      .toDouble(),
+                                                      .transaction,
                                                 ).animated([
                                                   animationsMap[
                                                       'txInOnPageLoadAnimation']
                                                 ]);
                                               } else {
                                                 return TxInWidget(
-                                                  amount: snapshot.data
+                                                  transaction: snapshot.data
                                                       .elementAt(txListIndex)
                                                       .meshTransaction
-                                                      .transaction
-                                                      .amount
-                                                      .value
-                                                      .toDouble(),
+                                                      .transaction,
                                                 ).animated([
                                                   animationsMap[
                                                       'txInOnPageLoadAnimation']

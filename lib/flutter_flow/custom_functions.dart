@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:grpc/grpc.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state.pbgrpc.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state_types.pb.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/mesh.pbgrpc.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/mesh_types.pb.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/smesher.pbgrpc.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/services.dart';
@@ -48,10 +50,6 @@ Future<double> getBalance() async {
       .toDouble();
 
   return balance;
-  /* return valueOrDefault<String>(
-    (balance / 1000000000000).toString(),
-    '0',
-  ); */
 }
 
 bool isSmesher(List<int> address) {}
@@ -121,6 +119,8 @@ bool checkSeedPhrase(String inputSeedPhrase) {
 
 bool restoreFromSeedPhrase(String inputSeedPhrase) {
   // Add your function code here!
+  final storage = new FlutterSecureStorage();
+  storage.write(key: "seed", value: inputSeedPhrase);
   getKeypairFromSeedPhrase(inputSeedPhrase);
   return true;
 }
@@ -133,6 +133,9 @@ bool copySeedPhraseToClipboard() {
 
 Future<bool> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
   // Add your function code here!
+  final storage = new FlutterSecureStorage();
+  var storedSeed = await storage.read(key: "seed");
+  if (storedSeed != null) inputSeedPhrase = storedSeed;
   var seed = bip39.mnemonicToSeed(inputSeedPhrase);
 
   seed = seed.sublist(0, 32);
@@ -176,11 +179,8 @@ Future<List<AccountMeshData>> getTxList() async {
       accountId: accountId,
       accountMeshDataFlags:
           AccountMeshDataFlag.ACCOUNT_MESH_DATA_FLAG_TRANSACTIONS.value);
-  AccountMeshDataQueryRequest accDataRequest = new AccountMeshDataQueryRequest(
-      filter: accountFilter,
-      minLayer: LayerNumber(number: 1),
-      maxResults: 000,
-      offset: 0);
+  AccountMeshDataQueryRequest accDataRequest =
+      new AccountMeshDataQueryRequest(filter: accountFilter);
 
   AccountMeshDataQueryResponse response =
       await meshClient.accountMeshDataQuery(accDataRequest);

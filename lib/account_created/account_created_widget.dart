@@ -7,7 +7,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AccountCreatedWidget extends StatefulWidget {
-  AccountCreatedWidget({Key key}) : super(key: key);
+  AccountCreatedWidget({
+    Key key,
+    this.seed,
+  }) : super(key: key);
+
+  final String seed;
 
   @override
   _AccountCreatedWidgetState createState() => _AccountCreatedWidgetState();
@@ -78,7 +83,9 @@ class _AccountCreatedWidgetState extends State<AccountCreatedWidget>
                 type: PageTransitionType.fade,
                 duration: Duration(milliseconds: 300),
                 reverseDuration: Duration(milliseconds: 300),
-                child: MainScreenWidget(),
+                child: MainScreenWidget(
+                  seed: widget.seed,
+                ),
               ),
             );
           },

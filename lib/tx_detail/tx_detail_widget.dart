@@ -1,3 +1,5 @@
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
+
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -6,9 +8,15 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:convert/convert.dart';
 
 class TxDetailWidget extends StatefulWidget {
-  TxDetailWidget({Key key}) : super(key: key);
+  TxDetailWidget({
+    Key key,
+    this.transaction,
+  }) : super(key: key);
+
+  final Transaction transaction;
 
   @override
   _TxDetailWidgetState createState() => _TxDetailWidgetState();
@@ -172,17 +180,44 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 20, 0),
-                                    child: Text(
-                                      //'${functions.getTxAmount().toString().toString()} SMH',
-                                      'test',
-                                      style: FlutterFlowTheme.title3.override(
-                                        fontFamily: 'Poppins',
-                                        color: FlutterFlowTheme.primaryColor,
-                                      ),
-                                    ),
-                                  )
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 20, 0),
+                                      child: Row(
+                                        children: [
+                                          if (widget.transaction.amount.value >
+                                              1000000000000)
+                                            Text(
+                                              '${valueOrDefault<String>(
+                                                (widget.transaction.amount.value
+                                                            .toDouble() /
+                                                        1000000000000)
+                                                    .toString(),
+                                                '0',
+                                              )} SMH',
+                                              style: FlutterFlowTheme.title3
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: FlutterFlowTheme
+                                                    .primaryColor,
+                                              ),
+                                            )
+                                          else
+                                            Text(
+                                              '${valueOrDefault<String>(
+                                                (widget.transaction.amount
+                                                        .value)
+                                                    .toString(),
+                                                '0',
+                                              )} SMD',
+                                              style: FlutterFlowTheme.title3
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: FlutterFlowTheme
+                                                    .primaryColor,
+                                              ),
+                                            ),
+                                        ],
+                                      ))
                                 ],
                               ),
                             ),
@@ -219,12 +254,19 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                           0, 0, 20, 0),
                                       child: Text(
                                         valueOrDefault<String>(
-                                          functions.getSenderAddress(),
+                                          "0x" +
+                                              hex
+                                                  .encode(widget.transaction
+                                                      .sender.address)
+                                                  .toString(),
                                           'Not available',
                                         ),
-                                        style: FlutterFlowTheme.title3.override(
-                                          fontFamily: 'Poppins',
-                                          color: FlutterFlowTheme.primaryColor,
+                                        style:
+                                            FlutterFlowTheme.subtitle2.override(
+                                          fontFamily: 'Open Sans Condensed',
+                                          fontSize: 14,
+                                          color: FlutterFlowTheme
+                                              .mediumSpringGreen,
                                         ),
                                       ),
                                     )
@@ -252,12 +294,22 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                           0, 0, 20, 0),
                                       child: Text(
                                         valueOrDefault<String>(
-                                          functions.getReceiverAddress(),
+                                          "0x" +
+                                              hex
+                                                  .encode(widget
+                                                      .transaction
+                                                      .coinTransfer
+                                                      .receiver
+                                                      .address)
+                                                  .toString(),
                                           'Not available',
                                         ),
-                                        style: FlutterFlowTheme.title3.override(
-                                          fontFamily: 'Poppins',
-                                          color: FlutterFlowTheme.primaryColor,
+                                        style:
+                                            FlutterFlowTheme.subtitle2.override(
+                                          fontFamily: 'Open Sans Condensed',
+                                          fontSize: 14,
+                                          color: FlutterFlowTheme
+                                              .mediumSpringGreen,
                                         ),
                                       ),
                                     )

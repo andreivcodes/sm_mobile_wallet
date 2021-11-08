@@ -1,3 +1,5 @@
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../tx_detail/tx_detail_widget.dart';
@@ -8,10 +10,10 @@ import 'package:google_fonts/google_fonts.dart';
 class TxInWidget extends StatefulWidget {
   TxInWidget({
     Key key,
-    this.amount,
+    this.transaction,
   }) : super(key: key);
 
-  final double amount;
+  final Transaction transaction;
 
   @override
   _TxInWidgetState createState() => _TxInWidgetState();
@@ -37,7 +39,7 @@ class _TxInWidgetState extends State<TxInWidget> {
                 type: PageTransitionType.rightToLeft,
                 duration: Duration(milliseconds: 300),
                 reverseDuration: Duration(milliseconds: 300),
-                child: TxDetailWidget(),
+                child: TxDetailWidget(transaction: widget.transaction),
               ),
             );
           },
@@ -75,7 +77,7 @@ class _TxInWidgetState extends State<TxInWidget> {
                           ),
                           child: Icon(
                             Icons.arrow_circle_down_rounded,
-                            color: Colors.black,
+                            color: FlutterFlowTheme.jet,
                             size: 24,
                           ),
                         )
@@ -122,10 +124,12 @@ class _TxInWidgetState extends State<TxInWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    if (widget.amount > 1000000000000)
+                    if (widget.transaction.amount.value > 1000000000000)
                       Text(
                         '${valueOrDefault<String>(
-                          (widget.amount / 1000000000000).toString(),
+                          (widget.transaction.amount.value.toDouble() /
+                                  1000000000000)
+                              .toString(),
                           '0',
                         )} SMH',
                         textAlign: TextAlign.end,
@@ -139,7 +143,7 @@ class _TxInWidgetState extends State<TxInWidget> {
                     else
                       Text(
                         '${valueOrDefault<String>(
-                          (widget.amount).toString(),
+                          (widget.transaction.amount.value).toString(),
                           '0',
                         )} SMD',
                         textAlign: TextAlign.end,

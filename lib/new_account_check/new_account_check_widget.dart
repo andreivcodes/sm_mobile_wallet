@@ -127,7 +127,9 @@ class _NewAccountCheckWidgetState extends State<NewAccountCheckWidget> {
                             type: PageTransitionType.bottomToTop,
                             duration: Duration(milliseconds: 300),
                             reverseDuration: Duration(milliseconds: 300),
-                            child: AccountCreatedWidget(),
+                            child: AccountCreatedWidget(
+                              seed: textController.text,
+                            ),
                           ),
                         );
                       }

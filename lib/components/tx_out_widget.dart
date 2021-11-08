@@ -1,3 +1,5 @@
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../tx_detail/tx_detail_widget.dart';
@@ -8,10 +10,10 @@ import 'package:google_fonts/google_fonts.dart';
 class TxOutWidget extends StatefulWidget {
   TxOutWidget({
     Key key,
-    this.amount,
+    this.transaction,
   }) : super(key: key);
 
-  final double amount;
+  final Transaction transaction;
 
   @override
   _TxOutWidgetState createState() => _TxOutWidgetState();
@@ -37,7 +39,7 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                 type: PageTransitionType.rightToLeft,
                 duration: Duration(milliseconds: 300),
                 reverseDuration: Duration(milliseconds: 300),
-                child: TxDetailWidget(),
+                child: TxDetailWidget(transaction: widget.transaction),
               ),
             );
           },
@@ -56,7 +58,7 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Color(0x7F3AFFA7),
+                      color: FlutterFlowTheme.secondaryColor,
                       shape: BoxShape.circle,
                     ),
                     child: Column(
@@ -67,12 +69,12 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                           width: 35,
                           height: 35,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.primaryColor,
+                            color: Color(0xFFFCC1A8),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
                             Icons.arrow_circle_up_rounded,
-                            color: Colors.black,
+                            color: FlutterFlowTheme.jet,
                             size: 24,
                           ),
                         )
@@ -121,16 +123,18 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    if (widget.amount > 1000000000000)
+                    if (widget.transaction.amount.value > 1000000000000)
                       Text(
                         '${valueOrDefault<String>(
-                          (widget.amount / 1000000000000).toString(),
+                          (widget.transaction.amount.value.toDouble() /
+                                  1000000000000)
+                              .toString(),
                           '0',
                         )} SMH',
                         textAlign: TextAlign.end,
                         style: FlutterFlowTheme.subtitle2.override(
                           fontFamily: 'Lexend Deca',
-                          color: FlutterFlowTheme.mediumSpringGreen,
+                          color: FlutterFlowTheme.secondaryColor,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
@@ -138,13 +142,13 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                     else
                       Text(
                         '${valueOrDefault<String>(
-                          (widget.amount).toString(),
+                          (widget.transaction.amount.value).toString(),
                           '0',
                         )} SMD',
                         textAlign: TextAlign.end,
                         style: FlutterFlowTheme.subtitle2.override(
                           fontFamily: 'Lexend Deca',
-                          color: FlutterFlowTheme.mediumSpringGreen,
+                          color: FlutterFlowTheme.secondaryColor,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
