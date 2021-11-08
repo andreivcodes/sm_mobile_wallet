@@ -44,7 +44,7 @@ dependencies:
   grpc: ^3.0.2
   bip39: ^1.0.6
   ed25519spacemesh: ^0.0.3
-  protospacemesh: ^0.0.5
+  protospacemesh: ^0.0.7
   window_utils: ^1.0.2
 
 dev_dependencies:

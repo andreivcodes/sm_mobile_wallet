@@ -1,5 +1,9 @@
 import 'dart:developer';
 
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/mesh_types.pb.dart';
+import 'package:sm_mobile_wallet/components/tx_out_widget.dart';
+import 'package:sm_mobile_wallet/components/tx_reward_widget.dart';
+
 import '../components/tx_in_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -11,6 +15,8 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:convert/convert.dart';
+import 'package:collection/collection.dart';
 
 class MainScreenWidget extends StatefulWidget {
   MainScreenWidget({Key key}) : super(key: key);
@@ -110,11 +116,11 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                   Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 5),
-                                      child: FutureBuilder<String>(
+                                      child: FutureBuilder<double>(
                                         future: functions
                                             .getBalance(), // async work
                                         builder: (BuildContext context,
-                                            AsyncSnapshot<String> snapshot) {
+                                            AsyncSnapshot<double> snapshot) {
                                           switch (snapshot.connectionState) {
                                             case ConnectionState.waiting:
                                               return Text(
@@ -142,9 +148,22 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 );
-                                              } else
+                                              } else if (snapshot.data >
+                                                  1000000000000)
                                                 return Text(
-                                                  '${snapshot.data} SMH',
+                                                  '${(snapshot.data / 1000000000000).toStringAsFixed(5)} SMH',
+                                                  style: FlutterFlowTheme.title1
+                                                      .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    color: FlutterFlowTheme
+                                                        .mediumSpringGreen,
+                                                    fontSize: 32,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                );
+                                              else
+                                                return Text(
+                                                  '${snapshot.data} SMD',
                                                   style: FlutterFlowTheme.title1
                                                       .override(
                                                     fontFamily: 'Lexend Deca',
@@ -156,22 +175,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                                 );
                                           }
                                         },
-                                      )
-
-                                      /* Text(
-                                      '${valueOrDefault<String>(
-                                        functions.getBalance(),
-                                        '0',
-                                      )} SMH',
-                                      style: FlutterFlowTheme.title1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color:
-                                            FlutterFlowTheme.mediumSpringGreen,
-                                        fontSize: 32,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ), */
-                                      )
+                                      ))
                                 ],
                               ),
                             )
@@ -229,28 +233,90 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                               ),
                               Expanded(
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 5, 0, 15),
-                                  child: Builder(
-                                    builder: (context) {
-                                      final txList =
-                                          functions.getTxList()?.toList() ?? [];
-                                      return ListView.builder(
-                                        padding: EdgeInsets.zero,
-                                        scrollDirection: Axis.vertical,
-                                        itemCount: txList.length,
-                                        itemBuilder: (context, txListIndex) {
-                                          final txListItem =
-                                              txList[txListIndex];
-                                          return TxInWidget().animated([
-                                            animationsMap[
-                                                'txInOnPageLoadAnimation']
-                                          ]);
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 5, 0, 15),
+                                    child: FutureBuilder<List<AccountMeshData>>(
+                                      future:
+                                          functions.getTxList(), // async work
+                                      // ignore: missing_return
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<List<AccountMeshData>>
+                                              snapshot) {
+                                        if (snapshot.connectionState ==
+                                                ConnectionState.waiting ||
+                                            snapshot.hasError) {
+                                          return Text(
+                                            'Loading....',
+                                            style: FlutterFlowTheme.title1
+                                                .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color: FlutterFlowTheme
+                                                  .mediumSpringGreen,
+                                              fontSize: 32,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          );
+                                        } else
+                                          return ListView.builder(
+                                            padding: EdgeInsets.zero,
+                                            scrollDirection: Axis.vertical,
+                                            itemCount: snapshot.data.length,
+                                            // ignore: missing_return
+                                            itemBuilder:
+                                                (context, txListIndex) {
+                                              List<int> sender = snapshot.data
+                                                  .elementAt(txListIndex)
+                                                  .meshTransaction
+                                                  .transaction
+                                                  .sender
+                                                  .address
+                                                  .toList();
+                                              if (sender == null) {
+                                                return TxRewardWidget(
+                                                  amount: snapshot.data
+                                                      .elementAt(txListIndex)
+                                                      .meshTransaction
+                                                      .transaction
+                                                      .amount
+                                                      .value
+                                                      .toDouble(),
+                                                ).animated([
+                                                  animationsMap[
+                                                      'txInOnPageLoadAnimation']
+                                                ]);
+                                              } else if (ListEquality().equals(
+                                                  sender,
+                                                  functions.addressIntList)) {
+                                                return TxOutWidget(
+                                                  amount: snapshot.data
+                                                      .elementAt(txListIndex)
+                                                      .meshTransaction
+                                                      .transaction
+                                                      .amount
+                                                      .value
+                                                      .toDouble(),
+                                                ).animated([
+                                                  animationsMap[
+                                                      'txInOnPageLoadAnimation']
+                                                ]);
+                                              } else {
+                                                return TxInWidget(
+                                                  amount: snapshot.data
+                                                      .elementAt(txListIndex)
+                                                      .meshTransaction
+                                                      .transaction
+                                                      .amount
+                                                      .value
+                                                      .toDouble(),
+                                                ).animated([
+                                                  animationsMap[
+                                                      'txInOnPageLoadAnimation']
+                                                ]);
+                                              }
+                                            },
+                                          );
+                                      },
+                                    )),
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(

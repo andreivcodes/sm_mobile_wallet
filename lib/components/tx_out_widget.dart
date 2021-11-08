@@ -121,19 +121,34 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      '${valueOrDefault<String>(
-                        widget.amount.toString(),
-                        '0',
-                      )} SMH',
-                      textAlign: TextAlign.end,
-                      style: FlutterFlowTheme.subtitle2.override(
-                        fontFamily: 'Lexend Deca',
-                        color: FlutterFlowTheme.mediumSpringGreen,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )
+                    if (widget.amount > 1000000000000)
+                      Text(
+                        '${valueOrDefault<String>(
+                          (widget.amount / 1000000000000).toString(),
+                          '0',
+                        )} SMH',
+                        textAlign: TextAlign.end,
+                        style: FlutterFlowTheme.subtitle2.override(
+                          fontFamily: 'Lexend Deca',
+                          color: FlutterFlowTheme.mediumSpringGreen,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    else
+                      Text(
+                        '${valueOrDefault<String>(
+                          (widget.amount).toString(),
+                          '0',
+                        )} SMD',
+                        textAlign: TextAlign.end,
+                        style: FlutterFlowTheme.subtitle2.override(
+                          fontFamily: 'Lexend Deca',
+                          color: FlutterFlowTheme.mediumSpringGreen,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
                   ],
                 ),
               )

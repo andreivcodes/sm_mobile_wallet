@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:grpc/grpc.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state.pbgrpc.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state_types.pb.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/mesh.pbgrpc.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/mesh_types.pb.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/services.dart';
@@ -19,10 +20,13 @@ String userSeedPhrase = "";
 var seed = "";
 Uint8List privateKey;
 Uint8List publicKey;
+List<int> publicKeyIntList;
+List<int> addressIntList;
+ClientChannel apiChannel;
 
-Future<String> getBalance() async {
+Future<double> getBalance() async {
   // Add your function code here!
-  final apiChannel = ClientChannel(
+  apiChannel = ClientChannel(
     'ticktockbent.ddns.net',
     port: 9092,
     options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
@@ -43,13 +47,16 @@ Future<String> getBalance() async {
       .accountItem.first.accountWrapper.stateProjected.balance.value
       .toDouble();
 
-  return valueOrDefault<String>(
+  return balance;
+  /* return valueOrDefault<String>(
     (balance / 1000000000000).toString(),
     '0',
-  );
+  ); */
 }
 
-double getTxAmount() {
+bool isSmesher(List<int> address) {}
+
+double getTxAmount(int txListIndex) {
   // Add your function code here!
   var amount;
   return amount;
@@ -143,17 +150,42 @@ Future<bool> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
   Uint8List signature = await ed25519.sign(dummyMessage, privateKey);
 
   publicKey = await ed25519.extractPublicKey(dummyMessage, signature);
-
+  publicKeyIntList = publicKey.toList();
+  addressIntList = publicKey.toList().sublist(12);
   print("prv: " + (privateKey.toString()));
   print("pub: " + (publicKey.toString()));
+
+  print("pub: " + (hex.encode(publicKey)));
 
   Future<bool> successful = ed25519.verify(publicKey, dummyMessage, signature);
   return successful;
 }
 
-List<String> getTxList() {
+Future<List<AccountMeshData>> getTxList() async {
   // Add your function code here!
-  return null;
+  final apiChannel = ClientChannel(
+    'ticktockbent.ddns.net',
+    port: 9092,
+    options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+  );
+
+  final meshClient = new MeshServiceClient(apiChannel);
+
+  AccountId accountId = AccountId(address: publicKey);
+  AccountMeshDataFilter accountFilter = new AccountMeshDataFilter(
+      accountId: accountId,
+      accountMeshDataFlags:
+          AccountMeshDataFlag.ACCOUNT_MESH_DATA_FLAG_TRANSACTIONS.value);
+  AccountMeshDataQueryRequest accDataRequest = new AccountMeshDataQueryRequest(
+      filter: accountFilter,
+      minLayer: LayerNumber(number: 1),
+      maxResults: 000,
+      offset: 0);
+
+  AccountMeshDataQueryResponse response =
+      await meshClient.accountMeshDataQuery(accDataRequest);
+
+  return response.data;
 }
 
 Uint8List bigIntToUint8List(BigInt bigInt) =>

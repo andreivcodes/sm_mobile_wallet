@@ -22,7 +22,9 @@ class _RecoverAccountWidgetState extends State<RecoverAccountWidget> {
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    textController = TextEditingController(
+        text:
+            'faculty car culture flag attract total way diesel hour draft explain mule');
   }
 
   @override
