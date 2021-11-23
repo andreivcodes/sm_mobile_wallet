@@ -1,19 +1,26 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:crypto/crypto.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:grpc/grpc.dart';
+import 'package:protospacemesh/model/tx.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state.pbgrpc.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state_types.pb.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/mesh.pbgrpc.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/mesh_types.pb.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/smesher.pbgrpc.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/tx.pbgrpc.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/tx_types.pb.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter/services.dart';
 import 'package:convert/convert.dart';
 import 'package:ed25519spacemesh/spacemesh_ed25519.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
+import 'flutter_flow_theme.dart';
 import 'flutter_flow_util.dart';
 
 Ed25519Spacemesh ed25519 = new Ed25519Spacemesh();
@@ -158,7 +165,9 @@ Future<bool> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
   print("prv: " + (privateKey.toString()));
   print("pub: " + (publicKey.toString()));
 
-  print("pub: " + (hex.encode(publicKey)));
+  print("pub hex: " + (hex.encode(publicKey)));
+
+  print("pub short: " + ("0x" + hex.encode(addressIntList)));
 
   Future<bool> successful = ed25519.verify(publicKey, dummyMessage, signature);
   return successful;
@@ -201,4 +210,67 @@ ByteData bigIntToByteData(BigInt bigInt) {
   }
 
   return data;
+}
+
+String getUserShortAddress() {
+  return "0x" + hex.encode(addressIntList);
+}
+
+QrImage getUserShortAddressQr() {
+  return QrImage(
+    data: "0x" + hex.encode(addressIntList),
+    version: QrVersions.auto,
+    size: 2.0,
+    foregroundColor: Colors.black,
+    backgroundColor: FlutterFlowTheme.primaryColor,
+    padding: const EdgeInsets.all(35.0),
+  );
+}
+
+Future<bool> sendTx(
+  String recipient,
+  String amount,
+  String fee,
+) async {
+  final accountClient = new GlobalStateServiceClient(apiChannel);
+  AccountId accountQueryId = new AccountId(address: privateKey.sublist(24));
+  AccountDataFilter accountQueryFilter = new AccountDataFilter(
+      accountId: accountQueryId,
+      accountDataFlags: AccountDataFlag.ACCOUNT_DATA_FLAG_ACCOUNT.value);
+  AccountDataQueryRequest accountQuery =
+      new AccountDataQueryRequest(filter: accountQueryFilter, maxResults: 1);
+
+  AccountDataQueryResponse accountQueryResponse =
+      await accountClient.accountDataQuery(accountQuery);
+
+  var accountnonce = accountQueryResponse
+      .accountItem.first.accountWrapper.stateProjected.counter
+      .toInt();
+
+  final transactionClient = TransactionServiceClient(apiChannel);
+  var transaction =
+      InnerTx(accountnonce, recipient, 1, int.parse(fee), int.parse(amount));
+  var unsignedOutStream = transaction.unsignedOutStream;
+
+  Uint8List transactionSignature =
+      await ed25519.sign(Uint8List.fromList(unsignedOutStream), privateKey);
+
+  final bytesBuilder = BytesBuilder();
+  bytesBuilder.add(unsignedOutStream);
+  bytesBuilder.add(transactionSignature);
+  bytesBuilder.add(publicKey.sublist(24));
+
+  var bytes = bytesBuilder.toBytes().toList();
+  var shaResult = Uint8List.fromList(sha256.convert(bytes).bytes);
+
+  var signedTransaction = OuterTx(unsignedOutStream, transactionSignature,
+      publicKey.sublist(24), shaResult);
+  var transactionRequest =
+      SubmitTransactionRequest(transaction: signedTransaction.signedOutStream);
+
+  var transactionResponse =
+      await transactionClient.submitTransaction(transactionRequest);
+
+  return true;
+  // Add your function code here!
 }

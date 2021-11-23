@@ -1,6 +1,9 @@
+import 'package:flutter/services.dart';
+
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,22 +55,16 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
                 color: Color(0xFFEEEEEE),
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
-                child: Container(
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
+              child: Container(
                   width: 250,
                   height: 250,
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                   ),
-                  child: Image.network(
-                    'https://picsum.photos/seed/150/600',
-                    fit: BoxFit.none,
-                  ),
-                ),
-              ),
+                  child: functions.getUserShortAddressQr()),
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 35),
@@ -88,7 +85,7 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                           child: Text(
-                            'Hello World',
+                            functions.getUserShortAddress(),
                             style: FlutterFlowTheme.bodyText1.override(
                               fontFamily: 'Poppins',
                               color: FlutterFlowTheme.mediumSpringGreen,
@@ -109,7 +106,12 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
                       size: 30,
                     ),
                     onPressed: () {
-                      print('IconButton pressed ...');
+                      Clipboard.setData(new ClipboardData(
+                        text: functions.getUserShortAddress(),
+                      )).then((_) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Address copied to clipboard")));
+                      });
                     },
                   )
                 ],

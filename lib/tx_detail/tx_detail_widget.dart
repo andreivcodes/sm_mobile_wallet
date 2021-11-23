@@ -19,6 +19,8 @@ class TxDetailWidget extends StatefulWidget {
 
   final Transaction transaction;
 
+  bool tap = false;
+
   @override
   _TxDetailWidgetState createState() => _TxDetailWidgetState();
 }
@@ -159,7 +161,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Padding(
                               padding:
@@ -228,9 +230,10 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                               endIndent: 15,
                               color: FlutterFlowTheme.primaryColor,
                             ),
-                            Column(
+                            Expanded(
+                                child: Column(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Row(
@@ -240,43 +243,64 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
-                                      child: Text(
-                                        'Sender',
-                                        style:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
+                                        child: Row(children: [
+                                          if (!widget.tap)
+                                            Text(
+                                              'Sender',
+                                              style: FlutterFlowTheme.subtitle2
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                        ])),
                                     Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 20, 0),
-                                        child: InkWell(
-                                          onTap: () async {
-                                            await Share.share(hex
-                                                .encode(widget
-                                                    .transaction.sender.address)
-                                                .toString());
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              widget.tap = !widget.tap;
+                                            });
+                                          },
+                                          onLongPress: () {
+                                            Share.share(
+                                                hex
+                                                    .encode(widget.transaction
+                                                        .sender.address)
+                                                    .toString(),
+                                                subject: 'Sender address:');
                                           },
                                           child: Text(
                                             valueOrDefault<String>(
                                               "0x" +
-                                                  hex
-                                                      .encode(widget.transaction
-                                                          .sender.address)
-                                                      .toString()
-                                                      .replaceRange(
-                                                          4, 36, "..."),
+                                                  (widget.tap
+                                                      ? hex
+                                                          .encode(widget
+                                                              .transaction
+                                                              .sender
+                                                              .address)
+                                                          .toString()
+                                                      : hex
+                                                          .encode(widget
+                                                              .transaction
+                                                              .sender
+                                                              .address)
+                                                          .replaceRange(
+                                                              4, 36, "...")
+                                                          .toString()),
                                               'Not available',
                                             ),
                                             style: FlutterFlowTheme.subtitle2
                                                 .override(
-                                              fontFamily: 'Poppins',
+                                              fontFamily:
+                                                  'Fira Sans Extra Condensed',
                                               color: FlutterFlowTheme
                                                   .mediumSpringGreen,
+                                              fontSize: 16,
                                             ),
                                           ),
                                         ))
@@ -289,56 +313,76 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
-                                      child: Text(
-                                        'Receiver',
-                                        style:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
+                                        child: Row(children: [
+                                          if (!widget.tap)
+                                            Text(
+                                              'Receiver',
+                                              style: FlutterFlowTheme.subtitle2
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                        ])),
                                     Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 20, 0),
-                                        child: InkWell(
-                                          onTap: () async {
-                                            await Share.share(hex
-                                                .encode(widget
-                                                    .transaction
-                                                    .coinTransfer
-                                                    .receiver
-                                                    .address)
-                                                .toString());
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              widget.tap = !widget.tap;
+                                            });
+                                          },
+                                          onLongPress: () {
+                                            Share.share(
+                                                hex
+                                                    .encode(widget
+                                                        .transaction
+                                                        .coinTransfer
+                                                        .receiver
+                                                        .address)
+                                                    .toString(),
+                                                subject: 'Receiver address:');
                                           },
                                           child: Text(
                                             valueOrDefault<String>(
                                               "0x" +
-                                                  hex
-                                                      .encode(widget
-                                                          .transaction
-                                                          .coinTransfer
-                                                          .receiver
-                                                          .address)
-                                                      .toString()
-                                                      .replaceRange(
-                                                          4, 36, "..."),
+                                                  (widget.tap
+                                                      ? hex
+                                                          .encode(widget
+                                                              .transaction
+                                                              .coinTransfer
+                                                              .receiver
+                                                              .address)
+                                                          .toString()
+                                                      : hex
+                                                          .encode(widget
+                                                              .transaction
+                                                              .coinTransfer
+                                                              .receiver
+                                                              .address)
+                                                          .toString()
+                                                          .replaceRange(
+                                                              4, 36, "...")),
                                               'Not available',
                                             ),
                                             style: FlutterFlowTheme.subtitle2
                                                 .override(
-                                              fontFamily: 'Poppins',
+                                              fontFamily:
+                                                  'Fira Sans Extra Condensed',
                                               color: FlutterFlowTheme
                                                   .mediumSpringGreen,
+                                              fontSize: 16,
                                             ),
                                           ),
                                         ))
                                   ],
                                 )
                               ],
-                            )
+                            ))
                           ],
                         ),
                       ),

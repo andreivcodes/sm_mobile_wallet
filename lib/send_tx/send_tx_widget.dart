@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:sm_mobile_wallet/tx_sent_congrats/tx_sent_congrats_widget.dart';
+
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -25,8 +29,8 @@ class _SendTxWidgetState extends State<SendTxWidget> {
   void initState() {
     super.initState();
     textController1 = TextEditingController();
-    textController2 = TextEditingController(text: '1');
-    textController3 = TextEditingController(text: '1');
+    textController2 = TextEditingController();
+    textController3 = TextEditingController();
   }
 
   @override
@@ -82,13 +86,55 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                           color: Color(0xFFEEEEEE),
                         ),
                       ),
-                      Text(
+                      FutureBuilder<double>(
+                        future: functions.getBalance(), // async work
+                        builder: (BuildContext context,
+                            AsyncSnapshot<double> snapshot) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
+                              return Text(
+                                'Loading....',
+                                style: FlutterFlowTheme.subtitle1.override(
+                                  fontFamily: 'Poppins',
+                                  color: FlutterFlowTheme.mediumSpringGreen,
+                                ),
+                              );
+                            default:
+                              if (snapshot.hasError) {
+                                log(snapshot.error.toString());
+                                return Text(
+                                  'Error: ${snapshot.error}',
+                                  style: FlutterFlowTheme.subtitle1.override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.mediumSpringGreen,
+                                  ),
+                                );
+                              } else if (snapshot.data > 1000000000000)
+                                return Text(
+                                  '${(snapshot.data / 1000000000000).toStringAsFixed(5)} SMH',
+                                  style: FlutterFlowTheme.subtitle1.override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.mediumSpringGreen,
+                                  ),
+                                );
+                              else
+                                return Text(
+                                  '${snapshot.data} SMD',
+                                  style: FlutterFlowTheme.subtitle1.override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.mediumSpringGreen,
+                                  ),
+                                );
+                          }
+                        },
+                      )
+                      /* Text(
                         '${functions.getBalance()} SMH',
                         style: FlutterFlowTheme.subtitle1.override(
                           fontFamily: 'Poppins',
                           color: FlutterFlowTheme.mediumSpringGreen,
                         ),
-                      )
+                      ) */
                     ],
                   ),
                 ),
@@ -117,7 +163,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                         controller: textController1,
                         obscureText: false,
                         decoration: InputDecoration(
-                          hintText: '[Some hint text...]',
+                          hintText: '[Some hint text about amount...]',
                           hintStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
                             color: FlutterFlowTheme.mediumSpringGreen,
@@ -186,7 +232,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                         controller: textController2,
                         obscureText: false,
                         decoration: InputDecoration(
-                          hintText: '[Some hint text...]',
+                          hintText: '[Some hint text about recipient...]',
                           hintStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
                             color: FlutterFlowTheme.mediumSpringGreen,
@@ -286,7 +332,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                         controller: textController3,
                         obscureText: false,
                         decoration: InputDecoration(
-                          hintText: '[Some hint text...]',
+                          hintText: '[Some hint text about fee...]',
                           hintStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
                             color: FlutterFlowTheme.mediumSpringGreen,
@@ -335,8 +381,21 @@ class _SendTxWidgetState extends State<SendTxWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 35),
                 child: FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    setState(() => _loadingButton = true);
+                    try {
+                      if (await functions.sendTx(textController2.text,
+                          textController1.text, textController3.text)) {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TxSentCongratsWidget(),
+                          ),
+                        );
+                      }
+                    } finally {
+                      setState(() => _loadingButton = false);
+                    }
                   },
                   text: 'Send',
                   icon: Icon(

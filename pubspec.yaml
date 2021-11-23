@@ -50,6 +50,8 @@ dependencies:
   flutter_secure_storage: ^4.2.1
   shared_preferences: ^2.0.8
   share: ^2.0.4
+  qr_flutter: ^4.0.0
+  crypto: ^3.0.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.9.1
