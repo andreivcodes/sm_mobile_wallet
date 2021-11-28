@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/mesh_types.pb.dart';
 import 'package:sm_mobile_wallet/components/tx_out_widget.dart';
 import 'package:sm_mobile_wallet/components/tx_reward_widget.dart';
+import 'package:sm_mobile_wallet/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:sm_mobile_wallet/settings/settings_widget.dart';
 
 import '../components/tx_in_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
@@ -91,98 +93,147 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                           ],
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Column(
+                        child: Row(
                           mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(15, 20, 15, 0),
-                              child: Row(
+                            Expanded(
+                              child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Text(
-                                    'Balance',
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        15, 20, 15, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          'Balance',
+                                          style: FlutterFlowTheme.bodyText1
+                                              .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        20, 5, 20, 5),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 0, 5),
+                                            child: FutureBuilder<double>(
+                                              future: functions
+                                                  .getBalance(), // async work
+                                              builder: (BuildContext context,
+                                                  AsyncSnapshot<double>
+                                                      snapshot) {
+                                                switch (
+                                                    snapshot.connectionState) {
+                                                  case ConnectionState.waiting:
+                                                    return Text(
+                                                      'Loading....',
+                                                      style: FlutterFlowTheme
+                                                          .title1
+                                                          .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color: FlutterFlowTheme
+                                                            .mediumSpringGreen,
+                                                        fontSize: 32,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    );
+                                                  default:
+                                                    if (snapshot.hasError) {
+                                                      log(snapshot.error
+                                                          .toString());
+                                                      return Text(
+                                                        'Error: ${snapshot.error}',
+                                                        style: FlutterFlowTheme
+                                                            .title1
+                                                            .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                              .mediumSpringGreen,
+                                                          fontSize: 32,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      );
+                                                    } else if (snapshot.data >
+                                                        1000000000000)
+                                                      return Text(
+                                                        '${(snapshot.data / 1000000000000).toStringAsFixed(5)} SMH',
+                                                        style: FlutterFlowTheme
+                                                            .title1
+                                                            .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                              .mediumSpringGreen,
+                                                          fontSize: 32,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      );
+                                                    else
+                                                      return Text(
+                                                        '${snapshot.data} SMD',
+                                                        style: FlutterFlowTheme
+                                                            .title1
+                                                            .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                              .mediumSpringGreen,
+                                                          fontSize: 24,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      );
+                                                }
+                                              },
+                                            ))
+                                      ],
                                     ),
                                   )
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(20, 5, 20, 5),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 5),
-                                      child: FutureBuilder<double>(
-                                        future: functions
-                                            .getBalance(), // async work
-                                        builder: (BuildContext context,
-                                            AsyncSnapshot<double> snapshot) {
-                                          switch (snapshot.connectionState) {
-                                            case ConnectionState.waiting:
-                                              return Text(
-                                                'Loading....',
-                                                style: FlutterFlowTheme.title1
-                                                    .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .mediumSpringGreen,
-                                                  fontSize: 32,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              );
-                                            default:
-                                              if (snapshot.hasError) {
-                                                log(snapshot.error.toString());
-                                                return Text(
-                                                  'Error: ${snapshot.error}',
-                                                  style: FlutterFlowTheme.title1
-                                                      .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .mediumSpringGreen,
-                                                    fontSize: 32,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                );
-                                              } else if (snapshot.data >
-                                                  1000000000000)
-                                                return Text(
-                                                  '${(snapshot.data / 1000000000000).toStringAsFixed(5)} SMH',
-                                                  style: FlutterFlowTheme.title1
-                                                      .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .mediumSpringGreen,
-                                                    fontSize: 32,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                );
-                                              else
-                                                return Text(
-                                                  '${snapshot.data} SMD',
-                                                  style: FlutterFlowTheme.title1
-                                                      .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .mediumSpringGreen,
-                                                    fontSize: 32,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                );
-                                          }
-                                        },
-                                      ))
-                                ],
-                              ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                FlutterFlowIconButton(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: 30,
+                                  borderWidth: 1,
+                                  buttonSize: 60,
+                                  icon: Icon(
+                                    Icons.settings_rounded,
+                                    color: FlutterFlowTheme.primaryColor,
+                                    size: 30,
+                                  ),
+                                  onPressed: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SettingsWidget(),
+                                      ),
+                                    );
+                                  },
+                                )
+                              ],
                             )
                           ],
                         ),

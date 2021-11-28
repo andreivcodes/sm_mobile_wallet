@@ -274,3 +274,10 @@ Future<bool> sendTx(
   return true;
   // Add your function code here!
 }
+
+Future<bool> clearStorage() async {
+  FlutterSecureStorage storage = FlutterSecureStorage();
+  await storage.deleteAll();
+  return true;
+  // Add your function code here!
+}
