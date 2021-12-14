@@ -317,6 +317,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                             padding: EdgeInsets.zero,
                                             scrollDirection: Axis.vertical,
                                             itemCount: snapshot.data.length,
+                                            reverse: true,
                                             // ignore: missing_return
                                             itemBuilder:
                                                 (context, txListIndex) {
