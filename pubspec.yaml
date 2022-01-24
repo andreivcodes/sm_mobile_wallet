@@ -46,7 +46,6 @@ dependencies:
   ed25519spacemesh: ^0.0.3
   protospacemesh: ^0.0.7
   window_utils: ^1.0.2
-  biometric_storage: ^3.0.1
   flutter_secure_storage: ^4.2.1
   shared_preferences: ^2.0.8
   share: ^2.0.4
