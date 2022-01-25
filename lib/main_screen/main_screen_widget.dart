@@ -313,56 +313,65 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                             ),
                                           );
                                         } else
-                                          return ListView.builder(
-                                            padding: EdgeInsets.zero,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount: snapshot.data.length,
-                                            reverse: true,
-                                            // ignore: missing_return
-                                            itemBuilder:
-                                                (context, txListIndex) {
-                                              List<int> sender = snapshot.data
-                                                  .elementAt(txListIndex)
-                                                  .meshTransaction
-                                                  .transaction
-                                                  .sender
-                                                  .address
-                                                  .toList();
-                                              if (sender == null) {
-                                                return TxRewardWidget(
-                                                  transaction: snapshot.data
+                                          return Align(
+                                              alignment: Alignment.topCenter,
+                                              child: ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                scrollDirection: Axis.vertical,
+                                                itemCount: snapshot.data.length,
+                                                reverse: true,
+                                                shrinkWrap: true,
+                                                // ignore: missing_return
+                                                itemBuilder:
+                                                    (context, txListIndex) {
+                                                  List<int> sender = snapshot
+                                                      .data
                                                       .elementAt(txListIndex)
                                                       .meshTransaction
-                                                      .transaction,
-                                                ).animated([
-                                                  animationsMap[
-                                                      'txInOnPageLoadAnimation']
-                                                ]);
-                                              } else if (ListEquality().equals(
-                                                  sender,
-                                                  functions.addressIntList)) {
-                                                return TxOutWidget(
-                                                  transaction: snapshot.data
-                                                      .elementAt(txListIndex)
-                                                      .meshTransaction
-                                                      .transaction,
-                                                ).animated([
-                                                  animationsMap[
-                                                      'txInOnPageLoadAnimation']
-                                                ]);
-                                              } else {
-                                                return TxInWidget(
-                                                  transaction: snapshot.data
-                                                      .elementAt(txListIndex)
-                                                      .meshTransaction
-                                                      .transaction,
-                                                ).animated([
-                                                  animationsMap[
-                                                      'txInOnPageLoadAnimation']
-                                                ]);
-                                              }
-                                            },
-                                          );
+                                                      .transaction
+                                                      .sender
+                                                      .address
+                                                      .toList();
+                                                  if (sender == null) {
+                                                    return TxRewardWidget(
+                                                      transaction: snapshot.data
+                                                          .elementAt(
+                                                              txListIndex)
+                                                          .meshTransaction
+                                                          .transaction,
+                                                    ).animated([
+                                                      animationsMap[
+                                                          'txInOnPageLoadAnimation']
+                                                    ]);
+                                                  } else if (ListEquality()
+                                                      .equals(
+                                                          sender,
+                                                          functions
+                                                              .addressIntList)) {
+                                                    return TxOutWidget(
+                                                      transaction: snapshot.data
+                                                          .elementAt(
+                                                              txListIndex)
+                                                          .meshTransaction
+                                                          .transaction,
+                                                    ).animated([
+                                                      animationsMap[
+                                                          'txInOnPageLoadAnimation']
+                                                    ]);
+                                                  } else {
+                                                    return TxInWidget(
+                                                      transaction: snapshot.data
+                                                          .elementAt(
+                                                              txListIndex)
+                                                          .meshTransaction
+                                                          .transaction,
+                                                    ).animated([
+                                                      animationsMap[
+                                                          'txInOnPageLoadAnimation']
+                                                    ]);
+                                                  }
+                                                },
+                                              ));
                                       },
                                     )),
                               ),
