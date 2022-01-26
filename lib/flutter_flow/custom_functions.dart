@@ -145,7 +145,7 @@ Future<bool> getKeypairFromSeedPhrase(String inputSeedPhrase) async {
   if (storedSeed != null) inputSeedPhrase = storedSeed;
   var seed = bip39.mnemonicToSeed(inputSeedPhrase);
 
-  seed = seed.sublist(0, 32);
+  seed = seed.sublist(32);
 
   print("mnemonic: " + inputSeedPhrase);
   print("seed: " + seed.toString());
