@@ -1,28 +1,29 @@
-import '../account_created/account_created_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '../network_selection/network_selection_widget.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RecoverAccountWidget extends StatefulWidget {
-  RecoverAccountWidget({Key key}) : super(key: key);
+  const RecoverAccountWidget({Key key}) : super(key: key);
 
   @override
   _RecoverAccountWidgetState createState() => _RecoverAccountWidgetState();
 }
 
 class _RecoverAccountWidgetState extends State<RecoverAccountWidget> {
-  TextEditingController textController;
-  bool _loadingButton = false;
+  TextEditingController userInputSeedController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    userInputSeedController = TextEditingController(
+        text:
+            'faculty car culture flag attract total way diesel hour draft explain mule');
   }
 
   @override
@@ -30,8 +31,8 @@ class _RecoverAccountWidgetState extends State<RecoverAccountWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.mediumSpringGreen,
-        iconTheme: IconThemeData(color: FlutterFlowTheme.jet),
+        backgroundColor: FlutterFlowTheme.of(context).mediumSpringGreen,
+        iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).jet),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
@@ -54,10 +55,10 @@ class _RecoverAccountWidgetState extends State<RecoverAccountWidget> {
                 child: Text(
                   'Your recovery seed phrase',
                   textAlign: TextAlign.start,
-                  style: FlutterFlowTheme.title1.override(
-                    fontFamily: 'Poppins',
-                    color: FlutterFlowTheme.mediumSpringGreen,
-                  ),
+                  style: FlutterFlowTheme.of(context).title1.override(
+                        fontFamily: 'Poppins',
+                        color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                      ),
                 ),
               ),
               Padding(
@@ -65,51 +66,55 @@ class _RecoverAccountWidgetState extends State<RecoverAccountWidget> {
                 child: Text(
                   'Type in your seed phrase below',
                   textAlign: TextAlign.start,
-                  style: FlutterFlowTheme.bodyText1.override(
-                    fontFamily: 'Poppins',
-                    color: Colors.white,
-                  ),
+                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Poppins',
+                        color: Colors.white,
+                      ),
                 ),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
                 child: TextFormField(
-                  onChanged: (_) => setState(() {}),
-                  controller: textController,
+                  onChanged: (_) => EasyDebounce.debounce(
+                    'userInputSeedController',
+                    Duration(milliseconds: 2000),
+                    () => setState(() {}),
+                  ),
+                  controller: userInputSeedController,
                   obscureText: false,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.jet,
+                        color: FlutterFlowTheme.of(context).jet,
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.jet,
+                        color: FlutterFlowTheme.of(context).jet,
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    suffixIcon: textController.text.isNotEmpty
+                    suffixIcon: userInputSeedController.text.isNotEmpty
                         ? InkWell(
                             onTap: () => setState(
-                              () => textController.clear(),
+                              () => userInputSeedController.clear(),
                             ),
                             child: Icon(
                               Icons.clear,
-                              color: FlutterFlowTheme.jet,
+                              color: FlutterFlowTheme.of(context).jet,
                               size: 22,
                             ),
                           )
                         : null,
                   ),
-                  style: FlutterFlowTheme.bodyText1.override(
-                    fontFamily: 'Poppins',
-                    color: FlutterFlowTheme.mediumSpringGreen,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Poppins',
+                        color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                        fontWeight: FontWeight.w600,
+                      ),
                   maxLines: 5,
                 ),
               ),
@@ -118,42 +123,32 @@ class _RecoverAccountWidgetState extends State<RecoverAccountWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 20),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    setState(() => _loadingButton = true);
-                    try {
-                      if (functions
-                          .restoreFromSeedPhrase(textController.text)) {
-                        await Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.bottomToTop,
-                            duration: Duration(milliseconds: 300),
-                            reverseDuration: Duration(milliseconds: 300),
-                            child: AccountCreatedWidget(),
-                          ),
-                        );
-                      }
-                    } finally {
-                      setState(() => _loadingButton = false);
-                    }
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NetworkSelectionWidget(),
+                      ),
+                    );
+                    setState(() =>
+                        FFAppState().userSeed = userInputSeedController.text);
                   },
                   text: 'Recover',
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 50,
-                    color: FlutterFlowTheme.mediumSpringGreen,
-                    textStyle: FlutterFlowTheme.subtitle2.override(
-                      fontFamily: 'Poppins',
-                      color: FlutterFlowTheme.jet,
-                    ),
+                    color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                          fontFamily: 'Poppins',
+                          color: FlutterFlowTheme.of(context).jet,
+                        ),
                     borderSide: BorderSide(
                       color: Colors.transparent,
                       width: 1,
                     ),
                     borderRadius: 25,
                   ),
-                  loading: _loadingButton,
                 ),
-              )
+              ),
             ],
           ),
         ),

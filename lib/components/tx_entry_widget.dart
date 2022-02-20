@@ -5,19 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TxOutWidget extends StatefulWidget {
-  TxOutWidget({
+class TxEntryWidget extends StatefulWidget {
+  const TxEntryWidget({
     Key key,
-    this.amount,
+    this.txJson,
+    this.txPrimaryColor,
+    this.txSecondaryColor,
   }) : super(key: key);
 
-  final double amount;
+  final dynamic txJson;
+  final Color txPrimaryColor;
+  final Color txSecondaryColor;
 
   @override
-  _TxOutWidgetState createState() => _TxOutWidgetState();
+  _TxEntryWidgetState createState() => _TxEntryWidgetState();
 }
 
-class _TxOutWidgetState extends State<TxOutWidget> {
+class _TxEntryWidgetState extends State<TxEntryWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,7 +30,7 @@ class _TxOutWidgetState extends State<TxOutWidget> {
         width: double.infinity,
         height: 75,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.jet,
+          color: FlutterFlowTheme.of(context).jet,
           borderRadius: BorderRadius.circular(8),
         ),
         child: InkWell(
@@ -37,7 +41,9 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                 type: PageTransitionType.rightToLeft,
                 duration: Duration(milliseconds: 300),
                 reverseDuration: Duration(milliseconds: 300),
-                child: TxDetailWidget(),
+                child: TxDetailWidget(
+                  tx: widget.txJson,
+                ),
               ),
             );
           },
@@ -48,7 +54,7 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(8, 5, 0, 5),
                 child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: Color(0x6F3AFFA7),
+                  color: widget.txSecondaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
@@ -56,7 +62,7 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Color(0x7F3AFFA7),
+                      color: widget.txSecondaryColor,
                       shape: BoxShape.circle,
                     ),
                     child: Column(
@@ -67,15 +73,18 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                           width: 35,
                           height: 35,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.primaryColor,
+                            color: widget.txPrimaryColor,
                             shape: BoxShape.circle,
+                            border: Border.all(
+                              color: widget.txPrimaryColor,
+                            ),
                           ),
                           child: Icon(
-                            Icons.arrow_circle_up_rounded,
-                            color: Colors.black,
+                            Icons.arrow_circle_down_rounded,
+                            color: FlutterFlowTheme.of(context).jet,
                             size: 24,
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -91,25 +100,27 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                     children: [
                       Text(
                         'Transfer',
-                        style: FlutterFlowTheme.subtitle1.override(
-                          fontFamily: 'Lexend Deca',
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: FlutterFlowTheme.of(context).subtitle1.override(
+                              fontFamily: 'Poppins',
+                              color: Colors.white,
+                            ),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                         child: Text(
-                          'Outgoing',
-                          style: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Lexend Deca',
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
-                          ),
+                          getJsonField(
+                            widget.txJson,
+                            r'''$''',
+                          ).toString(),
+                          style:
+                              FlutterFlowTheme.of(context).bodyText1.override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                  ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -123,20 +134,23 @@ class _TxOutWidgetState extends State<TxOutWidget> {
                   children: [
                     Text(
                       '${valueOrDefault<String>(
-                        widget.amount.toString(),
+                        getJsonField(
+                          widget.txJson,
+                          r'''$''',
+                        ).toString(),
                         '0',
                       )} SMH',
                       textAlign: TextAlign.end,
-                      style: FlutterFlowTheme.subtitle2.override(
-                        fontFamily: 'Lexend Deca',
-                        color: FlutterFlowTheme.mediumSpringGreen,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )
+                      style: FlutterFlowTheme.of(context).subtitle2.override(
+                            fontFamily: 'Lexend Deca',
+                            color: widget.txPrimaryColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

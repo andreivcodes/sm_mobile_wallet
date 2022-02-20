@@ -1,4 +1,4 @@
-# sm_mobile_wallet
+# sm-mobile-wallet
 
 A new Flutter project.
 

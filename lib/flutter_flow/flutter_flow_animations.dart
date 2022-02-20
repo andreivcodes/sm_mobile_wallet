@@ -9,6 +9,17 @@ enum AnimationTrigger {
   onActionTrigger,
 }
 
+class AnimationState {
+  AnimationState({
+    this.offset = const Offset(0, 0),
+    this.opacity = 1,
+    this.scale = 1,
+  });
+  final Offset offset;
+  final double opacity;
+  final double scale;
+}
+
 class AnimationInfo {
   AnimationInfo({
     this.curve = Curves.easeInOut,
@@ -16,8 +27,8 @@ class AnimationInfo {
     @required this.duration,
     this.delay = 0,
     this.fadeIn = false,
-    this.slideOffset,
-    this.scale = 0,
+    this.initialState,
+    this.finalState,
   });
 
   final Curve curve;
@@ -25,8 +36,8 @@ class AnimationInfo {
   final int duration;
   final int delay;
   final bool fadeIn;
-  final Offset slideOffset;
-  final double scale;
+  final AnimationState initialState;
+  final AnimationState finalState;
   CurvedAnimation curvedAnimation;
 }
 
@@ -56,8 +67,6 @@ void setupTriggerAnimations(
     Iterable<AnimationInfo> animations, TickerProvider vsync) {
   animations.forEach((animation) {
     createAnimation(animation, vsync);
-    (animation.curvedAnimation.parent as AnimationController)
-        .forward(from: 1.0);
   });
 }
 
@@ -67,29 +76,56 @@ extension AnimatedWidgetExtension on Widget {
     return AnimatedBuilder(
       animation: animationInfo.curvedAnimation,
       builder: (context, child) {
+        // On Action Trigger animations are in this state when
+        // they are first loaded, but before they are triggered.
+        // The widget should remain as it is.
+        if (animationInfo.curvedAnimation.status == AnimationStatus.dismissed) {
+          return child;
+        }
         var returnedWidget = child;
-        if (animationInfo.slideOffset != null) {
-          final animationValue = 1 - animationInfo.curvedAnimation.value;
+        if (animationInfo.initialState.offset.dx != 0 ||
+            animationInfo.initialState.offset.dy != 0 ||
+            animationInfo.finalState.offset.dx != 0 ||
+            animationInfo.finalState.offset.dy != 0) {
+          final xRange = animationInfo.finalState.offset.dx -
+              animationInfo.initialState.offset.dx;
+          final yRange = animationInfo.finalState.offset.dy -
+              animationInfo.initialState.offset.dy;
+          final xDelta = xRange * animationInfo.curvedAnimation.value;
+          final yDelta = yRange * animationInfo.curvedAnimation.value;
           returnedWidget = Transform.translate(
-            child: child,
-            offset: animationInfo.slideOffset * -animationValue,
+            offset: Offset(
+              animationInfo.initialState.offset.dx + xDelta,
+              animationInfo.initialState.offset.dy + yDelta,
+            ),
+            child: returnedWidget,
           );
         }
-        if (animationInfo.scale > 0 && animationInfo.scale != 1.0) {
-          final scale = returnedWidget = Transform.scale(
-            scale: animationInfo.scale +
-                (1.0 - animationInfo.scale) *
-                    animationInfo.curvedAnimation.value,
-            child: child,
+        if (animationInfo.initialState.scale != 1 ||
+            animationInfo.finalState.scale != 1) {
+          final range =
+              animationInfo.finalState.scale - animationInfo.initialState.scale;
+          final delta = range * animationInfo.curvedAnimation.value;
+          final scale = animationInfo.initialState.scale + delta;
+
+          returnedWidget = Transform.scale(
+            scale: scale,
+            child: returnedWidget,
           );
         }
         if (animationInfo.fadeIn) {
-          // In cases where the child tree has a Material widget with elevation,
-          // opacity animations may result in sudden box shadow "glitches"
-          // To prevent this, opacity is animated up to but NOT including 1.0.
-          // It is impossible to tell the difference between 0.998 and 1.0 opacity.
+          final opacityRange = animationInfo.finalState.opacity -
+              animationInfo.initialState.opacity;
+          final opacityDelta =
+              animationInfo.curvedAnimation.value * opacityRange;
+          final opacity = animationInfo.initialState.opacity + opacityDelta;
+
           returnedWidget = Opacity(
-            opacity: min(0.998, animationInfo.curvedAnimation.value),
+            // In cases where the child tree has a Material widget with elevation,
+            // opacity animations may result in sudden box shadow "glitches"
+            // To prevent this, opacity is animated up to but NOT including 1.0.
+            // It is impossible to tell the difference between 0.998 and 1.0 opacity.
+            opacity: min(0.998, opacity),
             child: returnedWidget,
           );
         }

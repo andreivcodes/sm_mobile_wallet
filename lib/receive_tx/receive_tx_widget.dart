@@ -1,12 +1,13 @@
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ReceiveTxWidget extends StatefulWidget {
-  ReceiveTxWidget({Key key}) : super(key: key);
+  const ReceiveTxWidget({Key key}) : super(key: key);
 
   @override
   _ReceiveTxWidgetState createState() => _ReceiveTxWidgetState();
@@ -20,14 +21,14 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.primaryColor,
-        iconTheme: IconThemeData(color: FlutterFlowTheme.jet),
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).jet),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: FlutterFlowTheme.customColor1,
+      backgroundColor: FlutterFlowTheme.of(context).customColor1,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -39,33 +40,31 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
               child: Text(
                 'Receive',
-                style: FlutterFlowTheme.title1.override(
-                  fontFamily: 'Poppins',
-                  color: FlutterFlowTheme.primaryColor,
-                ),
+                style: FlutterFlowTheme.of(context).title1.override(
+                      fontFamily: 'Poppins',
+                      color: FlutterFlowTheme.of(context).primaryColor,
+                    ),
               ),
             ),
             Text(
               'Share your address or QR code',
-              style: FlutterFlowTheme.subtitle2.override(
-                fontFamily: 'Poppins',
-                color: Color(0xFFEEEEEE),
-              ),
+              style: FlutterFlowTheme.of(context).subtitle2.override(
+                    fontFamily: 'Poppins',
+                    color: Color(0xFFEEEEEE),
+                  ),
             ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
-                child: Container(
-                  width: 250,
-                  height: 250,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: Image.network(
-                    'https://picsum.photos/seed/150/600',
-                    fit: BoxFit.none,
-                  ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
+              child: Container(
+                width: 250,
+                height: 250,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: Image.network(
+                  functions.getAddressQRPath(FFAppState().publicAddress),
+                  fit: BoxFit.none,
                 ),
               ),
             ),
@@ -81,18 +80,20 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(
-                            color: FlutterFlowTheme.jet,
+                            color: FlutterFlowTheme.of(context).jet,
                             width: 2,
                           ),
                         ),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                           child: Text(
-                            'Hello World',
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: FlutterFlowTheme.mediumSpringGreen,
-                            ),
+                            FFAppState().publicAddress,
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context)
+                                          .mediumSpringGreen,
+                                    ),
                           ),
                         ),
                       ),
@@ -105,16 +106,16 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
                     buttonSize: 60,
                     icon: Icon(
                       Icons.content_copy,
-                      color: FlutterFlowTheme.jet,
+                      color: FlutterFlowTheme.of(context).jet,
                       size: 30,
                     ),
                     onPressed: () {
                       print('IconButton pressed ...');
                     },
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

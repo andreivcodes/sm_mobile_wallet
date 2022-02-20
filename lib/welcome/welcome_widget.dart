@@ -8,17 +8,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class WelcomeOnboardingWidget extends StatefulWidget {
-  WelcomeOnboardingWidget({Key key}) : super(key: key);
+class WelcomeWidget extends StatefulWidget {
+  const WelcomeWidget({Key key}) : super(key: key);
 
   @override
-  _WelcomeOnboardingWidgetState createState() =>
-      _WelcomeOnboardingWidgetState();
+  _WelcomeWidgetState createState() => _WelcomeWidgetState();
 }
 
-class _WelcomeOnboardingWidgetState extends State<WelcomeOnboardingWidget> {
+class _WelcomeWidgetState extends State<WelcomeWidget> {
   PageController pageViewController;
-  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -46,13 +44,13 @@ class _WelcomeOnboardingWidgetState extends State<WelcomeOnboardingWidget> {
                     ),
                     Text(
                       'SPACEMESH',
-                      style: FlutterFlowTheme.title1.override(
-                        fontFamily: 'Poppins',
-                        color: FlutterFlowTheme.primaryColor,
-                      ),
-                    )
+                      style: FlutterFlowTheme.of(context).title1.override(
+                            fontFamily: 'Poppins',
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                          ),
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -91,7 +89,7 @@ class _WelcomeOnboardingWidgetState extends State<WelcomeOnboardingWidget> {
                                         height: 300,
                                         fit: BoxFit.fitWidth,
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 Padding(
@@ -104,15 +102,16 @@ class _WelcomeOnboardingWidgetState extends State<WelcomeOnboardingWidget> {
                                         child: Text(
                                           'Manage Your Funds',
                                           textAlign: TextAlign.center,
-                                          style:
-                                              FlutterFlowTheme.title1.override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: Colors.white,
-                                            fontSize: 32,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .title1
+                                              .override(
+                                                fontFamily: 'Lexend Deca',
+                                                color: Colors.white,
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -126,18 +125,19 @@ class _WelcomeOnboardingWidgetState extends State<WelcomeOnboardingWidget> {
                                         child: Text(
                                           'Send and receive spacemesh coins',
                                           textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.subtitle2
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle2
                                               .override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: Color(0x99FFFFFF),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.normal,
-                                          ),
+                                                fontFamily: 'Lexend Deca',
+                                                color: Color(0x99FFFFFF),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal,
+                                              ),
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -162,7 +162,7 @@ class _WelcomeOnboardingWidgetState extends State<WelcomeOnboardingWidget> {
                                         height: 300,
                                         fit: BoxFit.fitWidth,
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 Padding(
@@ -175,15 +175,16 @@ class _WelcomeOnboardingWidgetState extends State<WelcomeOnboardingWidget> {
                                         child: Text(
                                           'Change The World',
                                           textAlign: TextAlign.center,
-                                          style:
-                                              FlutterFlowTheme.title1.override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: Colors.white,
-                                            fontSize: 32,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .title1
+                                              .override(
+                                                fontFamily: 'Lexend Deca',
+                                                color: Colors.white,
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -197,18 +198,19 @@ class _WelcomeOnboardingWidgetState extends State<WelcomeOnboardingWidget> {
                                         child: Text(
                                           'Fair and transparent crypto that\'s made for everyone',
                                           textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.subtitle2
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle2
                                               .override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: Color(0x99FFFFFF),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.normal,
-                                          ),
+                                                fontFamily: 'Lexend Deca',
+                                                color: Color(0x99FFFFFF),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal,
+                                              ),
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -233,7 +235,7 @@ class _WelcomeOnboardingWidgetState extends State<WelcomeOnboardingWidget> {
                                         height: 250,
                                         fit: BoxFit.fitWidth,
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 Padding(
@@ -246,15 +248,16 @@ class _WelcomeOnboardingWidgetState extends State<WelcomeOnboardingWidget> {
                                         child: Text(
                                           'Review Purchases',
                                           textAlign: TextAlign.center,
-                                          style:
-                                              FlutterFlowTheme.title1.override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: Colors.white,
-                                            fontSize: 32,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .title1
+                                              .override(
+                                                fontFamily: 'Lexend Deca',
+                                                color: Colors.white,
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -268,21 +271,22 @@ class _WelcomeOnboardingWidgetState extends State<WelcomeOnboardingWidget> {
                                         child: Text(
                                           'Keep track of all your purchases that you have made, want to trade books in? Go ahead and list them for exchange.',
                                           textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.subtitle2
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle2
                                               .override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: Color(0xFF82878C),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.normal,
-                                          ),
+                                                fontFamily: 'Lexend Deca',
+                                                color: Color(0xFF82878C),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal,
+                                              ),
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
-                                )
+                                ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                       Align(
@@ -317,7 +321,7 @@ class _WelcomeOnboardingWidgetState extends State<WelcomeOnboardingWidget> {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
           Padding(
@@ -331,43 +335,38 @@ class _WelcomeOnboardingWidgetState extends State<WelcomeOnboardingWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 20),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        setState(() => _loadingButton = true);
-                        try {
-                          await Navigator.push(
-                            context,
-                            PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              duration: Duration(milliseconds: 300),
-                              reverseDuration: Duration(milliseconds: 300),
-                              child: AddAccountChoiceWidget(),
-                            ),
-                          );
-                        } finally {
-                          setState(() => _loadingButton = false);
-                        }
+                        await Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            duration: Duration(milliseconds: 300),
+                            reverseDuration: Duration(milliseconds: 300),
+                            child: AddAccountChoiceWidget(),
+                          ),
+                        );
                       },
                       text: 'Let\'s begin',
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 50,
-                        color: FlutterFlowTheme.mediumSpringGreen,
-                        textStyle: FlutterFlowTheme.subtitle2.override(
-                          fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.jet,
-                        ),
+                        color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                        textStyle:
+                            FlutterFlowTheme.of(context).subtitle2.override(
+                                  fontFamily: 'Poppins',
+                                  color: FlutterFlowTheme.of(context).jet,
+                                ),
                         borderSide: BorderSide(
                           color: Colors.transparent,
                           width: 1,
                         ),
                         borderRadius: 25,
                       ),
-                      loading: _loadingButton,
                     ),
                   ),
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

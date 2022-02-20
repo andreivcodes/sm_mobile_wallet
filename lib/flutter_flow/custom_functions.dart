@@ -1,15 +1,33 @@
+import 'dart:convert';
 import 'dart:math' as math;
+import 'dart:typed_data';
 
+import 'package:ed25519spacemesh/spacemesh_ed25519.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:convert/convert.dart';
+import 'package:grpc/grpc.dart';
 import 'package:intl/intl.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state.pbgrpc.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state_types.pb.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/mesh.pbgrpc.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/mesh_types.pb.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
+import 'package:bip39/bip39.dart' as bip39;
 import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
 import 'place.dart';
 
-String getBalance() {
+Ed25519Spacemesh ed25519 = new Ed25519Spacemesh();
+
+Future<String> getBalance(
+  dynamic networkJson,
+  List<int> privateKey,
+) async {
   // Add your function code here!
   final apiChannel = ClientChannel(
-    'api-devnet208.spacemesh.io',
+    networkJson["grpcAPI"].substring(8).replaceAll("/", ""),
     port: 443,
     options: const ChannelOptions(credentials: ChannelCredentials.secure()),
   );
@@ -33,12 +51,6 @@ String getBalance() {
   return balance;
 }
 
-double getTxAmount() {
-  // Add your function code here!
-  var amount;
-  return amount;
-}
-
 String getSenderAddress() {
   // Add your function code here!
   var senderAddress;
@@ -57,80 +69,149 @@ String getTxMessage() {
   return txMessage;
 }
 
-double inputTxCompAmount() {
-  // Add your function code here!
-  var amount;
-  return amount;
-}
-
-double outputTxCompAmount() {
-  // Add your function code here!
-  var amount;
-  return amount;
-}
-
-double rewardTxCompAmount() {
-  // Add your function code here!
-  var amount;
-  return amount;
-}
-
-String getGeneratedSeedPhrase() {
-  // Add your function code here!
-
-  //we need to do this only once because this function is called
-  //several times during screen lifecycle
-  if (userSeedPhrase.toString().length < 1) {
-    var seedPhrase = bip39.generateMnemonic();
-    userSeedPhrase = seedPhrase;
-  }
-  return userSeedPhrase;
-}
-
-bool checkSeedPhrase(String inputSeedPhrase) {
-  // Add your function code here!
-  if (inputSeedPhrase == userSeedPhrase) {
-    getKeypairFromSeedPhrase(userSeedPhrase);
+bool checkSeedPhrase(
+  String inputSeedPhrase,
+  String generatedSeedPhrase,
+) {
+  if (inputSeedPhrase == generatedSeedPhrase) {
     return true;
-  } else
+  } else {
     return false;
+  }
 }
 
-bool restoreFromSeedPhrase(String inputSeedPhrase) {
+bool copySeedPhraseToClipboard(String usedSeed) {
   // Add your function code here!
-  getKeypairFromSeedPhrase(inputSeedPhrase);
+  Clipboard.setData(ClipboardData(text: usedSeed));
   return true;
 }
 
-bool copySeedPhraseToClipboard() {
+String getUserShortAddress() {
+  return "";
   // Add your function code here!
-  Clipboard.setData(ClipboardData(text: userSeedPhrase));
-  return true;
 }
 
-double getKeypairFromSeedPhrase(String inputSeedPhrase) {
+bool sendTx(
+  String recipient,
+  String amount,
+  String fee,
+  Map<dynamic, dynamic> networkJson,
+  List<int> privateKey,
+) {
+  return true;
   // Add your function code here!
-  var seed = bip39.mnemonicToSeed(inputSeedPhrase).sublist(32);
+}
 
-  privateKey = await ed25519.newDerivedKeyFromSeed(
+bool clearStorage() {
+  return true;
+  // Add your function code here!
+}
+
+Future<List<String>> getAvailableNetworks() async {
+  List<String> networks = [];
+  final response =
+      await http.get(Uri.parse('https://discover.spacemesh.io/networks.json'));
+
+  var values = json.decode(response.body);
+
+  for (var item in values) {
+    if (item["netName"] != null) networks.add(item["netName"]);
+  }
+
+  return networks;
+}
+
+String generateSeed() {
+  return bip39.generateMnemonic();
+}
+
+Future<List<int>> getPrivatekeyFromSeed(String userSeed) async {
+  var seed = bip39.mnemonicToSeed(userSeed);
+  seed = seed.sublist(32);
+
+  var privateKey = await ed25519.newDerivedKeyFromSeed(
+      Uint8List.fromList(seed),
+      Uint8List.fromList([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]),
+      Uint8List.fromList(utf8.encode("Spacemesh blockmesh")));
+
+  return privateKey;
+}
+
+Future<List<int>> getPublickeyFromSeed(String userSeed) async {
+  var seed = bip39.mnemonicToSeed(userSeed);
+  seed = seed.sublist(32);
+
+  var privateKey = await ed25519.newDerivedKeyFromSeed(
       Uint8List.fromList(seed),
       Uint8List.fromList([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]),
       Uint8List.fromList(utf8.encode("Spacemesh blockmesh")));
 
   Uint8List dummyMessage = Uint8List.fromList([0xFF, 0x00, 0xFF, 0x00]);
-
   Uint8List signature = await ed25519.sign(dummyMessage, privateKey);
 
-  publicKey = await ed25519.extractPublicKey(dummyMessage, signature);
+  var publicKey = await ed25519.extractPublicKey(dummyMessage, signature);
 
-  print("prv: " + privateKey.toString());
-  print("pub: " + publicKey.toString());
-
-  Future<bool> successful = ed25519.verify(publicKey, dummyMessage, signature);
-  return successful;
+  return publicKey.toList();
 }
 
-List<String> getTxList() {
+Future<String> getPublicaddressFromSeed(String userSeed) async {
+  var seed = bip39.mnemonicToSeed(userSeed);
+  seed = seed.sublist(32);
+
+  var privateKey = await ed25519.newDerivedKeyFromSeed(
+      Uint8List.fromList(seed),
+      Uint8List.fromList([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]),
+      Uint8List.fromList(utf8.encode("Spacemesh blockmesh")));
+
+  Uint8List dummyMessage = Uint8List.fromList([0xFF, 0x00, 0xFF, 0x00]);
+  Uint8List signature = await ed25519.sign(dummyMessage, privateKey);
+
+  var publicKey = await ed25519.extractPublicKey(dummyMessage, signature);
+  var addressIntList = publicKey.toList().sublist(12);
+
+  return "0x" + hex.encode(addressIntList);
+}
+
+dynamic getNetworkJson(String selectedNetwork) async {
+  final response =
+      await http.get(Uri.parse('https://discover.spacemesh.io/networks.json'));
+
+  var values = json.decode(response.body);
+
+  for (var item in values) {
+    if (item["netName"] == selectedNetwork) return item;
+  }
+}
+
+Future<List> getTxList(
+  dynamic networkJson,
+  List<int> publicKey,
+) async {
+  print("Test");
+  print(networkJson);
   // Add your function code here!
-  return null;
+  final apiChannel = ClientChannel(
+    networkJson["grpcAPI"].substring(8).replaceAll("/", ""),
+    port: 9092,
+    options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+  );
+
+  final meshClient = new MeshServiceClient(apiChannel);
+
+  AccountId accountId = AccountId(address: publicKey);
+  AccountMeshDataFilter accountFilter = new AccountMeshDataFilter(
+      accountId: accountId,
+      accountMeshDataFlags:
+          AccountMeshDataFlag.ACCOUNT_MESH_DATA_FLAG_TRANSACTIONS.value);
+  AccountMeshDataQueryRequest accDataRequest =
+      new AccountMeshDataQueryRequest(filter: accountFilter);
+
+  AccountMeshDataQueryResponse response =
+      await meshClient.accountMeshDataQuery(accDataRequest);
+
+  return response.data;
+}
+
+String getAddressQRPath(String publicAddress) {
+  return "";
 }

@@ -2,12 +2,13 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../new_account/new_account_widget.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NewAccountWarningWidget extends StatefulWidget {
-  NewAccountWarningWidget({Key key}) : super(key: key);
+  const NewAccountWarningWidget({Key key}) : super(key: key);
 
   @override
   _NewAccountWarningWidgetState createState() =>
@@ -15,7 +16,6 @@ class NewAccountWarningWidget extends StatefulWidget {
 }
 
 class _NewAccountWarningWidgetState extends State<NewAccountWarningWidget> {
-  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -23,8 +23,8 @@ class _NewAccountWarningWidgetState extends State<NewAccountWarningWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.mediumSpringGreen,
-        iconTheme: IconThemeData(color: FlutterFlowTheme.jet),
+        backgroundColor: FlutterFlowTheme.of(context).mediumSpringGreen,
+        iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).jet),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
@@ -57,11 +57,12 @@ class _NewAccountWarningWidgetState extends State<NewAccountWarningWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
                     child: Text(
                       'Back up your seed phrase!',
-                      style: FlutterFlowTheme.title1.override(
-                        fontFamily: 'Poppins',
-                        color: FlutterFlowTheme.mediumSpringGreen,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: FlutterFlowTheme.of(context).title1.override(
+                            fontFamily: 'Poppins',
+                            color:
+                                FlutterFlowTheme.of(context).mediumSpringGreen,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                   ),
                   Padding(
@@ -69,10 +70,10 @@ class _NewAccountWarningWidgetState extends State<NewAccountWarningWidget> {
                     child: Text(
                       'Your seed phrase is the only way you\nwill be able to access this account\nin case you lose your device or \nuninstall this app.',
                       textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                      ),
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: Colors.white,
+                          ),
                     ),
                   ),
                   Padding(
@@ -80,12 +81,12 @@ class _NewAccountWarningWidgetState extends State<NewAccountWarningWidget> {
                     child: Text(
                       'The ONLY way to recover the account is using\nthe seed phrase!',
                       textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: FlutterFlowTheme.secondaryColor,
-                      ),
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: FlutterFlowTheme.of(context).secondaryColor,
+                          ),
                     ),
-                  )
+                  ),
                 ],
               ),
               Spacer(),
@@ -93,39 +94,35 @@ class _NewAccountWarningWidgetState extends State<NewAccountWarningWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 20),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    setState(() => _loadingButton = true);
-                    try {
-                      await Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.rightToLeft,
-                          duration: Duration(milliseconds: 300),
-                          reverseDuration: Duration(milliseconds: 300),
-                          child: NewAccountWidget(),
-                        ),
-                      );
-                    } finally {
-                      setState(() => _loadingButton = false);
-                    }
+                    await Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.rightToLeft,
+                        duration: Duration(milliseconds: 300),
+                        reverseDuration: Duration(milliseconds: 300),
+                        child: NewAccountWidget(),
+                      ),
+                    );
+                    setState(
+                        () => FFAppState().userSeed = functions.generateSeed());
                   },
                   text: 'I understand',
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 50,
-                    color: FlutterFlowTheme.mediumSpringGreen,
-                    textStyle: FlutterFlowTheme.subtitle2.override(
-                      fontFamily: 'Poppins',
-                      color: FlutterFlowTheme.jet,
-                    ),
+                    color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                          fontFamily: 'Poppins',
+                          color: FlutterFlowTheme.of(context).jet,
+                        ),
                     borderSide: BorderSide(
                       color: Colors.transparent,
                       width: 1,
                     ),
                     borderRadius: 25,
                   ),
-                  loading: _loadingButton,
                 ),
-              )
+              ),
             ],
           ),
         ),

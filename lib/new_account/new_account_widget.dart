@@ -11,14 +11,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NewAccountWidget extends StatefulWidget {
-  NewAccountWidget({Key key}) : super(key: key);
+  const NewAccountWidget({Key key}) : super(key: key);
 
   @override
   _NewAccountWidgetState createState() => _NewAccountWidgetState();
 }
 
 class _NewAccountWidgetState extends State<NewAccountWidget> {
-  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -26,8 +25,8 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.mediumSpringGreen,
-        iconTheme: IconThemeData(color: FlutterFlowTheme.jet),
+        backgroundColor: FlutterFlowTheme.of(context).mediumSpringGreen,
+        iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).jet),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
@@ -47,11 +46,11 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
               Text(
                 'Write down \nyour seed phrase!',
                 textAlign: TextAlign.center,
-                style: FlutterFlowTheme.title1.override(
-                  fontFamily: 'Poppins',
-                  color: FlutterFlowTheme.mediumSpringGreen,
-                  fontSize: 24,
-                ),
+                style: FlutterFlowTheme.of(context).title1.override(
+                      fontFamily: 'Poppins',
+                      color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                      fontSize: 24,
+                    ),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
@@ -61,7 +60,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(
-                      color: FlutterFlowTheme.jet,
+                      color: FlutterFlowTheme.of(context).jet,
                       width: 2,
                     ),
                   ),
@@ -77,13 +76,16 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                             child: AutoSizeText(
-                              functions.getGeneratedSeedPhrase(),
+                              FFAppState().userSeed,
                               textAlign: TextAlign.justify,
-                              style: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Poppins',
-                                color: FlutterFlowTheme.secondaryColor,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryColor,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                             ),
                           ),
                         ),
@@ -95,11 +97,12 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                         buttonSize: 60,
                         icon: FaIcon(
                           FontAwesomeIcons.copy,
-                          color: FlutterFlowTheme.jet,
+                          color: FlutterFlowTheme.of(context).jet,
                           size: 30,
                         ),
                         onPressed: () async {
-                          if (functions.copySeedPhraseToClipboard()) {
+                          if (functions.copySeedPhraseToClipboard(
+                              FFAppState().userSeed)) {
                             await showDialog(
                               context: context,
                               builder: (alertDialogContext) {
@@ -119,7 +122,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                             );
                           }
                         },
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -129,39 +132,33 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 20),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    setState(() => _loadingButton = true);
-                    try {
-                      await Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.rightToLeft,
-                          duration: Duration(milliseconds: 300),
-                          reverseDuration: Duration(milliseconds: 300),
-                          child: NewAccountCheckWidget(),
-                        ),
-                      );
-                    } finally {
-                      setState(() => _loadingButton = false);
-                    }
+                    await Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.rightToLeft,
+                        duration: Duration(milliseconds: 300),
+                        reverseDuration: Duration(milliseconds: 300),
+                        child: NewAccountCheckWidget(),
+                      ),
+                    );
                   },
                   text: 'Continue',
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 50,
-                    color: FlutterFlowTheme.mediumSpringGreen,
-                    textStyle: FlutterFlowTheme.subtitle2.override(
-                      fontFamily: 'Poppins',
-                      color: FlutterFlowTheme.jet,
-                    ),
+                    color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                          fontFamily: 'Poppins',
+                          color: FlutterFlowTheme.of(context).jet,
+                        ),
                     borderSide: BorderSide(
                       color: Colors.transparent,
                       width: 1,
                     ),
                     borderRadius: 25,
                   ),
-                  loading: _loadingButton,
                 ),
-              )
+              ),
             ],
           ),
         ),

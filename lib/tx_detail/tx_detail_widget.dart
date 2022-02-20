@@ -6,9 +6,15 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 
 class TxDetailWidget extends StatefulWidget {
-  TxDetailWidget({Key key}) : super(key: key);
+  const TxDetailWidget({
+    Key key,
+    this.tx,
+  }) : super(key: key);
+
+  final dynamic tx;
 
   @override
   _TxDetailWidgetState createState() => _TxDetailWidgetState();
@@ -21,7 +27,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.primaryColor,
+      backgroundColor: FlutterFlowTheme.of(context).primaryColor,
       body: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 3),
         child: Column(
@@ -42,7 +48,8 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                           width: MediaQuery.of(context).size.width,
                           height: 150,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.mediumSpringGreen,
+                            color:
+                                FlutterFlowTheme.of(context).mediumSpringGreen,
                           ),
                           child: Padding(
                             padding:
@@ -88,7 +95,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                           },
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 Padding(
@@ -96,16 +103,16 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                       0, 15, 0, 0),
                                   child: Text(
                                     'Transaction Details',
-                                    style: FlutterFlowTheme.title2,
+                                    style: FlutterFlowTheme.of(context).title2,
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -121,7 +128,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 8,
-                      color: FlutterFlowTheme.jet,
+                      color: FlutterFlowTheme.of(context).jet,
                       offset: Offset(0, -2),
                     )
                   ],
@@ -145,12 +152,12 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                         width: double.infinity,
                         height: 150,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.jet,
+                          color: FlutterFlowTheme.of(context).jet,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Padding(
                               padding:
@@ -165,23 +172,31 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                         20, 0, 0, 0),
                                     child: Text(
                                       'Amount',
-                                      style: FlutterFlowTheme.title3.override(
-                                        fontFamily: 'Poppins',
-                                        color: Colors.white,
-                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .title3
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Colors.white,
+                                          ),
                                     ),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 20, 0),
                                     child: Text(
-                                      '${functions.getTxAmount().toString().toString()} SMH',
-                                      style: FlutterFlowTheme.title3.override(
-                                        fontFamily: 'Poppins',
-                                        color: FlutterFlowTheme.primaryColor,
-                                      ),
+                                      '${getJsonField(
+                                        widget.tx,
+                                        r'''$''',
+                                      ).toString()} SMH',
+                                      style: FlutterFlowTheme.of(context)
+                                          .title3
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                          ),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -189,81 +204,117 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                               thickness: 3,
                               indent: 15,
                               endIndent: 15,
-                              color: FlutterFlowTheme.primaryColor,
+                              color: FlutterFlowTheme.of(context).primaryColor,
                             ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
-                                      child: Text(
-                                        'Sender',
-                                        style:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
+                            Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
+                                        child: Text(
+                                          'Sender',
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle2
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 20, 0),
-                                      child: Text(
-                                        valueOrDefault<String>(
-                                          functions.getSenderAddress(),
-                                          'Not available',
-                                        ),
-                                        style: FlutterFlowTheme.title3.override(
-                                          fontFamily: 'Poppins',
-                                          color: FlutterFlowTheme.primaryColor,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
-                                      child: Text(
-                                        'Receiver',
-                                        style:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 20, 0),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            await Share.share(
+                                                functions.getSenderAddress());
+                                          },
+                                          child: Text(
+                                            valueOrDefault<String>(
+                                              getJsonField(
+                                                widget.tx,
+                                                r'''$''',
+                                              ).toString(),
+                                              'Not available',
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .subtitle2
+                                                .override(
+                                                  fontFamily:
+                                                      'Fira Sans Extra Condensed',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .mediumSpringGreen,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 20, 0),
-                                      child: Text(
-                                        valueOrDefault<String>(
-                                          functions.getReceiverAddress(),
-                                          'Not available',
-                                        ),
-                                        style: FlutterFlowTheme.title3.override(
-                                          fontFamily: 'Poppins',
-                                          color: FlutterFlowTheme.primaryColor,
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
+                                        child: Text(
+                                          'Receiver',
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle2
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
                                         ),
                                       ),
-                                    )
-                                  ],
-                                )
-                              ],
-                            )
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 20, 0),
+                                        child: Text(
+                                          valueOrDefault<String>(
+                                            getJsonField(
+                                              widget.tx,
+                                              r'''$''',
+                                            ).toString(),
+                                            'Not available',
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle2
+                                              .override(
+                                                fontFamily: 'Roboto Condensed',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .mediumSpringGreen,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -285,39 +336,47 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                     EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                                 child: Text(
                                   'Message',
-                                  style: FlutterFlowTheme.title3.override(
-                                    fontFamily: 'Poppins',
-                                    color: FlutterFlowTheme.jet,
-                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .title3
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context).jet,
+                                      ),
                                 ),
                               ),
                               Divider(
                                 thickness: 3,
-                                color: FlutterFlowTheme.mediumSpringGreen,
+                                color: FlutterFlowTheme.of(context)
+                                    .mediumSpringGreen,
                               ),
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                                 child: Text(
                                   valueOrDefault<String>(
-                                    functions.getTxMessage(),
+                                    getJsonField(
+                                      widget.tx,
+                                      r'''$''',
+                                    ).toString(),
                                     'Not available',
                                   ),
-                                  style: FlutterFlowTheme.title3.override(
-                                    fontFamily: 'Poppins',
-                                    color: FlutterFlowTheme.jet,
-                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .title3
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context).jet,
+                                      ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

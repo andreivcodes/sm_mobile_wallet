@@ -1,6 +1,6 @@
 {
-    "name": "sm_mobile_wallet",
-    "short_name": "sm_mobile_wallet",
+    "name": "sm-mobile-wallet",
+    "short_name": "sm-mobile-wallet",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -8,7 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddAccountChoiceWidget extends StatefulWidget {
-  AddAccountChoiceWidget({Key key}) : super(key: key);
+  const AddAccountChoiceWidget({Key key}) : super(key: key);
 
   @override
   _AddAccountChoiceWidgetState createState() => _AddAccountChoiceWidgetState();
@@ -22,7 +22,7 @@ class _AddAccountChoiceWidgetState extends State<AddAccountChoiceWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.primaryColor,
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         actions: [],
         centerTitle: true,
@@ -47,11 +47,12 @@ class _AddAccountChoiceWidgetState extends State<AddAccountChoiceWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(15, 15, 0, 0),
                     child: Text(
                       'Add a new account',
-                      style: FlutterFlowTheme.title1.override(
-                        fontFamily: 'Poppins',
-                        color: FlutterFlowTheme.mediumSpringGreen,
-                        fontWeight: FontWeight.w800,
-                      ),
+                      style: FlutterFlowTheme.of(context).title1.override(
+                            fontFamily: 'Poppins',
+                            color:
+                                FlutterFlowTheme.of(context).mediumSpringGreen,
+                            fontWeight: FontWeight.w800,
+                          ),
                     ),
                   ),
                 ),
@@ -126,32 +127,39 @@ class _AddAccountChoiceWidgetState extends State<AddAccountChoiceWidget> {
                                                   children: [
                                                     Text(
                                                       'Create',
-                                                      style: FlutterFlowTheme
-                                                          .subtitle1
-                                                          .override(
-                                                        fontFamily: 'Poppins',
-                                                        color: FlutterFlowTheme
-                                                            .tertiaryColor,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .tertiaryColor,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
                                                     ),
                                                     Text(
                                                       'Generate a new seed phrase and\ncreate a new wallet',
                                                       textAlign:
                                                           TextAlign.start,
                                                       style: FlutterFlowTheme
+                                                              .of(context)
                                                           .bodyText1
                                                           .override(
-                                                        fontFamily: 'Poppins',
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                      ),
-                                                    )
+                                                            fontFamily:
+                                                                'Poppins',
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                          ),
+                                                    ),
                                                   ],
                                                 ),
-                                              )
+                                              ),
                                             ],
                                           ),
                                           FlutterFlowIconButton(
@@ -162,13 +170,14 @@ class _AddAccountChoiceWidgetState extends State<AddAccountChoiceWidget> {
                                             icon: Icon(
                                               Icons.arrow_forward_ios,
                                               color:
-                                                  FlutterFlowTheme.primaryColor,
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
                                               size: 30,
                                             ),
                                             onPressed: () {
                                               print('IconButton pressed ...');
                                             },
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -223,32 +232,39 @@ class _AddAccountChoiceWidgetState extends State<AddAccountChoiceWidget> {
                                                   children: [
                                                     Text(
                                                       'Restore',
-                                                      style: FlutterFlowTheme
-                                                          .subtitle1
-                                                          .override(
-                                                        fontFamily: 'Poppins',
-                                                        color: FlutterFlowTheme
-                                                            .tertiaryColor,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .tertiaryColor,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
                                                     ),
                                                     Text(
                                                       'Restore a wallet from an existing \nseed phrase',
                                                       textAlign:
                                                           TextAlign.start,
                                                       style: FlutterFlowTheme
+                                                              .of(context)
                                                           .bodyText1
                                                           .override(
-                                                        fontFamily: 'Poppins',
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                      ),
-                                                    )
+                                                            fontFamily:
+                                                                'Poppins',
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                          ),
+                                                    ),
                                                   ],
                                                 ),
-                                              )
+                                              ),
                                             ],
                                           ),
                                           FlutterFlowIconButton(
@@ -259,28 +275,29 @@ class _AddAccountChoiceWidgetState extends State<AddAccountChoiceWidget> {
                                             icon: Icon(
                                               Icons.arrow_forward_ios,
                                               color:
-                                                  FlutterFlowTheme.primaryColor,
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
                                               size: 30,
                                             ),
                                             onPressed: () {
                                               print('IconButton pressed ...');
                                             },
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  Divider()
+                                  Divider(),
                                 ],
                               ),
                             ),
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

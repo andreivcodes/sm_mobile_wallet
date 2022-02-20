@@ -1,4 +1,5 @@
-import '../components/tx_in_widget.dart';
+import '../components/balance_card_widget.dart';
+import '../components/tx_entry_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -11,7 +12,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainScreenWidget extends StatefulWidget {
-  MainScreenWidget({Key key}) : super(key: key);
+  const MainScreenWidget({
+    Key key,
+    this.seed,
+  }) : super(key: key);
+
+  final String seed;
 
   @override
   _MainScreenWidgetState createState() => _MainScreenWidgetState();
@@ -19,17 +25,21 @@ class MainScreenWidget extends StatefulWidget {
 
 class _MainScreenWidgetState extends State<MainScreenWidget>
     with TickerProviderStateMixin {
-  bool _loadingButton1 = false;
-  bool _loadingButton2 = false;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
-    'txInOnPageLoadAnimation': AnimationInfo(
+    'txEntryOnPageLoadAnimation': AnimationInfo(
       curve: Curves.easeIn,
       trigger: AnimationTrigger.onPageLoad,
       duration: 1000,
       fadeIn: true,
+      initialState: AnimationState(
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        opacity: 1,
+      ),
     ),
   };
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -45,7 +55,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.primaryColor,
+      backgroundColor: FlutterFlowTheme.of(context).primaryColor,
       body: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(0, 35, 0, 0),
         child: Column(
@@ -58,77 +68,12 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                 width: double.infinity,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.primaryColor,
+                  color: FlutterFlowTheme.of(context).primaryColor,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.jet,
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 8,
-                              color: FlutterFlowTheme.jet,
-                              offset: Offset(0, -2),
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(15, 20, 15, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Balance',
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(20, 5, 20, 5),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 5),
-                                    child: Text(
-                                      '${valueOrDefault<String>(
-                                        functions.getBalance(),
-                                        '0',
-                                      )} SMH',
-                                      style: FlutterFlowTheme.title1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color:
-                                            FlutterFlowTheme.mediumSpringGreen,
-                                        fontSize: 32,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                    BalanceCardWidget(),
                     Expanded(
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
@@ -139,7 +84,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 8,
-                                color: FlutterFlowTheme.jet,
+                                color: FlutterFlowTheme.of(context).jet,
                                 offset: Offset(0, -1),
                               )
                             ],
@@ -166,8 +111,9 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                   children: [
                                     Text(
                                       'Transactions',
-                                      style: FlutterFlowTheme.bodyText2,
-                                    )
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText2,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -175,16 +121,21 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                 thickness: 3,
                                 indent: 25,
                                 endIndent: 25,
-                                color: FlutterFlowTheme.primaryColor,
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
                               ),
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 5, 0, 15),
-                                  child: Builder(
-                                    builder: (context) {
+                                  child: FutureBuilder(
+                                    future: functions.getTxList(
+                                        FFAppState().selectedNetworkJson,
+                                        FFAppState().publicKey.toList()),
+                                    builder: (context,
+                                        AsyncSnapshot<List> snapshot) {
                                       final txList =
-                                          functions.getTxList()?.toList() ?? [];
+                                          snapshot.data?.toList() ?? [];
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
                                         scrollDirection: Axis.vertical,
@@ -192,9 +143,17 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                         itemBuilder: (context, txListIndex) {
                                           final txListItem =
                                               txList[txListIndex];
-                                          return TxInWidget().animated([
+                                          return TxEntryWidget(
+                                            txJson: txListItem,
+                                            txPrimaryColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .mediumSpringGreen,
+                                            txSecondaryColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .customColor2,
+                                          ).animated([
                                             animationsMap[
-                                                'txInOnPageLoadAnimation']
+                                                'txEntryOnPageLoadAnimation']
                                           ]);
                                         },
                                       );
@@ -213,19 +172,13 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                   children: [
                                     FFButtonWidget(
                                       onPressed: () async {
-                                        setState(() => _loadingButton1 = true);
-                                        try {
-                                          await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SendTxWidget(),
-                                            ),
-                                          );
-                                        } finally {
-                                          setState(
-                                              () => _loadingButton1 = false);
-                                        }
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                SendTxWidget(),
+                                          ),
+                                        );
                                       },
                                       text: 'Send',
                                       icon: Icon(
@@ -235,35 +188,29 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                       options: FFButtonOptions(
                                         width: 130,
                                         height: 40,
-                                        color: FlutterFlowTheme.jet,
-                                        textStyle:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                        ),
+                                        color: FlutterFlowTheme.of(context).jet,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Colors.white,
+                                            ),
                                         borderSide: BorderSide(
                                           color: Colors.transparent,
                                           width: 1,
                                         ),
                                         borderRadius: 20,
                                       ),
-                                      loading: _loadingButton1,
                                     ),
                                     FFButtonWidget(
                                       onPressed: () async {
-                                        setState(() => _loadingButton2 = true);
-                                        try {
-                                          await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ReceiveTxWidget(),
-                                            ),
-                                          );
-                                        } finally {
-                                          setState(
-                                              () => _loadingButton2 = false);
-                                        }
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ReceiveTxWidget(),
+                                          ),
+                                        );
                                       },
                                       text: 'Receive',
                                       icon: Icon(
@@ -273,32 +220,32 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                       options: FFButtonOptions(
                                         width: 130,
                                         height: 40,
-                                        color: FlutterFlowTheme.jet,
-                                        textStyle:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                        ),
+                                        color: FlutterFlowTheme.of(context).jet,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Colors.white,
+                                            ),
                                         borderSide: BorderSide(
                                           color: Colors.transparent,
                                           width: 1,
                                         ),
                                         borderRadius: 20,
                                       ),
-                                      loading: _loadingButton2,
-                                    )
+                                    ),
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
