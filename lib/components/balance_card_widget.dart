@@ -73,11 +73,20 @@ class _BalanceCardWidgetState extends State<BalanceCardWidget> {
                                       .toList()), // async work
                               builder: (BuildContext context,
                                   AsyncSnapshot<String> snapshot) {
+                                double value =
+                                    double.parse(snapshot.data ?? "0");
+
+                                String unit =
+                                    value > 1000000000000 ? "SMH" : "SMD";
+
+                                if (value > 1000000000000)
+                                  value = value / 1000000000000;
+
                                 return Text(
                                   '${valueOrDefault<String>(
-                                    snapshot.data,
-                                    '0',
-                                  )} SMH',
+                                    value.toStringAsFixed(3),
+                                    "0",
+                                  )} $unit',
                                   style: FlutterFlowTheme.of(context)
                                       .title1
                                       .override(

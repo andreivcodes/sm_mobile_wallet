@@ -117,6 +117,9 @@ class _AccountCreatedWidgetState extends State<AccountCreatedWidget>
                 .getPublicaddressFromSeed(FFAppState().userSeed));
             var selnet =
                 (await functions.getNetworkJson(FFAppState().selectedNetwork));
+
+            await functions.connectNetwork(selnet);
+
             setState(() => FFAppState().privateKey = privk);
             setState(() => FFAppState().publicKey = pubk);
             setState(() => FFAppState().publicAddress = pubadd);

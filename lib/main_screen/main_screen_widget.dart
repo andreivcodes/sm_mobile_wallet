@@ -145,12 +145,6 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                               txList[txListIndex];
                                           return TxEntryWidget(
                                             txJson: txListItem,
-                                            txPrimaryColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .mediumSpringGreen,
-                                            txSecondaryColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .customColor2,
                                           ).animated([
                                             animationsMap[
                                                 'txEntryOnPageLoadAnimation']

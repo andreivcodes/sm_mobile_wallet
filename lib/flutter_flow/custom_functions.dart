@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:math' as math;
 import 'dart:typed_data';
 
@@ -16,22 +17,18 @@ import 'package:protospacemesh/protoc/gen/spacemesh/v1/mesh_types.pb.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:timeago/timeago.dart' as timeago;
+import '../app_state.dart';
 import 'lat_lng.dart';
 import 'place.dart';
 
 Ed25519Spacemesh ed25519 = new Ed25519Spacemesh();
 
+var apiChannel;
+
 Future<String> getBalance(
   dynamic networkJson,
   List<int> privateKey,
 ) async {
-  // Add your function code here!
-  final apiChannel = ClientChannel(
-    networkJson["grpcAPI"].substring(8).replaceAll("/", ""),
-    port: 443,
-    options: const ChannelOptions(credentials: ChannelCredentials.secure()),
-  );
-
   final accountClient = new GlobalStateServiceClient(apiChannel);
   AccountId accountQueryId = new AccountId(address: privateKey.sublist(24));
   AccountDataFilter accountQueryFilter = new AccountDataFilter(
@@ -43,28 +40,23 @@ Future<String> getBalance(
   AccountDataQueryResponse accountQueryResponse =
       await accountClient.accountDataQuery(accountQuery);
 
-  print(accountQueryResponse.accountItem.first.accountWrapper);
   var balance = accountQueryResponse
-      .accountItem.first.accountWrapper.stateProjected.balance
-      .toString();
+      .accountItem.first.accountWrapper.stateProjected.balance.value;
 
-  return balance;
+  return balance.toString();
 }
 
 String getSenderAddress() {
-  // Add your function code here!
   var senderAddress;
   return senderAddress;
 }
 
 String getReceiverAddress() {
-  // Add your function code here!
   var receiverAddress;
   return receiverAddress;
 }
 
 String getTxMessage() {
-  // Add your function code here!
   var txMessage;
   return txMessage;
 }
@@ -81,14 +73,12 @@ bool checkSeedPhrase(
 }
 
 bool copySeedPhraseToClipboard(String usedSeed) {
-  // Add your function code here!
   Clipboard.setData(ClipboardData(text: usedSeed));
   return true;
 }
 
 String getUserShortAddress() {
   return "";
-  // Add your function code here!
 }
 
 bool sendTx(
@@ -99,12 +89,10 @@ bool sendTx(
   List<int> privateKey,
 ) {
   return true;
-  // Add your function code here!
 }
 
 bool clearStorage() {
   return true;
-  // Add your function code here!
 }
 
 Future<List<String>> getAvailableNetworks() async {
@@ -119,6 +107,26 @@ Future<List<String>> getAvailableNetworks() async {
   }
 
   return networks;
+}
+
+dynamic getNetworkJson(String selectedNetwork) async {
+  final response =
+      await http.get(Uri.parse('https://discover.spacemesh.io/networks.json'));
+
+  var values = json.decode(response.body);
+
+  for (var item in values) {
+    if (item["netName"] == selectedNetwork) return item;
+  }
+}
+
+void connectNetwork(dynamic selectedNetwork) {
+  apiChannel = ClientChannel(
+    "ticktockbent.ddns.net",
+    //selectedNetwork["grpcAPI"].substring(8).replaceAll("/", ""),
+    port: 9092,
+    options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+  );
 }
 
 String generateSeed() {
@@ -172,30 +180,41 @@ Future<String> getPublicaddressFromSeed(String userSeed) async {
   return "0x" + hex.encode(addressIntList);
 }
 
-dynamic getNetworkJson(String selectedNetwork) async {
-  final response =
-      await http.get(Uri.parse('https://discover.spacemesh.io/networks.json'));
+class TX_Data {
+  Uint8List id;
+  Uint8List receiver;
+  Uint8List sender;
+  String type;
+  double amount;
+  int gas;
+  Uint8List signature;
+  int layer;
 
-  var values = json.decode(response.body);
-
-  for (var item in values) {
-    if (item["netName"] == selectedNetwork) return item;
-  }
+  TX_Data(
+      {this.id,
+      this.receiver,
+      this.sender,
+      this.amount,
+      this.type,
+      this.gas,
+      this.signature,
+      this.layer});
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'receiver': receiver,
+        'sender': sender,
+        'type': type,
+        'amount': amount,
+        'gas': gas,
+        'signature': signature,
+        'layer': layer
+      };
 }
 
 Future<List> getTxList(
   dynamic networkJson,
   List<int> publicKey,
 ) async {
-  print("Test");
-  print(networkJson);
-  // Add your function code here!
-  final apiChannel = ClientChannel(
-    networkJson["grpcAPI"].substring(8).replaceAll("/", ""),
-    port: 9092,
-    options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
-  );
-
   final meshClient = new MeshServiceClient(apiChannel);
 
   AccountId accountId = AccountId(address: publicKey);
@@ -209,7 +228,26 @@ Future<List> getTxList(
   AccountMeshDataQueryResponse response =
       await meshClient.accountMeshDataQuery(accDataRequest);
 
-  return response.data;
+  List txs = [];
+
+  for (var tx in response.data) {
+    var txInfo = TX_Data(
+        id: tx.meshTransaction.transaction.id.id,
+        receiver: tx.meshTransaction.transaction.coinTransfer.receiver.address,
+        sender: tx.meshTransaction.transaction.sender.address,
+        amount: tx.meshTransaction.transaction.amount.value.toDouble(),
+        type: tx.meshTransaction.transaction.sender.address ==
+                FFAppState().publicKey
+            ? "outgoing"
+            : "incoming",
+        gas: tx.meshTransaction.transaction.gasOffered.gasProvided.toInt(),
+        signature: tx.meshTransaction.transaction.signature.signature,
+        layer: tx.meshTransaction.layerId.number);
+
+    txs.add(txInfo);
+  }
+
+  return Future.value(txs);
 }
 
 String getAddressQRPath(String publicAddress) {

@@ -6,16 +6,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TxEntryWidget extends StatefulWidget {
-  const TxEntryWidget({
-    Key key,
-    this.txJson,
-    this.txPrimaryColor,
-    this.txSecondaryColor,
-  }) : super(key: key);
+  const TxEntryWidget({Key key, this.txJson}) : super(key: key);
 
   final dynamic txJson;
-  final Color txPrimaryColor;
-  final Color txSecondaryColor;
 
   @override
   _TxEntryWidgetState createState() => _TxEntryWidgetState();
@@ -54,7 +47,9 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(8, 5, 0, 5),
                 child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: widget.txSecondaryColor,
+                  color: widget.txJson.type == "incoming"
+                      ? Color(0x6F3AFFA7)
+                      : Color(0xFFFCC1A8),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
@@ -62,7 +57,9 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: widget.txSecondaryColor,
+                      color: widget.txJson.type == "incoming"
+                          ? Color(0x6F3AFFA7)
+                          : Color(0xFFFCC1A8),
                       shape: BoxShape.circle,
                     ),
                     child: Column(
@@ -73,10 +70,15 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                           width: 35,
                           height: 35,
                           decoration: BoxDecoration(
-                            color: widget.txPrimaryColor,
+                            color: widget.txJson.type == "incoming"
+                                ? FlutterFlowTheme.of(context).mediumSpringGreen
+                                : FlutterFlowTheme.of(context).secondaryColor,
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: widget.txPrimaryColor,
+                              color: widget.txJson.type == "incoming"
+                                  ? FlutterFlowTheme.of(context)
+                                      .mediumSpringGreen
+                                  : FlutterFlowTheme.of(context).secondaryColor,
                             ),
                           ),
                           child: Icon(
@@ -108,10 +110,7 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                         child: Text(
-                          getJsonField(
-                            widget.txJson,
-                            r'''$''',
-                          ).toString(),
+                          widget.txJson.type,
                           style:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Lexend Deca',
@@ -133,17 +132,13 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '${valueOrDefault<String>(
-                        getJsonField(
-                          widget.txJson,
-                          r'''$''',
-                        ).toString(),
-                        '0',
-                      )} SMH',
+                      '${widget.txJson.amount > 1000000000000 ? (widget.txJson.amount / 1000000000000).toString() + " SMH" : (widget.txJson.amount).toString() + " SMD"}',
                       textAlign: TextAlign.end,
                       style: FlutterFlowTheme.of(context).subtitle2.override(
                             fontFamily: 'Lexend Deca',
-                            color: widget.txPrimaryColor,
+                            color: widget.txJson.type == "incoming"
+                                ? FlutterFlowTheme.of(context).mediumSpringGreen
+                                : FlutterFlowTheme.of(context).secondaryColor,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
