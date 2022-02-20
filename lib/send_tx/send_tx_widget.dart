@@ -87,16 +87,38 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                                         color: Color(0xFFEEEEEE),
                                       ),
                             ),
-                            Text(
-                              '${functions.getBalance(FFAppState().selectedNetworkJson, FFAppState().privateKey.toList())} SMH',
-                              style: FlutterFlowTheme.of(context)
-                                  .subtitle1
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: FlutterFlowTheme.of(context)
-                                        .mediumSpringGreen,
-                                  ),
-                            ),
+                            FutureBuilder<String>(
+                              future: functions.getBalance(
+                                  FFAppState().selectedNetworkJson,
+                                  FFAppState()
+                                      .privateKey
+                                      .toList()), // async work
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<String> snapshot) {
+                                double value =
+                                    double.parse(snapshot.data ?? "0");
+
+                                String unit =
+                                    value > 1000000000000 ? "SMH" : "SMD";
+
+                                if (value > 1000000000000)
+                                  value = value / 1000000000000;
+
+                                return Text(
+                                  '${valueOrDefault<String>(
+                                    value.toStringAsFixed(3),
+                                    "0",
+                                  )} $unit',
+                                  style: FlutterFlowTheme.of(context)
+                                      .subtitle1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .mediumSpringGreen,
+                                      ),
+                                );
+                              },
+                            )
                           ],
                         ),
                       ),
@@ -132,7 +154,6 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                               controller: textController1,
                               obscureText: false,
                               decoration: InputDecoration(
-                                hintText: '[Some hint text about recipient...]',
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).jet,
@@ -242,7 +263,6 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                               controller: textController2,
                               obscureText: false,
                               decoration: InputDecoration(
-                                hintText: '[Some hint text about amount...]',
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).jet,
@@ -318,7 +338,6 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                               controller: textController3,
                               obscureText: false,
                               decoration: InputDecoration(
-                                hintText: '[Some hint text about fee...]',
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).jet,
