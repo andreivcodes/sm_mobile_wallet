@@ -80,11 +80,12 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 8,
-                                color: FlutterFlowTheme.of(context).jet,
+                                color: Color(0xFF373737),
                                 offset: Offset(0, -1),
                               )
                             ],
@@ -95,7 +96,8 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                               topRight: Radius.circular(16),
                             ),
                             border: Border.all(
-                              color: Colors.white,
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
                             ),
                           ),
                           child: Column(
@@ -182,12 +184,15 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                       options: FFButtonOptions(
                                         width: 130,
                                         height: 40,
-                                        color: FlutterFlowTheme.of(context).jet,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .subtitle2
                                             .override(
                                               fontFamily: 'Poppins',
-                                              color: Colors.white,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
                                             ),
                                         borderSide: BorderSide(
                                           color: Colors.transparent,
@@ -214,12 +219,15 @@ class _MainScreenWidgetState extends State<MainScreenWidget>
                                       options: FFButtonOptions(
                                         width: 130,
                                         height: 40,
-                                        color: FlutterFlowTheme.of(context).jet,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .subtitle2
                                             .override(
                                               fontFamily: 'Poppins',
-                                              color: Colors.white,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
                                             ),
                                         borderSide: BorderSide(
                                           color: Colors.transparent,

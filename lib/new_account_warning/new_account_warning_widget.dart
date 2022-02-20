@@ -23,14 +23,15 @@ class _NewAccountWarningWidgetState extends State<NewAccountWarningWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).mediumSpringGreen,
-        iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).jet),
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        iconTheme: IconThemeData(
+            color: FlutterFlowTheme.of(context).primaryBackground),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: Color(0xFF14181B),
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -59,8 +60,7 @@ class _NewAccountWarningWidgetState extends State<NewAccountWarningWidget> {
                       'Back up your seed phrase!',
                       style: FlutterFlowTheme.of(context).title1.override(
                             fontFamily: 'Poppins',
-                            color:
-                                FlutterFlowTheme.of(context).mediumSpringGreen,
+                            color: FlutterFlowTheme.of(context).primaryColor,
                             fontWeight: FontWeight.bold,
                           ),
                     ),
@@ -72,7 +72,8 @@ class _NewAccountWarningWidgetState extends State<NewAccountWarningWidget> {
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyText1.override(
                             fontFamily: 'Poppins',
-                            color: Colors.white,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                           ),
                     ),
                   ),
@@ -83,7 +84,7 @@ class _NewAccountWarningWidgetState extends State<NewAccountWarningWidget> {
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyText1.override(
                             fontFamily: 'Poppins',
-                            color: FlutterFlowTheme.of(context).secondaryColor,
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
                           ),
                     ),
                   ),
@@ -110,10 +111,10 @@ class _NewAccountWarningWidgetState extends State<NewAccountWarningWidget> {
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 50,
-                    color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                    color: FlutterFlowTheme.of(context).primaryColor,
                     textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                           fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.of(context).jet,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
                     borderSide: BorderSide(
                       color: Colors.transparent,

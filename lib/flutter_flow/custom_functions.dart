@@ -21,8 +21,10 @@ import 'package:protospacemesh/protoc/gen/spacemesh/v1/tx.pbgrpc.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/tx_types.pb.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
 import 'package:bip39/bip39.dart' as bip39;
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../app_state.dart';
+import 'flutter_flow_theme.dart';
 import 'lat_lng.dart';
 import 'place.dart';
 
@@ -146,10 +148,11 @@ dynamic getNetworkJson(String selectedNetwork) async {
 
 void connectNetwork(dynamic selectedNetwork) {
   apiChannel = ClientChannel(
-    "ticktockbent.ddns.net",
-    //selectedNetwork["grpcAPI"].substring(8).replaceAll("/", ""),
-    port: 9092,
-    options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+    //"ticktockbent.ddns.net",
+    //port: 9092,
+    selectedNetwork["grpcAPI"].substring(8).replaceAll("/", ""),
+    port: 443,
+    options: const ChannelOptions(credentials: ChannelCredentials.secure()),
   );
 }
 
@@ -246,8 +249,15 @@ Future<List> getTxList(
   return Future.value(txs);
 }
 
-String getAddressQRPath(String publicAddress) {
-  return "";
+QrImage getAddressQR(String publicAddress, context) {
+  return QrImage(
+    data: FFAppState().publicAddress,
+    version: QrVersions.auto,
+    size: 2.0,
+    foregroundColor: Colors.black,
+    backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+    padding: const EdgeInsets.all(35.0),
+  );
 }
 
 class TX_Data {

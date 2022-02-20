@@ -22,11 +22,11 @@ class _BalanceCardWidgetState extends State<BalanceCardWidget> {
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).jet,
+          color: FlutterFlowTheme.of(context).primaryBackground,
           boxShadow: [
             BoxShadow(
               blurRadius: 8,
-              color: FlutterFlowTheme.of(context).jet,
+              color: Color(0xFF373737),
               offset: Offset(0, -2),
             )
           ],
@@ -50,7 +50,8 @@ class _BalanceCardWidgetState extends State<BalanceCardWidget> {
                           style:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Lexend Deca',
-                                    color: Colors.white,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -92,7 +93,7 @@ class _BalanceCardWidgetState extends State<BalanceCardWidget> {
                                       .override(
                                         fontFamily: 'Lexend Deca',
                                         color: FlutterFlowTheme.of(context)
-                                            .mediumSpringGreen,
+                                            .primaryColor,
                                         fontSize: 32,
                                         fontWeight: FontWeight.bold,
                                       ),

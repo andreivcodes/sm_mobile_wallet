@@ -23,7 +23,7 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
         width: double.infinity,
         height: 75,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).jet,
+          color: FlutterFlowTheme.of(context).primaryBackground,
           borderRadius: BorderRadius.circular(8),
         ),
         child: InkWell(
@@ -48,8 +48,8 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                 child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   color: widget.txJson.type == "incoming"
-                      ? Color(0x6F3AFFA7)
-                      : FlutterFlowTheme.of(context).secondaryColor,
+                      ? FlutterFlowTheme.of(context).secondaryColor
+                      : FlutterFlowTheme.of(context).tertiaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
@@ -58,8 +58,8 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                     height: 50,
                     decoration: BoxDecoration(
                       color: widget.txJson.type == "incoming"
-                          ? Color(0x6F3AFFA7)
-                          : FlutterFlowTheme.of(context).secondaryColor,
+                          ? FlutterFlowTheme.of(context).secondaryColor
+                          : FlutterFlowTheme.of(context).tertiaryColor,
                       shape: BoxShape.circle,
                     ),
                     child: Column(
@@ -71,19 +71,21 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                           height: 35,
                           decoration: BoxDecoration(
                             color: widget.txJson.type == "incoming"
-                                ? FlutterFlowTheme.of(context).mediumSpringGreen
-                                : Color(0xFFFCC1A8),
+                                ? FlutterFlowTheme.of(context).primaryColor
+                                : FlutterFlowTheme.of(context).alternate,
                             shape: BoxShape.circle,
                             border: Border.all(
                               color: widget.txJson.type == "incoming"
-                                  ? FlutterFlowTheme.of(context)
-                                      .mediumSpringGreen
-                                  : Color(0xFFFCC1A8),
+                                  ? FlutterFlowTheme.of(context).primaryColor
+                                  : FlutterFlowTheme.of(context).alternate,
                             ),
                           ),
                           child: Icon(
-                            Icons.arrow_circle_down_rounded,
-                            color: FlutterFlowTheme.of(context).jet,
+                            widget.txJson.type == "incoming"
+                                ? Icons.arrow_circle_down_rounded
+                                : Icons.arrow_circle_up_rounded,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
                             size: 24,
                           ),
                         ),
@@ -137,8 +139,8 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                       style: FlutterFlowTheme.of(context).subtitle2.override(
                             fontFamily: 'Lexend Deca',
                             color: widget.txJson.type == "incoming"
-                                ? FlutterFlowTheme.of(context).mediumSpringGreen
-                                : FlutterFlowTheme.of(context).secondaryColor,
+                                ? FlutterFlowTheme.of(context).primaryColor
+                                : FlutterFlowTheme.of(context).tertiaryColor,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),

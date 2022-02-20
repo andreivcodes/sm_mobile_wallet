@@ -25,13 +25,14 @@ class _SettingsWidgetState extends State<SettingsWidget> {
       key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
-        iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).jet),
+        iconTheme: IconThemeData(
+            color: FlutterFlowTheme.of(context).primaryBackground),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).customColor1,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -51,7 +52,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       'Netork Selection',
                       style: FlutterFlowTheme.of(context).bodyText1.override(
                             fontFamily: 'Poppins',
-                            color: Color(0xFFEEEEEE),
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                           ),
                     ),
                   ),
@@ -76,10 +78,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     FlutterFlowTheme.of(context).primaryColor,
                               ),
                           hintText: 'Please select...',
-                          fillColor: FlutterFlowTheme.of(context).jet,
+                          fillColor:
+                              FlutterFlowTheme.of(context).primaryBackground,
                           elevation: 2,
                           borderColor:
-                              FlutterFlowTheme.of(context).primaryColor,
+                              FlutterFlowTheme.of(context).secondaryColor,
                           borderWidth: 1,
                           borderRadius: 12,
                           margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
@@ -101,7 +104,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               ),
               Divider(
                 thickness: 1,
-                color: FlutterFlowTheme.of(context).xanadu,
+                color: Color(0xFF808F85),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
@@ -109,7 +112,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   'Clear application storage data \n(including current seed phrase)',
                   style: FlutterFlowTheme.of(context).bodyText1.override(
                         fontFamily: 'Poppins',
-                        color: Color(0xFFEEEEEE),
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
                 ),
               ),
@@ -131,7 +134,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   color: FlutterFlowTheme.of(context).primaryColor,
                   textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                         fontFamily: 'Poppins',
-                        color: FlutterFlowTheme.of(context).jet,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                       ),
                   borderSide: BorderSide(
                     color: Colors.transparent,

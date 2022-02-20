@@ -36,20 +36,19 @@ class _SendTxWidgetState extends State<SendTxWidget> {
       key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
-        iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).jet),
+        iconTheme: IconThemeData(
+            color: FlutterFlowTheme.of(context).primaryBackground),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).customColor1,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).customColor1,
-          ),
+          decoration: BoxDecoration(),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -62,7 +61,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                     'Send smesh',
                     style: FlutterFlowTheme.of(context).title1.override(
                           fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                          color: FlutterFlowTheme.of(context).primaryColor,
                         ),
                   ),
                 ),
@@ -114,7 +113,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                                       .override(
                                         fontFamily: 'Poppins',
                                         color: FlutterFlowTheme.of(context)
-                                            .mediumSpringGreen,
+                                            .primaryColor,
                                       ),
                                 );
                               },
@@ -141,7 +140,8 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                                     .bodyText1
                                     .override(
                                       fontFamily: 'Poppins',
-                                      color: Color(0xFFEEEEEE),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
                                     ),
                               ),
                             ),
@@ -156,14 +156,16 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).jet,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryColor,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).jet,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryColor,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(5),
@@ -177,8 +179,8 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                                         ),
                                         child: Icon(
                                           Icons.clear,
-                                          color:
-                                              FlutterFlowTheme.of(context).jet,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
                                           size: 22,
                                         ),
                                       )
@@ -189,7 +191,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                                   .override(
                                     fontFamily: 'Poppins',
                                     color: FlutterFlowTheme.of(context)
-                                        .mediumSpringGreen,
+                                        .primaryColor,
                                   ),
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.number,
@@ -207,7 +209,8 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                                         .bodyText1
                                         .override(
                                           fontFamily: 'Poppins',
-                                          color: Color(0xFFEEEEEE),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                         ),
                                   ),
                                 ),
@@ -218,8 +221,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                                   buttonSize: 60,
                                   icon: Icon(
                                     Icons.photo_camera,
-                                    color: FlutterFlowTheme.of(context)
-                                        .mediumSpringGreen,
+                                    color: Color(0xFF3AFFA7),
                                     size: 30,
                                   ),
                                   onPressed: () {
@@ -250,7 +252,8 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                                     .bodyText1
                                     .override(
                                       fontFamily: 'Poppins',
-                                      color: Color(0xFFEEEEEE),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
                                     ),
                               ),
                             ),
@@ -265,14 +268,16 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).jet,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryColor,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).jet,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryColor,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(5),
@@ -286,8 +291,8 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                                         ),
                                         child: Icon(
                                           Icons.clear,
-                                          color:
-                                              FlutterFlowTheme.of(context).jet,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
                                           size: 22,
                                         ),
                                       )
@@ -298,7 +303,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                                   .override(
                                     fontFamily: 'Poppins',
                                     color: FlutterFlowTheme.of(context)
-                                        .mediumSpringGreen,
+                                        .primaryColor,
                                   ),
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.number,
@@ -325,7 +330,8 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                                     .bodyText1
                                     .override(
                                       fontFamily: 'Poppins',
-                                      color: Color(0xFFEEEEEE),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
                                     ),
                               ),
                             ),
@@ -340,14 +346,16 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).jet,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryColor,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).jet,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryColor,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(5),
@@ -361,8 +369,8 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                                         ),
                                         child: Icon(
                                           Icons.clear,
-                                          color:
-                                              FlutterFlowTheme.of(context).jet,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
                                           size: 22,
                                         ),
                                       )
@@ -373,7 +381,7 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                                   .override(
                                     fontFamily: 'Poppins',
                                     color: FlutterFlowTheme.of(context)
-                                        .mediumSpringGreen,
+                                        .primaryColor,
                                   ),
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.number,
@@ -410,11 +418,13 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                       width: 130,
                       height: 40,
                       color: FlutterFlowTheme.of(context).primaryColor,
-                      textStyle:
-                          FlutterFlowTheme.of(context).subtitle2.override(
-                                fontFamily: 'Poppins',
-                                color: FlutterFlowTheme.of(context).jet,
-                              ),
+                      textStyle: FlutterFlowTheme.of(context)
+                          .subtitle2
+                          .override(
+                            fontFamily: 'Poppins',
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                          ),
                       borderSide: BorderSide(
                         color: Colors.transparent,
                         width: 1,

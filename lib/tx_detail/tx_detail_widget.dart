@@ -49,8 +49,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                           width: MediaQuery.of(context).size.width,
                           height: 150,
                           decoration: BoxDecoration(
-                            color:
-                                FlutterFlowTheme.of(context).mediumSpringGreen,
+                            color: Color(0xFF3AFFA7),
                           ),
                           child: Padding(
                             padding:
@@ -63,7 +62,8 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                   children: [
                                     Card(
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Colors.white,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
                                       elevation: 2,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(30),
@@ -77,7 +77,8 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                           buttonSize: 46,
                                           icon: Icon(
                                             Icons.arrow_back_ios_rounded,
-                                            color: Color(0xFF4B39EF),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
                                             size: 16,
                                           ),
                                           onPressed: () async {
@@ -104,7 +105,13 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                       0, 15, 0, 0),
                                   child: Text(
                                     'Transaction Details',
-                                    style: FlutterFlowTheme.of(context).title2,
+                                    style: FlutterFlowTheme.of(context)
+                                        .title2
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                        ),
                                   ),
                                 ),
                               ],
@@ -125,11 +132,11 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                   maxHeight: double.infinity,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 8,
-                      color: FlutterFlowTheme.of(context).jet,
+                      color: Color(0xFF373737),
                       offset: Offset(0, -2),
                     )
                   ],
@@ -140,7 +147,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                     topRight: Radius.circular(16),
                   ),
                   border: Border.all(
-                    color: Colors.white,
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
                 ),
                 child: Column(
@@ -153,7 +160,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                         width: double.infinity,
                         height: 150,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).jet,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Column(
@@ -177,7 +184,8 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                           .title3
                                           .override(
                                             fontFamily: 'Poppins',
-                                            color: Colors.white,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
                                           ),
                                     ),
                                   ),
@@ -227,7 +235,9 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                               .subtitle2
                                               .override(
                                                 fontFamily: 'Poppins',
-                                                color: Colors.white,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
                                                 fontSize: 16,
                                               ),
                                         ),
@@ -253,7 +263,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                                       'Fira Sans Extra Condensed',
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .mediumSpringGreen,
+                                                      .primaryColor,
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w300,
                                                 ),
@@ -298,7 +308,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                                 fontFamily: 'Roboto Condensed',
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .mediumSpringGreen,
+                                                        .primaryColor,
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w300,
                                               ),
@@ -334,14 +344,15 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                       .title3
                                       .override(
                                         fontFamily: 'Poppins',
-                                        color: FlutterFlowTheme.of(context).jet,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
                                       ),
                                 ),
                               ),
                               Divider(
                                 thickness: 3,
-                                color: FlutterFlowTheme.of(context)
-                                    .mediumSpringGreen,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryColor,
                               ),
                               Padding(
                                 padding:
@@ -352,7 +363,8 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                       .subtitle2
                                       .override(
                                         fontFamily: 'Poppins',
-                                        color: FlutterFlowTheme.of(context).jet,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
                                       ),
                                 ),
                               ),

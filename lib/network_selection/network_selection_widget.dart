@@ -24,14 +24,15 @@ class _NetworkSelectionWidgetState extends State<NetworkSelectionWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).mediumSpringGreen,
-        iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).jet),
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        iconTheme: IconThemeData(
+            color: FlutterFlowTheme.of(context).primaryBackground),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: Color(0xFF14181B),
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -51,8 +52,7 @@ class _NetworkSelectionWidgetState extends State<NetworkSelectionWidget> {
                       'Network selection',
                       style: FlutterFlowTheme.of(context).title1.override(
                             fontFamily: 'Poppins',
-                            color:
-                                FlutterFlowTheme.of(context).mediumSpringGreen,
+                            color: FlutterFlowTheme.of(context).primaryColor,
                             fontWeight: FontWeight.bold,
                           ),
                     ),
@@ -64,7 +64,8 @@ class _NetworkSelectionWidgetState extends State<NetworkSelectionWidget> {
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyText1.override(
                             fontFamily: 'Poppins',
-                            color: Colors.white,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                           ),
                     ),
                   ),
@@ -91,10 +92,11 @@ class _NetworkSelectionWidgetState extends State<NetworkSelectionWidget> {
                                         .primaryColor,
                                   ),
                               hintText: 'Please select...',
-                              fillColor: FlutterFlowTheme.of(context).jet,
+                              fillColor: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
                               elevation: 2,
                               borderColor:
-                                  FlutterFlowTheme.of(context).primaryColor,
+                                  FlutterFlowTheme.of(context).secondaryColor,
                               borderWidth: 1,
                               borderRadius: 12,
                               margin:
@@ -134,10 +136,10 @@ class _NetworkSelectionWidgetState extends State<NetworkSelectionWidget> {
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 50,
-                    color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                    color: FlutterFlowTheme.of(context).primaryColor,
                     textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                           fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.of(context).jet,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
                     borderSide: BorderSide(
                       color: Colors.transparent,

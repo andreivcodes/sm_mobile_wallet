@@ -2,9 +2,31 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+const kThemeModeKey = '__theme_mode__';
+SharedPreferences _prefs;
 
 abstract class FlutterFlowTheme {
-  static FlutterFlowTheme of(BuildContext context) => LightModeTheme();
+  static Future initialize() async =>
+      _prefs = await SharedPreferences.getInstance();
+  static ThemeMode get themeMode {
+    final darkMode = _prefs?.getBool(kThemeModeKey);
+    return darkMode == null
+        ? ThemeMode.system
+        : darkMode
+            ? ThemeMode.dark
+            : ThemeMode.light;
+  }
+
+  static void saveThemeMode(ThemeMode mode) => mode == ThemeMode.system
+      ? _prefs?.remove(kThemeModeKey)
+      : _prefs?.setBool(kThemeModeKey, mode == ThemeMode.dark);
+
+  static FlutterFlowTheme of(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark
+          ? DarkModeTheme()
+          : LightModeTheme();
 
   Color primaryColor;
   Color secondaryColor;
@@ -14,14 +36,6 @@ abstract class FlutterFlowTheme {
   Color secondaryBackground;
   Color primaryText;
   Color secondaryText;
-
-  Color black;
-  Color mediumSpringGreen;
-  Color jet;
-  Color xanadu;
-  Color blueMunsell;
-  Color customColor1;
-  Color customColor2;
 
   TextStyle get title1 => GoogleFonts.getFont(
         'Poppins',
@@ -61,7 +75,7 @@ abstract class FlutterFlowTheme {
       );
   TextStyle get bodyText2 => GoogleFonts.getFont(
         'Poppins',
-        color: black,
+        color: Colors.black,
         fontWeight: FontWeight.normal,
         fontSize: 14,
       );
@@ -69,21 +83,24 @@ abstract class FlutterFlowTheme {
 
 class LightModeTheme extends FlutterFlowTheme {
   Color primaryColor = const Color(0xFF3AFFA7);
-  Color secondaryColor = const Color(0xFFEE8B60);
-  Color tertiaryColor = const Color(0xFFFFFFFF);
-  Color alternate = const Color(0x00000000);
-  Color primaryBackground = const Color(0x00000000);
-  Color secondaryBackground = const Color(0x00000000);
-  Color primaryText = const Color(0x00000000);
-  Color secondaryText = const Color(0x00000000);
+  Color secondaryColor = const Color(0xFF24A972);
+  Color tertiaryColor = const Color(0xFFEE8B60);
+  Color alternate = const Color(0xFFFCC1A8);
+  Color primaryBackground = const Color(0xFF303030);
+  Color secondaryBackground = const Color(0xFFFFFFFF);
+  Color primaryText = const Color(0xFF000000);
+  Color secondaryText = const Color(0xFF14181B);
+}
 
-  Color black = Color(0xFF000000);
-  Color mediumSpringGreen = Color(0xFF3AFFA7);
-  Color jet = Color(0xFF373737);
-  Color xanadu = Color(0xFF808F85);
-  Color blueMunsell = Color(0xFF3B8EA5);
-  Color customColor1 = Color(0xFF14181B);
-  Color customColor2 = Color(0xFF2AB476);
+class DarkModeTheme extends FlutterFlowTheme {
+  Color primaryColor = const Color(0xFF3AFFA7);
+  Color secondaryColor = const Color(0xFF24A972);
+  Color tertiaryColor = const Color(0xFFEE8B60);
+  Color alternate = const Color(0xFFFCC1A8);
+  Color primaryBackground = const Color(0xFF303030);
+  Color secondaryBackground = const Color(0xFFFFFFFF);
+  Color primaryText = const Color(0xFF000000);
+  Color secondaryText = const Color(0xFF14181B);
 }
 
 extension TextStyleHelper on TextStyle {

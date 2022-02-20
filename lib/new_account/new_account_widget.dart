@@ -25,14 +25,14 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).mediumSpringGreen,
-        iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).jet),
+        backgroundColor: Color(0xFF3AFFA7),
+        iconTheme: IconThemeData(color: Color(0xFF373737)),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: Color(0xFF14181B),
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -48,7 +48,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).title1.override(
                       fontFamily: 'Poppins',
-                      color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                      color: FlutterFlowTheme.of(context).primaryColor,
                       fontSize: 24,
                     ),
               ),
@@ -60,7 +60,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(
-                      color: FlutterFlowTheme.of(context).jet,
+                      color: FlutterFlowTheme.of(context).secondaryColor,
                       width: 2,
                     ),
                   ),
@@ -83,7 +83,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                                   .override(
                                     fontFamily: 'Poppins',
                                     color: FlutterFlowTheme.of(context)
-                                        .secondaryColor,
+                                        .primaryColor,
                                     fontWeight: FontWeight.w600,
                                   ),
                             ),
@@ -97,7 +97,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                         buttonSize: 60,
                         icon: FaIcon(
                           FontAwesomeIcons.copy,
-                          color: FlutterFlowTheme.of(context).jet,
+                          color: FlutterFlowTheme.of(context).secondaryColor,
                           size: 30,
                         ),
                         onPressed: () async {
@@ -146,10 +146,10 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 50,
-                    color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                    color: FlutterFlowTheme.of(context).primaryColor,
                     textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                           fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.of(context).jet,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
                     borderSide: BorderSide(
                       color: Colors.transparent,

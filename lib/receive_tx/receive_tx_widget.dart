@@ -22,13 +22,14 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
       key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
-        iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).jet),
+        iconTheme: IconThemeData(
+            color: FlutterFlowTheme.of(context).primaryBackground),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).customColor1,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -50,7 +51,7 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
               'Share your address or QR code',
               style: FlutterFlowTheme.of(context).subtitle2.override(
                     fontFamily: 'Poppins',
-                    color: Color(0xFFEEEEEE),
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
             ),
             Padding(
@@ -62,10 +63,8 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                 ),
-                child: Image.network(
-                  functions.getAddressQRPath(FFAppState().publicAddress),
-                  fit: BoxFit.none,
-                ),
+                child:
+                    functions.getAddressQR(FFAppState().publicAddress, context),
               ),
             ),
             Padding(
@@ -80,7 +79,7 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).jet,
+                            color: FlutterFlowTheme.of(context).secondaryColor,
                             width: 2,
                           ),
                         ),
@@ -88,12 +87,13 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                           child: Text(
                             FFAppState().publicAddress,
-                            style:
-                                FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Poppins',
-                                      color: FlutterFlowTheme.of(context)
-                                          .mediumSpringGreen,
-                                    ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                ),
                           ),
                         ),
                       ),
@@ -106,7 +106,7 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
                     buttonSize: 60,
                     icon: Icon(
                       Icons.content_copy,
-                      color: FlutterFlowTheme.of(context).jet,
+                      color: FlutterFlowTheme.of(context).secondaryColor,
                       size: 30,
                     ),
                     onPressed: () {

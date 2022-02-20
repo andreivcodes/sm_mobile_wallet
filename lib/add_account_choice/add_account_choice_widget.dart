@@ -28,7 +28,7 @@ class _AddAccountChoiceWidgetState extends State<AddAccountChoiceWidget> {
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: Color(0xFF14181B),
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -49,8 +49,7 @@ class _AddAccountChoiceWidgetState extends State<AddAccountChoiceWidget> {
                       'Add a new account',
                       style: FlutterFlowTheme.of(context).title1.override(
                             fontFamily: 'Poppins',
-                            color:
-                                FlutterFlowTheme.of(context).mediumSpringGreen,
+                            color: FlutterFlowTheme.of(context).primaryColor,
                             fontWeight: FontWeight.w800,
                           ),
                     ),
@@ -136,7 +135,7 @@ class _AddAccountChoiceWidgetState extends State<AddAccountChoiceWidget> {
                                                                     'Poppins',
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .tertiaryColor,
+                                                                    .primaryColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -146,16 +145,20 @@ class _AddAccountChoiceWidgetState extends State<AddAccountChoiceWidget> {
                                                       'Generate a new seed phrase and\ncreate a new wallet',
                                                       textAlign:
                                                           TextAlign.start,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyText1
-                                                          .override(
-                                                            fontFamily:
-                                                                'Poppins',
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                          ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300,
+                                                              ),
                                                     ),
                                                   ],
                                                 ),
@@ -241,7 +244,7 @@ class _AddAccountChoiceWidgetState extends State<AddAccountChoiceWidget> {
                                                                     'Poppins',
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .tertiaryColor,
+                                                                    .primaryColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -251,16 +254,20 @@ class _AddAccountChoiceWidgetState extends State<AddAccountChoiceWidget> {
                                                       'Restore a wallet from an existing \nseed phrase',
                                                       textAlign:
                                                           TextAlign.start,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyText1
-                                                          .override(
-                                                            fontFamily:
-                                                                'Poppins',
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                          ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300,
+                                                              ),
                                                     ),
                                                   ],
                                                 ),

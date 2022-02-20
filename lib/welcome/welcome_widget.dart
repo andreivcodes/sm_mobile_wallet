@@ -23,7 +23,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFF14181B),
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -106,7 +106,9 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                                               .title1
                                               .override(
                                                 fontFamily: 'Lexend Deca',
-                                                color: Colors.white,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
                                                 fontSize: 32,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -129,7 +131,9 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                                               .subtitle2
                                               .override(
                                                 fontFamily: 'Lexend Deca',
-                                                color: Color(0x99FFFFFF),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.normal,
                                               ),
@@ -349,11 +353,12 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 50,
-                        color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                        color: FlutterFlowTheme.of(context).primaryColor,
                         textStyle:
                             FlutterFlowTheme.of(context).subtitle2.override(
                                   fontFamily: 'Poppins',
-                                  color: FlutterFlowTheme.of(context).jet,
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
                                 ),
                         borderSide: BorderSide(
                           color: Colors.transparent,

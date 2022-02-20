@@ -30,14 +30,14 @@ class _NewAccountCheckWidgetState extends State<NewAccountCheckWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).mediumSpringGreen,
-        iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).jet),
+        backgroundColor: Color(0xFF3AFFA7),
+        iconTheme: IconThemeData(color: Color(0xFF373737)),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: Color(0xFF14181B),
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -56,7 +56,7 @@ class _NewAccountCheckWidgetState extends State<NewAccountCheckWidget> {
                   textAlign: TextAlign.start,
                   style: FlutterFlowTheme.of(context).title1.override(
                         fontFamily: 'Poppins',
-                        color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                        color: FlutterFlowTheme.of(context).primaryColor,
                       ),
                 ),
               ),
@@ -67,7 +67,7 @@ class _NewAccountCheckWidgetState extends State<NewAccountCheckWidget> {
                   textAlign: TextAlign.start,
                   style: FlutterFlowTheme.of(context).bodyText1.override(
                         fontFamily: 'Poppins',
-                        color: Colors.white,
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
                 ),
               ),
@@ -84,14 +84,14 @@ class _NewAccountCheckWidgetState extends State<NewAccountCheckWidget> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).jet,
+                        color: FlutterFlowTheme.of(context).secondaryColor,
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).jet,
+                        color: FlutterFlowTheme.of(context).secondaryColor,
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(5),
@@ -103,7 +103,7 @@ class _NewAccountCheckWidgetState extends State<NewAccountCheckWidget> {
                             ),
                             child: Icon(
                               Icons.clear,
-                              color: FlutterFlowTheme.of(context).jet,
+                              color: Color(0xFF373737),
                               size: 22,
                             ),
                           )
@@ -111,7 +111,7 @@ class _NewAccountCheckWidgetState extends State<NewAccountCheckWidget> {
                   ),
                   style: FlutterFlowTheme.of(context).bodyText1.override(
                         fontFamily: 'Poppins',
-                        color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                        color: FlutterFlowTheme.of(context).primaryColor,
                         fontWeight: FontWeight.w600,
                       ),
                   maxLines: 5,
@@ -136,10 +136,10 @@ class _NewAccountCheckWidgetState extends State<NewAccountCheckWidget> {
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 50,
-                    color: FlutterFlowTheme.of(context).mediumSpringGreen,
+                    color: FlutterFlowTheme.of(context).primaryColor,
                     textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                           fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.of(context).jet,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
                     borderSide: BorderSide(
                       color: Colors.transparent,

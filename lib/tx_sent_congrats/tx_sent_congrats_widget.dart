@@ -89,16 +89,13 @@ class _TxSentCongratsWidgetState extends State<TxSentCongratsWidget>
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFF1E2429),
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              FlutterFlowTheme.of(context).mediumSpringGreen
-            ],
+            colors: [Colors.white, FlutterFlowTheme.of(context).primaryColor],
             stops: [0, 1],
             begin: AlignmentDirectional(0.14, -1),
             end: AlignmentDirectional(-0.14, 1),
@@ -134,7 +131,7 @@ class _TxSentCongratsWidgetState extends State<TxSentCongratsWidget>
                   'Transaction sent!',
                   style: FlutterFlowTheme.of(context).title1.override(
                         fontFamily: 'Lexend Deca',
-                        color: FlutterFlowTheme.of(context).jet,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
                       ),
