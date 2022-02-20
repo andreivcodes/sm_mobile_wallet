@@ -67,10 +67,6 @@ bool copySeedPhraseToClipboard(String usedSeed) {
   return true;
 }
 
-String getUserShortAddress() {
-  return "";
-}
-
 Future<bool> sendTx(
   String recipient,
   String amount,
@@ -208,37 +204,6 @@ Future<String> getPublicaddressFromSeed(String userSeed) async {
   return "0x" + hex.encode(addressIntList);
 }
 
-class TX_Data {
-  Uint8List id;
-  Uint8List receiver;
-  Uint8List sender;
-  String type;
-  double amount;
-  int gas;
-  Uint8List signature;
-  int layer;
-
-  TX_Data(
-      {this.id,
-      this.receiver,
-      this.sender,
-      this.amount,
-      this.type,
-      this.gas,
-      this.signature,
-      this.layer});
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'receiver': receiver,
-        'sender': sender,
-        'type': type,
-        'amount': amount,
-        'gas': gas,
-        'signature': signature,
-        'layer': layer
-      };
-}
-
 Future<List> getTxList(
   dynamic networkJson,
   List<int> publicKey,
@@ -283,4 +248,35 @@ Future<List> getTxList(
 
 String getAddressQRPath(String publicAddress) {
   return "";
+}
+
+class TX_Data {
+  Uint8List id;
+  Uint8List receiver;
+  Uint8List sender;
+  String type;
+  double amount;
+  int gas;
+  Uint8List signature;
+  int layer;
+
+  TX_Data(
+      {this.id,
+      this.receiver,
+      this.sender,
+      this.amount,
+      this.type,
+      this.gas,
+      this.signature,
+      this.layer});
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'receiver': receiver,
+        'sender': sender,
+        'type': type,
+        'amount': amount,
+        'gas': gas,
+        'signature': signature,
+        'layer': layer
+      };
 }
