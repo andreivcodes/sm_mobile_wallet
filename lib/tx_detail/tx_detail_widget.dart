@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../main_screen/main_screen_widget.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:convert/convert.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
@@ -184,10 +185,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 20, 0),
                                     child: Text(
-                                      '${getJsonField(
-                                        widget.tx,
-                                        r'''$''',
-                                      ).toString()} SMH',
+                                      '${widget.tx.amount > 1000000000000 ? (widget.tx.amount / 1000000000000).toString() + " SMH" : (widget.tx.amount).toString() + " SMD"}',
                                       style: FlutterFlowTheme.of(context)
                                           .title3
                                           .override(
@@ -239,17 +237,15 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                             0, 0, 20, 0),
                                         child: InkWell(
                                           onTap: () async {
-                                            await Share.share(
-                                                functions.getSenderAddress());
+                                            // await Share.share(
+                                            //     functions.getSenderAddress());
                                           },
                                           child: Text(
-                                            valueOrDefault<String>(
-                                              getJsonField(
-                                                widget.tx,
-                                                r'''$''',
-                                              ).toString(),
-                                              'Not available',
-                                            ),
+                                            "0x" +
+                                                hex.encode(widget.tx.sender
+                                                    .toList()
+                                                    .sublist(0, 3)) +
+                                                "...",
                                             style: FlutterFlowTheme.of(context)
                                                 .subtitle2
                                                 .override(
@@ -291,13 +287,11 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 20, 0),
                                         child: Text(
-                                          valueOrDefault<String>(
-                                            getJsonField(
-                                              widget.tx,
-                                              r'''$''',
-                                            ).toString(),
-                                            'Not available',
-                                          ),
+                                          "0x" +
+                                              hex.encode(widget.tx.receiver
+                                                  .toList()
+                                                  .sublist(0, 3)) +
+                                              "...",
                                           style: FlutterFlowTheme.of(context)
                                               .subtitle2
                                               .override(
@@ -335,7 +329,7 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                                 child: Text(
-                                  'Message',
+                                  'Signature',
                                   style: FlutterFlowTheme.of(context)
                                       .title3
                                       .override(
@@ -353,15 +347,9 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                                 child: Text(
-                                  valueOrDefault<String>(
-                                    getJsonField(
-                                      widget.tx,
-                                      r'''$''',
-                                    ).toString(),
-                                    'Not available',
-                                  ),
+                                  hex.encode(widget.tx.signature),
                                   style: FlutterFlowTheme.of(context)
-                                      .title3
+                                      .subtitle2
                                       .override(
                                         fontFamily: 'Poppins',
                                         color: FlutterFlowTheme.of(context).jet,

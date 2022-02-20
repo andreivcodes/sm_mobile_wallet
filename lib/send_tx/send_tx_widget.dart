@@ -369,19 +369,18 @@ class _SendTxWidgetState extends State<SendTxWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 45, 0, 35),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      if (functions.sendTx(
+                      if (await functions.sendTx(
                           textController1.text,
                           textController2.text,
                           textController3.text,
                           FFAppState().selectedNetworkJson,
-                          FFAppState().privateKey.toList())) {
+                          FFAppState().privateKey.toList()))
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => TxSentCongratsWidget(),
                           ),
                         );
-                      }
                     },
                     text: 'Send',
                     icon: Icon(

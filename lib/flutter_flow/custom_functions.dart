@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'dart:math' as math;
 import 'dart:typed_data';
 
+import 'package:crypto/crypto.dart';
 import 'package:ed25519spacemesh/spacemesh_ed25519.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,10 +11,14 @@ import 'package:http/http.dart' as http;
 import 'package:convert/convert.dart';
 import 'package:grpc/grpc.dart';
 import 'package:intl/intl.dart';
+import 'package:protospacemesh/model/tx.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state.pbgrpc.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/global_state_types.pb.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/mesh.pbgrpc.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/mesh_types.pb.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/smesher.pbgrpc.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/tx.pbgrpc.dart';
+import 'package:protospacemesh/protoc/gen/spacemesh/v1/tx_types.pb.dart';
 import 'package:protospacemesh/protoc/gen/spacemesh/v1/types.pb.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:timeago/timeago.dart' as timeago;
@@ -46,21 +51,6 @@ Future<String> getBalance(
   return balance.toString();
 }
 
-String getSenderAddress() {
-  var senderAddress;
-  return senderAddress;
-}
-
-String getReceiverAddress() {
-  var receiverAddress;
-  return receiverAddress;
-}
-
-String getTxMessage() {
-  var txMessage;
-  return txMessage;
-}
-
 bool checkSeedPhrase(
   String inputSeedPhrase,
   String generatedSeedPhrase,
@@ -81,13 +71,51 @@ String getUserShortAddress() {
   return "";
 }
 
-bool sendTx(
+Future<bool> sendTx(
   String recipient,
   String amount,
   String fee,
   Map<dynamic, dynamic> networkJson,
   List<int> privateKey,
-) {
+) async {
+  final accountClient = new GlobalStateServiceClient(apiChannel);
+  AccountId accountQueryId = new AccountId(address: privateKey.sublist(24));
+  AccountDataFilter accountQueryFilter = new AccountDataFilter(
+      accountId: accountQueryId,
+      accountDataFlags: AccountDataFlag.ACCOUNT_DATA_FLAG_ACCOUNT.value);
+  AccountDataQueryRequest accountQuery =
+      new AccountDataQueryRequest(filter: accountQueryFilter, maxResults: 1);
+
+  AccountDataQueryResponse accountQueryResponse =
+      await accountClient.accountDataQuery(accountQuery);
+
+  var accountnonce = accountQueryResponse
+      .accountItem.first.accountWrapper.stateProjected.counter
+      .toInt();
+
+  final transactionClient = TransactionServiceClient(apiChannel);
+  var transaction =
+      InnerTx(accountnonce, recipient, 1, int.parse(fee), int.parse(amount));
+  var unsignedOutStream = transaction.unsignedOutStream;
+
+  Uint8List transactionSignature = await ed25519.sign(
+      Uint8List.fromList(unsignedOutStream), Uint8List.fromList(privateKey));
+
+  final bytesBuilder = BytesBuilder();
+  bytesBuilder.add(unsignedOutStream);
+  bytesBuilder.add(transactionSignature);
+  bytesBuilder.add(FFAppState().publicKey.sublist(24));
+
+  var bytes = bytesBuilder.toBytes().toList();
+  var shaResult = Uint8List.fromList(sha256.convert(bytes).bytes);
+
+  var signedTransaction = OuterTx(unsignedOutStream, transactionSignature,
+      Uint8List.fromList(FFAppState().publicKey.sublist(24)), shaResult);
+  var transactionRequest =
+      SubmitTransactionRequest(transaction: signedTransaction.signedOutStream);
+
+  await transactionClient.submitTransaction(transactionRequest);
+
   return true;
 }
 
@@ -231,13 +259,16 @@ Future<List> getTxList(
   List txs = [];
 
   for (var tx in response.data) {
+    print(
+        "tx add: " + tx.meshTransaction.transaction.sender.address.toString());
+    print("local add: " + FFAppState().publicKey.sublist(12).toString());
     var txInfo = TX_Data(
         id: tx.meshTransaction.transaction.id.id,
         receiver: tx.meshTransaction.transaction.coinTransfer.receiver.address,
         sender: tx.meshTransaction.transaction.sender.address,
         amount: tx.meshTransaction.transaction.amount.value.toDouble(),
-        type: tx.meshTransaction.transaction.sender.address ==
-                FFAppState().publicKey
+        type: tx.meshTransaction.transaction.sender.address.toString() ==
+                FFAppState().publicKey.sublist(12).toString()
             ? "outgoing"
             : "incoming",
         gas: tx.meshTransaction.transaction.gasOffered.gasProvided.toInt(),

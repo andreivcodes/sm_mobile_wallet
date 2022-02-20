@@ -49,7 +49,7 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   color: widget.txJson.type == "incoming"
                       ? Color(0x6F3AFFA7)
-                      : Color(0xFFFCC1A8),
+                      : FlutterFlowTheme.of(context).secondaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
@@ -59,7 +59,7 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                     decoration: BoxDecoration(
                       color: widget.txJson.type == "incoming"
                           ? Color(0x6F3AFFA7)
-                          : Color(0xFFFCC1A8),
+                          : FlutterFlowTheme.of(context).secondaryColor,
                       shape: BoxShape.circle,
                     ),
                     child: Column(
@@ -72,13 +72,13 @@ class _TxEntryWidgetState extends State<TxEntryWidget> {
                           decoration: BoxDecoration(
                             color: widget.txJson.type == "incoming"
                                 ? FlutterFlowTheme.of(context).mediumSpringGreen
-                                : FlutterFlowTheme.of(context).secondaryColor,
+                                : Color(0xFFFCC1A8),
                             shape: BoxShape.circle,
                             border: Border.all(
                               color: widget.txJson.type == "incoming"
                                   ? FlutterFlowTheme.of(context)
                                       .mediumSpringGreen
-                                  : FlutterFlowTheme.of(context).secondaryColor,
+                                  : Color(0xFFFCC1A8),
                             ),
                           ),
                           child: Icon(
