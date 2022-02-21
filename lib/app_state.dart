@@ -1,3 +1,4 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/lat_lng.dart';
 
@@ -14,18 +15,22 @@ class FFAppState {
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
-    _userSeed = prefs.getString('ff_userSeed') ?? _userSeed;
+    secureStorage = new FlutterSecureStorage();
+    _userSeed = await secureStorage.read(
+        key: 'ff_userSeed'); //prefs.getString('ff_userSeed') ?? _userSeed;
     _selectedNetwork =
         prefs.getString('ff_selectedNetwork') ?? _selectedNetwork;
   }
 
   SharedPreferences prefs;
+  FlutterSecureStorage secureStorage;
 
   String _userSeed = '';
   String get userSeed => _userSeed;
   set userSeed(String _value) {
     _userSeed = _value;
-    prefs.setString('ff_userSeed', _value);
+    secureStorage.write(key: 'ff_userSeed', value: _value);
+    //prefs.setString('ff_userSeed', _value);
   }
 
   String _selectedNetwork = '';

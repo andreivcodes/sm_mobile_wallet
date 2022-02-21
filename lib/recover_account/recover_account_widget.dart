@@ -105,7 +105,8 @@ class _RecoverAccountWidgetState extends State<RecoverAccountWidget> {
                             ),
                             child: Icon(
                               Icons.clear,
-                              color: Color(0xFF373737),
+                              color:
+                                  FlutterFlowTheme.of(context).secondaryColor,
                               size: 22,
                             ),
                           )
