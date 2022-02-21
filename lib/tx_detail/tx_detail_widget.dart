@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -247,8 +249,15 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                             0, 0, 20, 0),
                                         child: InkWell(
                                           onTap: () async {
-                                            // await Share.share(
-                                            //     functions.getSenderAddress());
+                                            Clipboard.setData(ClipboardData(
+                                                text: "0x" +
+                                                    hex.encode(widget.tx.sender
+                                                        .toList())));
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                              content:
+                                                  Text("Copied to clipboard!"),
+                                            ));
                                           },
                                           child: Text(
                                             "0x" +
@@ -296,24 +305,39 @@ class _TxDetailWidgetState extends State<TxDetailWidget> {
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 20, 0),
-                                        child: Text(
-                                          "0x" +
-                                              hex.encode(widget.tx.receiver
-                                                  .toList()
-                                                  .sublist(0, 3)) +
-                                              "...",
-                                          style: FlutterFlowTheme.of(context)
-                                              .subtitle2
-                                              .override(
-                                                fontFamily: 'Roboto Condensed',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryColor,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w300,
-                                              ),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            Clipboard.setData(ClipboardData(
+                                                text: "0x" +
+                                                    hex.encode(widget
+                                                        .tx.receiver
+                                                        .toList())));
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                              content:
+                                                  Text("Copied to clipboard!"),
+                                            ));
+                                          },
+                                          child: Text(
+                                            "0x" +
+                                                hex.encode(widget.tx.receiver
+                                                    .toList()
+                                                    .sublist(0, 3)) +
+                                                "...",
+                                            style: FlutterFlowTheme.of(context)
+                                                .subtitle2
+                                                .override(
+                                                  fontFamily:
+                                                      'Roboto Condensed',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                          ),
                                         ),
-                                      ),
+                                      )
                                     ],
                                   ),
                                 ],

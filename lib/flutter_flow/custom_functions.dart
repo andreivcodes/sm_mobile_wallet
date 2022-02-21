@@ -227,9 +227,6 @@ Future<List> getTxList(
   List txs = [];
 
   for (var tx in response.data) {
-    print(
-        "tx add: " + tx.meshTransaction.transaction.sender.address.toString());
-    print("local add: " + FFAppState().publicKey.sublist(12).toString());
     var txInfo = TX_Data(
         id: tx.meshTransaction.transaction.id.id,
         receiver: tx.meshTransaction.transaction.coinTransfer.receiver.address,
