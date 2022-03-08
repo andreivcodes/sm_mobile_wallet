@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -109,8 +111,12 @@ class _ReceiveTxWidgetState extends State<ReceiveTxWidget> {
                       color: FlutterFlowTheme.of(context).secondaryColor,
                       size: 30,
                     ),
-                    onPressed: () {
-                      print('IconButton pressed ...');
+                    onPressed: () async {
+                      Clipboard.setData(
+                          ClipboardData(text: FFAppState().publicAddress));
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("Copied to clipboard!"),
+                      ));
                     },
                   ),
                 ],

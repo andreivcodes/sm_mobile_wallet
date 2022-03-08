@@ -125,14 +125,14 @@ class _RecoverAccountWidgetState extends State<RecoverAccountWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 20),
                 child: FFButtonWidget(
                   onPressed: () async {
+                    setState(() =>
+                        FFAppState().userSeed = userInputSeedController.text);
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => NetworkSelectionWidget(),
                       ),
                     );
-                    setState(() =>
-                        FFAppState().userSeed = userInputSeedController.text);
                   },
                   text: 'Recover',
                   options: FFButtonOptions(
